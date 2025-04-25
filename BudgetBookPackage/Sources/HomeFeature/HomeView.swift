@@ -9,7 +9,12 @@ public struct HomeView: View {
     
     public var body: some View {
         VStack {
-            Text("HomeView")
+            LastMoneyView(store: .init(
+                initialState: LastMoneyReducer.State(),
+                reducer: {
+                    LastMoneyReducer()
+                }
+            ))
         }
     }
 }
