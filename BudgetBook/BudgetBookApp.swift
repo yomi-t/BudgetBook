@@ -5,8 +5,8 @@
 //  Created by TAIGA ITO on 2025/04/25.
 //
 
-import SwiftUI
 import SwiftData
+import SwiftUI
 
 @main
 struct BudgetBookApp: App {
