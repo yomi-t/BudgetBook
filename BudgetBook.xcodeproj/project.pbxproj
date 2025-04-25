@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		949E6C502DBBDFA1007B8112 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 949E6C4F2DBBDFA1007B8112 /* AppFeature */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXContainerItemProxy section */
 		944F19742DBB7B0C0062AC52 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -53,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				949E6C502DBBDFA1007B8112 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -114,6 +119,7 @@
 			);
 			name = BudgetBook;
 			packageProductDependencies = (
+				949E6C4F2DBBDFA1007B8112 /* AppFeature */,
 			);
 			productName = BudgetBook;
 			productReference = 944F19642DBB7B0B0062AC52 /* BudgetBook.app */;
@@ -560,6 +566,13 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		949E6C4F2DBBDFA1007B8112 /* AppFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = AppFeature;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 944F195C2DBB7B0A0062AC52 /* Project object */;
 }

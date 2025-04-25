@@ -5,6 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "BudgetBookPackage",
+    defaultLocalization: "ja",
     platforms: [.iOS(.v17)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
@@ -13,7 +14,7 @@ let package = Package(
             targets: ["AppFeature"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.19.0")
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.19.0"),
     ],
     targets: [
         // Targets are the basic building blocks of a package, defining a module or a test suite.
@@ -24,8 +25,11 @@ let package = Package(
                 .composableArchitecture
             ]
         ),
+        .target(
+            name: "Resources",
+        ),
         .testTarget(
-            name: "AppFetureTests",
+            name: "AppFeatureTests",
             dependencies: ["AppFeature"]
         ),
     ]
