@@ -29,7 +29,7 @@ let package = Package(
             name: "Resources",
         ),
         .testTarget(
-            name: "AppFetureTests",
+            name: "AppFeatureTests",
             dependencies: ["AppFeature"]
         ),
     ]

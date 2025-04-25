@@ -1,5 +1,5 @@
 {
-  "originHash" : "9a8de9b7e50447627b8d8376c3bf45acafd954bfad23946026e060b91f6551be",
+  "originHash" : "50ed9abaad9a76b043d13be05446bc1ef03682eddeedb6952a057038810c4f93",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -116,15 +116,6 @@
       "state" : {
         "revision" : "0687f71944021d616d34d922343dcef086855920",
         "version" : "600.0.1"
-      }
-    },
-    {
-      "identity" : "swiftgenplugin",
-      "kind" : "remoteSourceControl",
-      "location" : "https://github.com/SwiftGen/SwiftGenPlugin",
-      "state" : {
-        "revision" : "879b85a470cacd70c19e22eb7e11a3aed66f4068",
-        "version" : "6.6.2"
       }
     },
     {
