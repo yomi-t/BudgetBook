@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import HomeFeature
 import SwiftUI
 
 public struct AppView: View {
@@ -9,7 +10,16 @@ public struct AppView: View {
     
     public var body: some View {
         TabView {
-            
+            HomeView(store: .init(
+                initialState: HomeReducer.State(),
+                reducer: {
+                    HomeReducer()
+                }
+            ))
+            .tabItem {
+                Image(systemName: "house")
+                Text("Home")
+            }
         }
     }
 }

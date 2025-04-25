@@ -22,6 +22,13 @@ let package = Package(
         .target(
             name: "AppFeature",
             dependencies: [
+                .composableArchitecture,
+                "HomeFeature"
+            ]
+        ),
+        .target(
+            name: "HomeFeature",
+            dependencies: [
                 .composableArchitecture
             ]
         ),
