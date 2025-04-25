@@ -27,7 +27,7 @@
 		944F19642DBB7B0B0062AC52 /* BudgetBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		944F19732DBB7B0C0062AC52 /* BudgetBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		944F197D2DBB7B0C0062AC52 /* BudgetBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		944F19902DBB7B5D0062AC52 /* BudgetBookPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = BudgetBookPackage; path = ../BudgetBookPackage; sourceTree = SOURCE_ROOT; };
+		944F199F2DBB87700062AC52 /* BudgetBookPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = BudgetBookPackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -76,7 +76,7 @@
 		944F195B2DBB7B0A0062AC52 = {
 			isa = PBXGroup;
 			children = (
-				944F19902DBB7B5D0062AC52 /* BudgetBookPackage */,
+				944F199F2DBB87700062AC52 /* BudgetBookPackage */,
 				944F19662DBB7B0B0062AC52 /* BudgetBook */,
 				944F19762DBB7B0C0062AC52 /* BudgetBookTests */,
 				944F19802DBB7B0C0062AC52 /* BudgetBookUITests */,
