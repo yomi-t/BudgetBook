@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
     name: "BudgetBookPackage",
     defaultLocalization: "ja",
-    platforms: [.iOS(.v17)],
+    platforms: [.iOS(.v18)],
     products: [
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
@@ -27,13 +27,21 @@ let package = Package(
             ]
         ),
         .target(
+            name: "CommonFeature"
+        ),
+        .target(
             name: "HomeFeature",
             dependencies: [
-                .composableArchitecture
+                .composableArchitecture,
+                "CommonFeature",
+                "SharedModel",
             ]
         ),
         .target(
             name: "Resources",
+        ),
+        .target(
+            name: "SharedModel",
         ),
         .testTarget(
             name: "AppFeatureTests",

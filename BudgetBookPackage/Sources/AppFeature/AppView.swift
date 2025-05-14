@@ -6,6 +6,11 @@ public struct AppView: View {
     public let store: StoreOf<AppReducer>
     public init (store: StoreOf<AppReducer>) {
         self.store = store
+        
+        let appearance: UITabBarAppearance = UITabBarAppearance()
+        appearance.configureWithDefaultBackground()
+        UITabBar.appearance().scrollEdgeAppearance = appearance
+        UITabBar.appearance().standardAppearance = appearance
     }
     
     public var body: some View {
@@ -17,8 +22,10 @@ public struct AppView: View {
                 }
             ))
             .tabItem {
-                Image(systemName: "house")
-                Text("Home")
+                VStack {
+                    Image(systemName: "house")
+                    Text("Home")
+                }
             }
         }
     }

@@ -27,7 +27,7 @@ public struct LastMoneyView: View {
             }
         }
         .frame(maxWidth: .infinity, maxHeight: 100)
-        .background(Color.white)
+        .background(.thickMaterial)
         .cornerRadius(20)
         .padding(.top, 30)
         .padding(.horizontal, 20)

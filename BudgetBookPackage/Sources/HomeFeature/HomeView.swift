@@ -1,3 +1,4 @@
+import CommonFeature
 import ComposableArchitecture
 import SwiftUI
 
@@ -8,13 +9,23 @@ public struct HomeView: View {
     }
     
     public var body: some View {
-        VStack {
-            LastMoneyView(store: .init(
-                initialState: LastMoneyReducer.State(),
-                reducer: {
-                    LastMoneyReducer()
-                }
-            ))
+        ZStack {
+            BackgroundView()
+            
+            VStack {
+                LastMoneyView(store: .init(
+                    initialState: LastMoneyReducer.State(),
+                    reducer: {
+                        LastMoneyReducer()
+                    }
+                ))
+                LeftMoneyListView(store: .init(
+                    initialState: LeftMoneyListReducer.State(),
+                    reducer: {
+                        LeftMoneyListReducer()
+                    }
+                ))
+            }
         }
     }
 }
