@@ -27,8 +27,8 @@ jobs:
           echo Using default scheme: $default
       - name: Build
         env:
-          scheme: ${{ ‘default’ }}
-          platform: ${{ ‘iOS Simulator’ }}
+          scheme: ${{ 'default' }}
+          platform: ${{ 'iOS Simulator' }}
         run: |
           device=`xcrun xctrace list devices 2>&1 | grep -oE ‘iPhone.*?[^\(]+’ | head -1 | awk ‘{$1=$1;print}’ | sed -e “s/ Simulator$//“`
           if [ $scheme = default ]; then scheme=$(cat default); fi
@@ -51,8 +51,8 @@ jobs:
           fi
       - name: Test
         env:
-          scheme: ${{ ‘default’ }}
-          platform: ${{ ‘iOS Simulator’ }}
+          scheme: ${{ 'default' }}
+          platform: ${{ 'iOS Simulator' }}
         run: |
           device=`xcrun xctrace list devices 2>&1 | grep -oE ‘iPhone.*?[^\(]+’ | head -1 | awk ‘{$1=$1;print}’ | sed -e “s/ Simulator$//“`
           if [ $scheme = default ]; then scheme=$(cat default); fi
@@ -129,17 +129,17 @@ jobs:
           # 各ディレクトリからユニークなファイル名を集める（連想配列の代替）
           files=()
           for file in artifacts/success/*.png artifacts/diffs/*.png artifacts/failed/*.png; do
-            if [ -e “$file” ]; then
-              fname=$(basename “$file”)
+            if [ -e "$file" ]; then
+              fname=$(basename "$file:)
               found=0
-              for existing in “${files[@]}“; do
-                if [ “$existing” = “$fname” ]; then
+              for existing in "${files[@]}"; do
+                if [ “$existing” = "$fname" ]; then
                   found=1
                   break
                 fi
               done
               if [ $found -eq 0 ]; then
-                files+=(“$fname”)
+                files+=("$fname")
               fi
             fi
           done
@@ -147,17 +147,17 @@ jobs:
           BRANCH=comparison-screenshots
           BASE_URL=“https://raw.githubusercontent.com/${REPO}/${BRANCH}/artifacts”
           rows=“”
-          for fname in “${files[@]}“; do
+          for fname in "${files[@]}"; do
             rows=“${rows}“$'    <tr>\n’
-            rows=“${rows}“$'      <td>‘${fname}‘<br><img src=“‘${BASE_URL}‘/success/‘${fname}‘” width=“300"></td>’
-            rows=“${rows}“$'      <td>‘${fname}‘<br><img src=“‘${BASE_URL}‘/diffs/‘${fname}‘” width=“300"></td>’
-            rows=“${rows}“$'      <td>‘${fname}‘<br><img src=“‘${BASE_URL}‘/failed/‘${fname}‘” width=“300"></td>’
+            rows=“${rows}“$'      <td>'${fname}'<br><img src="'${BASE_URL}'/success/'${fname}'" width=“300"></td>'
+            rows=“${rows}“$'      <td>'${fname}'<br><img src="'${BASE_URL}'/diffs/'${fname}'" width=“300"></td>'
+            rows=“${rows}“$'      <td>'${fname}'<br><img src="'${BASE_URL}'/failed/'${fname}'" width=“300"></td>'
             rows=“${rows}“$'    </tr>\n’
           done
-          if [ -z “$rows” ]; then
-            rows=$'    <tr><td colspan=“3">No images found</td></tr>\n’
+          if [ -z "$rows" ]; then
+            rows=$'    <tr><td colspan="3">No images found</td></tr>\n'
           fi
-          comment=$(cat <<EOF | sed ‘/./,$!d’
+          comment=$(cat <<EOF | sed '/./,$!d'
           <table>
             <thead>
               <tr>
@@ -172,7 +172,7 @@ jobs:
           EOF
           )
           # 生成したコメントをファイルに書き出す
-          echo “$comment” > comment.md
+          echo "$comment" > comment.md
           # ログ出力して内容を確認
           cat comment.md
       - name: PR にコメント投稿
