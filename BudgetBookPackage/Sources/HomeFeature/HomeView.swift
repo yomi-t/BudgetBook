@@ -11,7 +11,6 @@ public struct HomeView: View {
     public var body: some View {
         ZStack {
             BackgroundView()
-            
             VStack {
                 LastMoneyView(store: .init(
                     initialState: LastMoneyReducer.State(),

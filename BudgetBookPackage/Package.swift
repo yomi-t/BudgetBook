@@ -1,6 +1,6 @@
 // swift-tools-version: 6.1
 // The swift-tools-version declares the minimum version of Swift required to build this package.
-
+import Foundation
 import PackageDescription
 
 let package = Package(
@@ -14,20 +14,25 @@ let package = Package(
             targets: ["AppFeature"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture", exact: "1.19.0"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
+        .package(url: "https://github.com/realm/SwiftLint.git", branch: "main")
     ],
     targets: [
-        // Targets are the basic building blocks of a package, defining a module or a test suite.
-        // Targets can depend on other targets in this package and products from dependencies.
         .target(
             name: "AppFeature",
             dependencies: [
                 .composableArchitecture,
                 "HomeFeature"
-            ]
+            ],
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
         .target(
-            name: "CommonFeature"
+            name: "CommonFeature",
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
         .target(
             name: "HomeFeature",
@@ -35,19 +40,31 @@ let package = Package(
                 .composableArchitecture,
                 "CommonFeature",
                 "SharedModel",
-            ]
+            ],
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
         .target(
             name: "Resources",
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
         .target(
             name: "SharedModel",
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
         .testTarget(
             name: "AppFeatureTests",
-            dependencies: ["AppFeature"]
+            dependencies: ["AppFeature"],
+//            plugins: [
+//                .swiftLint()
+//            ]
         ),
-    ]
+    ],
 )
 
 extension Target.Dependency {
@@ -57,3 +74,25 @@ for target in package.targets {
     var settings = target.swiftSettings ?? []
     settings.append(.enableUpcomingFeature("InferSendableFromCaptures"))
 }
+
+extension Target.PluginUsage {
+    static func swiftLint() -> Self {
+        .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+    }
+}
+
+//var swiftLintPlugins: [Target.PluginUsage] {
+//   guard Environment.enableSwiftLint else { return [] }
+//   return [
+//       .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
+//   ]
+//}
+//
+//enum Environment {
+//   static func get(_ key: String) -> String? {
+//       ProcessInfo.processInfo.environment[key]
+//   }
+//   static var enableSwiftLint: Bool {
+//       Self.get("SWIFTLINT") == "true"
+//   }
+//}
