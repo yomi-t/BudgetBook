@@ -1,10 +1,9 @@
-# This workflow will build a Swift project
-# For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-swift
-
 name: iOS starter workflow
+
 on:
   pull_request:
-    branches: [ “**” ]
+    branches: [ "**" ]
+
 jobs:
   build:
     name: Build and Test default scheme using any available iPhone simulator
@@ -12,5 +11,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+
       - name: Set Xcode version
         run: sudo xcode-select -s /Applications/Xcode_16.0.app
