@@ -1,15 +1,14 @@
-//
-//  ContentView.swift
-//  BudgetBook
-//
-//  Created by TAIGA ITO on 2025/04/25.
-//
-
+import AppFeature
 import SwiftUI
 
 struct ContentView: View {
     var body: some View {
-        Text("Hello, world!")
+        AppView(store: .init(
+            initialState: AppReducer.State(),
+            reducer: {
+                AppReducer()
+            }
+        ))
     }
 }
 
