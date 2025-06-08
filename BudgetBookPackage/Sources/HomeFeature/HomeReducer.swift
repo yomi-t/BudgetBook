@@ -2,25 +2,24 @@ import ComposableArchitecture
 
 @Reducer
 public struct HomeReducer: Sendable {
-    
-    //MARK: - State
+    // MARK: - State
     @ObservableState
     public struct State: Equatable {
         public init() {}
     }
-    
-    //MARK: - Action
+
+    // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear
         }
     }
-    
-    //MARK: - Dependencies
+
+    // MARK: - Dependencies
     public init() {}
-    
-    //MARK: - Reducer
+
+    // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Reduce { _, action in
             switch action {

@@ -11,11 +11,11 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AppFeature",
-            targets: ["AppFeature"]),
+            targets: ["AppFeature"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
-        .package(url: "https://github.com/realm/SwiftLint.git", branch: "main")
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1")
     ],
     targets: [
         .target(
@@ -24,48 +24,41 @@ let package = Package(
                 .composableArchitecture,
                 "HomeFeature"
             ],
-//            plugins: [
-//                .swiftLint()
-//            ]
-        ),
-        .target(
-            name: "CommonFeature",
-//            plugins: [
-//                .swiftLint()
-//            ]
+            plugins: [
+                .swiftLint()
+            ]
         ),
         .target(
             name: "HomeFeature",
             dependencies: [
                 .composableArchitecture,
-                "CommonFeature",
-                "SharedModel",
+                "SharedModel"
             ],
-//            plugins: [
-//                .swiftLint()
-//            ]
+            plugins: [
+                .swiftLint()
+            ]
         ),
         .target(
             name: "Resources",
-//            plugins: [
-//                .swiftLint()
-//            ]
+            plugins: [
+                .swiftLint()
+            ]
         ),
         .target(
             name: "SharedModel",
-//            plugins: [
-//                .swiftLint()
-//            ]
+            plugins: [
+                .swiftLint()
+            ]
         ),
         .testTarget(
             name: "AppFeatureTests",
             dependencies: ["AppFeature"],
-//            plugins: [
-//                .swiftLint()
-//            ]
-        ),
+            plugins: [
+                .swiftLint()
+            ]
+        )
     ],
-)
+    )
 
 extension Target.Dependency {
     static let composableArchitecture: Self = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
@@ -77,22 +70,6 @@ for target in package.targets {
 
 extension Target.PluginUsage {
     static func swiftLint() -> Self {
-        .plugin(name: "SwiftLintPlugin", package: "SwiftLint")
+        .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLintPlugins")
     }
 }
-
-//var swiftLintPlugins: [Target.PluginUsage] {
-//   guard Environment.enableSwiftLint else { return [] }
-//   return [
-//       .plugin(name: "SwiftLintBuildToolPlugin", package: "SwiftLint")
-//   ]
-//}
-//
-//enum Environment {
-//   static func get(_ key: String) -> String? {
-//       ProcessInfo.processInfo.environment[key]
-//   }
-//   static var enableSwiftLint: Bool {
-//       Self.get("SWIFTLINT") == "true"
-//   }
-//}

@@ -3,8 +3,7 @@ import SharedModel
 
 @Reducer
 public struct LeftMoneyItemReducer: Sendable {
-    
-    //MARK: - State
+    // MARK: - State
     @ObservableState
     public struct State {
         public init(item: LeftMoneyItem) {
@@ -12,19 +11,19 @@ public struct LeftMoneyItemReducer: Sendable {
         }
         public let item: LeftMoneyItem
     }
-    
-    //MARK: - Action
+
+    // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear
         }
     }
-    
-    //MARK: - Dependencies
+
+    // MARK: - Dependencies
     public init() {}
-    
-    //MARK: - Reducer
+
+    // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Reduce { _, action in
             switch action {

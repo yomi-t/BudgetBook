@@ -6,7 +6,7 @@ public struct LeftMoneyItemView: View {
     public init (store: StoreOf<LeftMoneyItemReducer>) {
         self.store = store
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
@@ -31,10 +31,8 @@ public struct LeftMoneyItemView: View {
 
 #Preview {
     LeftMoneyItemView(store: .init(
-        initialState: LeftMoneyItemReducer.State(item: .init(id: "a", title: "三井住友", amount: 100000)),
-        reducer: {
-            LeftMoneyItemReducer()
-        }
-    ))
+        initialState: LeftMoneyItemReducer.State(item: .init(id: "a", title: "三井住友", amount: 100_000))
+    ) {
+        LeftMoneyItemReducer()
+    })
 }
-
