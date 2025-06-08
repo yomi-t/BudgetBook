@@ -4,10 +4,11 @@ import SwiftUI
 
 public struct LeftMoneyListView: View {
     public let store: StoreOf<LeftMoneyListReducer>
+
     public init (store: StoreOf<LeftMoneyListReducer>) {
         self.store = store
     }
-    
+
     public var body: some View {
         VStack(spacing: 0) {
             Text("項目ごとの残金")
@@ -20,11 +21,10 @@ public struct LeftMoneyListView: View {
                 .padding(.horizontal, 20)
             ForEach(store.testData, id: \.id) { item in
                 LeftMoneyItemView(store: .init(
-                    initialState: LeftMoneyItemReducer.State(item: item),
-                    reducer: {
-                        LeftMoneyItemReducer()
-                    }
-                ))
+                    initialState: LeftMoneyItemReducer.State(item: item)
+                ) {
+                    LeftMoneyItemReducer()
+                })
             }
             Spacer()
                 .frame(minHeight: 0)
@@ -39,10 +39,8 @@ public struct LeftMoneyListView: View {
 
 #Preview {
     LeftMoneyListView(store: .init(
-        initialState: LeftMoneyListReducer.State(),
-        reducer: {
-            LeftMoneyListReducer()
-        }
-    ))
+        initialState: LeftMoneyListReducer.State()
+    ) {
+        LeftMoneyListReducer()
+    })
 }
-

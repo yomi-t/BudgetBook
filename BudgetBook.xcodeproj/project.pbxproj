@@ -40,16 +40,6 @@
 			path = BudgetBook;
 			sourceTree = "<group>";
 		};
-		944F19762DBB7B0C0062AC52 /* BudgetBookTests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BudgetBookTests;
-			sourceTree = "<group>";
-		};
-		944F19802DBB7B0C0062AC52 /* BudgetBookUITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = BudgetBookUITests;
-			sourceTree = "<group>";
-		};
 /* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,8 +73,6 @@
 			children = (
 				944F199F2DBB87700062AC52 /* BudgetBookPackage */,
 				944F19662DBB7B0B0062AC52 /* BudgetBook */,
-				944F19762DBB7B0C0062AC52 /* BudgetBookTests */,
-				944F19802DBB7B0C0062AC52 /* BudgetBookUITests */,
 				944F19652DBB7B0B0062AC52 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -109,6 +97,7 @@
 				944F19602DBB7B0B0062AC52 /* Sources */,
 				944F19612DBB7B0B0062AC52 /* Frameworks */,
 				944F19622DBB7B0B0062AC52 /* Resources */,
+				9413D2362DE0A2100006056F /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -138,9 +127,6 @@
 			dependencies = (
 				944F19752DBB7B0C0062AC52 /* PBXTargetDependency */,
 			);
-			fileSystemSynchronizedGroups = (
-				944F19762DBB7B0C0062AC52 /* BudgetBookTests */,
-			);
 			name = BudgetBookTests;
 			packageProductDependencies = (
 			);
@@ -160,9 +146,6 @@
 			);
 			dependencies = (
 				944F197F2DBB7B0C0062AC52 /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				944F19802DBB7B0C0062AC52 /* BudgetBookUITests */,
 			);
 			name = BudgetBookUITests;
 			packageProductDependencies = (
@@ -241,6 +224,27 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		9413D2362DE0A2100006056F /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    cd \"${SRCROOT}\"\n    swiftlint --fix --format && swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		944F19602DBB7B0B0062AC52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -317,7 +321,7 @@
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -381,7 +385,7 @@
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
-				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GCC_C_LANGUAGE_STANDARD = gnu17;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -409,12 +413,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -437,12 +443,14 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 2KUQ5AS45S;
 				ENABLE_PREVIEWS = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

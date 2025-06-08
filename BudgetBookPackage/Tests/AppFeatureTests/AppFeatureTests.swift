@@ -1,6 +1,16 @@
+@testable import AppFeature
+import ComposableArchitecture
 import Testing
-@testable import BudgetBookPackage
 
-@Test func example() async throws {
-    // Write your test here and use APIs like `#expect(...)` to check expected conditions.
+@MainActor
+struct AppFeatureTests {
+    @Test
+    func testSelectTab() async throws {
+        let store = TestStore(initialState: AppReducer.State()) {
+            AppReducer()
+        }
+        let customTabStore = TestStore(initialState: CustomTabReducer.State(selectedTab: .home)) {
+            CustomTabReducer()
+        }
+    }
 }

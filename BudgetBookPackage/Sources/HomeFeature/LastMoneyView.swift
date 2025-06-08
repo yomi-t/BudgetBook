@@ -6,7 +6,7 @@ public struct LastMoneyView: View {
     public init (store: StoreOf<LastMoneyReducer>) {
         self.store = store
     }
-    
+
     public var body: some View {
         VStack {
             Text("先月の残金")
@@ -37,10 +37,8 @@ public struct LastMoneyView: View {
 
 #Preview {
     LastMoneyView(store: .init(
-        initialState: LastMoneyReducer.State(lastMoney: 392012),
-        reducer: {
-            LastMoneyReducer()
-        }
-    ))
+        initialState: LastMoneyReducer.State(lastMoney: 392_012)
+    ) {
+        LastMoneyReducer()
+    })
 }
-

@@ -1,14 +1,13 @@
 import AppFeature
 import SwiftUI
 
-struct ContentView: View {
-    var body: some View {
+public struct ContentView: View {
+    public var body: some View {
         AppView(store: .init(
-            initialState: AppReducer.State(),
-            reducer: {
-                AppReducer()
-            }
-        ))
+            initialState: AppReducer.State()
+        ) {
+            AppReducer()
+        })
     }
 }
 
