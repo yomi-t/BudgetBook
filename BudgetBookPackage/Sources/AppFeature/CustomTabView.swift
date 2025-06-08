@@ -7,19 +7,20 @@ public struct CustomTabView: View {
     init (store: StoreOf<CustomTabReducer>) {
         self.store = store
     }
+    private let tabSpacing: CGFloat = 5
 
     public var body: some View {
         VStack {
             GeometryReader { geometry in
-                let itemWidth = (geometry.size.width / CGFloat(Tab.allCases.count)) - 5
+                let itemWidth = (geometry.size.width / CGFloat(Tab.allCases.count)) - tabSpacing
                 ZStack(alignment: .leading) {
                     if let selectedIndex = Tab.allCases.firstIndex(of: store.selectedTab) {
                         SelectBackgroundView()
                             .frame(width: itemWidth, height: itemWidth)
-                            .offset(x: CGFloat(selectedIndex) * itemWidth + CGFloat(selectedIndex * 5))
+                            .offset(x: CGFloat(selectedIndex) * itemWidth + (CGFloat(selectedIndex) * tabSpacing))
                             .animation(.easeOut(duration: 0.2), value: store.selectedTab)
                     }
-                    HStack(spacing: 5) {
+                    HStack(spacing: tabSpacing) {
                         ForEach(Tab.allCases, id: \.self) { tab in
                             Button(
                                 action: {
@@ -42,7 +43,7 @@ public struct CustomTabView: View {
                     }
                 }
                 .frame(height: itemWidth, alignment: .bottom)
-                .padding(5)
+                .padding(tabSpacing)
                 .background(.thickMaterial)
                 .cornerRadius(.infinity)
                 .shadow(radius: 10)
