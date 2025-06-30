@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 77;
+	objectVersion = 90;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -26,11 +26,9 @@
 /* Begin PBXFrameworksBuildPhase section */
 		944F19612DBB7B0B0062AC52 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 				94B8C8652E07C4300008FEF0 /* AppFeature in Frameworks */,
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
@@ -62,11 +60,9 @@
 				944F19602DBB7B0B0062AC52 /* Sources */,
 				944F19612DBB7B0B0062AC52 /* Frameworks */,
 				944F19622DBB7B0B0062AC52 /* Resources */,
-				9413D2362DE0A2100006056F /* ShellScript */,
+				940F42AD2E12A86A00B37AD4 /* ShellScript */,
 			);
 			buildRules = (
-			);
-			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
 				944F19662DBB7B0B0062AC52 /* BudgetBook */,
@@ -106,7 +102,7 @@
 			packageReferences = (
 				94B8C8632E07C4300008FEF0 /* XCLocalSwiftPackageReference "BudgetBookPackage" */,
 			);
-			preferredProjectObjectVersion = 77;
+			preferredProjectObjectVersion = 90;
 			productRefGroup = 944F19652DBB7B0B0062AC52 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -119,46 +115,48 @@
 /* Begin PBXResourcesBuildPhase section */
 		944F19622DBB7B0B0062AC52 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		9413D2362DE0A2100006056F /* ShellScript */ = {
+		940F42AD2E12A86A00B37AD4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputFileListPaths = (
-			);
-			inputPaths = (
-			);
-			outputFileListPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [[ \"$(uname -m)\" == arm64 ]]\nthen\n    export PATH=\"/opt/homebrew/bin:$PATH\"\nfi\n\nif command -v swiftlint >/dev/null 2>&1\nthen\n    cd \"${SRCROOT}\"\n    swiftlint --fix --format && swiftlint\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = (
+				"# === SwiftLint 実行用 Run Script ===",
+				"",
+				"# SwiftLint のパスを確認（Intel Mac or Apple Silicon）",
+				"if [ -x \"/opt/homebrew/bin/swiftlint\" ]; then",
+				"  SWIFTLINT=\"/opt/homebrew/bin/swiftlint\"",
+				"elif [ -x \"/usr/local/bin/swiftlint\" ]; then",
+				"  SWIFTLINT=\"/usr/local/bin/swiftlint\"",
+				"elif which swiftlint > /dev/null; then",
+				"  SWIFTLINT=$(which swiftlint)",
+				"else",
+				"  echo \"warning: SwiftLint is not installed. Install via Homebrew: 'brew install swiftlint'\"",
+				"  exit 0",
+				"fi",
+				"",
+				"echo \"Running SwiftLint: $SWIFTLINT\"",
+				"\"$SWIFTLINT\"",
+				"",
+			);
 		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		944F19602DBB7B0B0062AC52 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
 			files = (
 			);
-			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin XCBuildConfiguration section */
-		944F19852DBB7B0C0062AC52 /* Debug */ = {
+		944F19852DBB7B0C0062AC52 /* Debug configuration for PBXProject "BudgetBook" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -222,7 +220,7 @@
 			};
 			name = Debug;
 		};
-		944F19862DBB7B0C0062AC52 /* Release */ = {
+		944F19862DBB7B0C0062AC52 /* Release configuration for PBXProject "BudgetBook" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
@@ -279,7 +277,7 @@
 			};
 			name = Release;
 		};
-		944F19882DBB7B0C0062AC52 /* Debug */ = {
+		944F19882DBB7B0C0062AC52 /* Debug configuration for PBXNativeTarget "BudgetBook" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -314,7 +312,7 @@
 			};
 			name = Debug;
 		};
-		944F19892DBB7B0C0062AC52 /* Release */ = {
+		944F19892DBB7B0C0062AC52 /* Release configuration for PBXNativeTarget "BudgetBook" */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
@@ -355,19 +353,17 @@
 		944F195F2DBB7B0A0062AC52 /* Build configuration list for PBXProject "BudgetBook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				944F19852DBB7B0C0062AC52 /* Debug */,
-				944F19862DBB7B0C0062AC52 /* Release */,
+				944F19852DBB7B0C0062AC52 /* Debug configuration for PBXProject "BudgetBook" */,
+				944F19862DBB7B0C0062AC52 /* Release configuration for PBXProject "BudgetBook" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 		944F19872DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBook" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
-				944F19882DBB7B0C0062AC52 /* Debug */,
-				944F19892DBB7B0C0062AC52 /* Release */,
+				944F19882DBB7B0C0062AC52 /* Debug configuration for PBXNativeTarget "BudgetBook" */,
+				944F19892DBB7B0C0062AC52 /* Release configuration for PBXNativeTarget "BudgetBook" */,
 			);
-			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */

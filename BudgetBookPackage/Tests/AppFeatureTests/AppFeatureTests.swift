@@ -5,7 +5,7 @@ import Testing
 @MainActor
 struct AppFeatureTests {
     @Test
-    func testSelectTab() async {
+    public func testSelectTab() async {
         let selectedTab: Tab = .add
         let store = TestStore(initialState: AppReducer.State()) {
             AppReducer()

@@ -24,9 +24,6 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "HomeFeature"
-            ],
-            plugins: [
-                .swiftLint()
             ]
         ),
         .target(
@@ -34,35 +31,23 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "SharedModel"
-            ],
-            plugins: [
-                .swiftLint()
             ]
         ),
         .target(
-            name: "Resources",
-            plugins: [
-                .swiftLint()
-            ]
+            name: "Resources"
         ),
         .target(
-            name: "SharedModel",
-            plugins: [
-                .swiftLint()
-            ]
+            name: "SharedModel"
         ),
         .testTarget(
             name: "AppFeatureTests",
             dependencies: [
                 .swiftTesting,
                 "AppFeature"
-            ],
-            plugins: [
-                .swiftLint()
             ]
         )
     ],
-    )
+)
 
 extension Target.Dependency {
     static let composableArchitecture: Self = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
