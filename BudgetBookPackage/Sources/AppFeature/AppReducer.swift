@@ -7,7 +7,7 @@ public struct AppReducer: Sendable {
     @ObservableState
     public struct State: Equatable {
         public var selectedTab: Tab
-        var customTabState = CustomTabReducer.State(selectedTab: .home)
+        var customTabState: CustomTabReducer.State
 
         public init(selectedTab: Tab = .home) {
             self.selectedTab = selectedTab

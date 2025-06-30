@@ -15,7 +15,8 @@ let package = Package(
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
-        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1")
+        .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
+        .package(url: "https://github.com/apple/swift-testing.git", from: "6.1.1")
     ],
     targets: [
         .target(
@@ -52,7 +53,10 @@ let package = Package(
         ),
         .testTarget(
             name: "AppFeatureTests",
-            dependencies: ["AppFeature"],
+            dependencies: [
+                .swiftTesting,
+                "AppFeature"
+            ],
             plugins: [
                 .swiftLint()
             ]
@@ -62,6 +66,7 @@ let package = Package(
 
 extension Target.Dependency {
     static let composableArchitecture: Self = .product(name: "ComposableArchitecture", package: "swift-composable-architecture")
+    static let swiftTesting: Self = .product(name: "Testing", package: "swift-testing")
 }
 for target in package.targets {
     var settings = target.swiftSettings ?? []

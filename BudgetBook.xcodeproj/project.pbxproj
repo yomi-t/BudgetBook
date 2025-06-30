@@ -7,30 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		949E6C502DBBDFA1007B8112 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 949E6C4F2DBBDFA1007B8112 /* AppFeature */; };
+		94B8C8652E07C4300008FEF0 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 94B8C8642E07C4300008FEF0 /* AppFeature */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXContainerItemProxy section */
-		944F19742DBB7B0C0062AC52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 944F195C2DBB7B0A0062AC52 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 944F19632DBB7B0B0062AC52;
-			remoteInfo = BudgetBook;
-		};
-		944F197E2DBB7B0C0062AC52 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 944F195C2DBB7B0A0062AC52 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 944F19632DBB7B0B0062AC52;
-			remoteInfo = BudgetBook;
-		};
-/* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		944F19642DBB7B0B0062AC52 /* BudgetBook.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BudgetBook.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		944F19732DBB7B0C0062AC52 /* BudgetBookTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetBookTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		944F197D2DBB7B0C0062AC52 /* BudgetBookUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BudgetBookUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		944F199F2DBB87700062AC52 /* BudgetBookPackage */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = BudgetBookPackage; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -47,21 +28,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				949E6C502DBBDFA1007B8112 /* AppFeature in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		944F19702DBB7B0C0062AC52 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		944F197A2DBB7B0C0062AC52 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
+				94B8C8652E07C4300008FEF0 /* AppFeature in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -81,8 +48,6 @@
 			isa = PBXGroup;
 			children = (
 				944F19642DBB7B0B0062AC52 /* BudgetBook.app */,
-				944F19732DBB7B0C0062AC52 /* BudgetBookTests.xctest */,
-				944F197D2DBB7B0C0062AC52 /* BudgetBookUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -108,51 +73,11 @@
 			);
 			name = BudgetBook;
 			packageProductDependencies = (
-				949E6C4F2DBBDFA1007B8112 /* AppFeature */,
+				94B8C8642E07C4300008FEF0 /* AppFeature */,
 			);
 			productName = BudgetBook;
 			productReference = 944F19642DBB7B0B0062AC52 /* BudgetBook.app */;
 			productType = "com.apple.product-type.application";
-		};
-		944F19722DBB7B0C0062AC52 /* BudgetBookTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 944F198A2DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBookTests" */;
-			buildPhases = (
-				944F196F2DBB7B0C0062AC52 /* Sources */,
-				944F19702DBB7B0C0062AC52 /* Frameworks */,
-				944F19712DBB7B0C0062AC52 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				944F19752DBB7B0C0062AC52 /* PBXTargetDependency */,
-			);
-			name = BudgetBookTests;
-			packageProductDependencies = (
-			);
-			productName = BudgetBookTests;
-			productReference = 944F19732DBB7B0C0062AC52 /* BudgetBookTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		944F197C2DBB7B0C0062AC52 /* BudgetBookUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 944F198D2DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBookUITests" */;
-			buildPhases = (
-				944F19792DBB7B0C0062AC52 /* Sources */,
-				944F197A2DBB7B0C0062AC52 /* Frameworks */,
-				944F197B2DBB7B0C0062AC52 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				944F197F2DBB7B0C0062AC52 /* PBXTargetDependency */,
-			);
-			name = BudgetBookUITests;
-			packageProductDependencies = (
-			);
-			productName = BudgetBookUITests;
-			productReference = 944F197D2DBB7B0C0062AC52 /* BudgetBookUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
 
@@ -167,14 +92,6 @@
 					944F19632DBB7B0B0062AC52 = {
 						CreatedOnToolsVersion = 16.3;
 					};
-					944F19722DBB7B0C0062AC52 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 944F19632DBB7B0B0062AC52;
-					};
-					944F197C2DBB7B0C0062AC52 = {
-						CreatedOnToolsVersion = 16.3;
-						TestTargetID = 944F19632DBB7B0B0062AC52;
-					};
 				};
 			};
 			buildConfigurationList = 944F195F2DBB7B0A0062AC52 /* Build configuration list for PBXProject "BudgetBook" */;
@@ -187,6 +104,7 @@
 			mainGroup = 944F195B2DBB7B0A0062AC52;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
+				94B8C8632E07C4300008FEF0 /* XCLocalSwiftPackageReference "BudgetBookPackage" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 944F19652DBB7B0B0062AC52 /* Products */;
@@ -194,28 +112,12 @@
 			projectRoot = "";
 			targets = (
 				944F19632DBB7B0B0062AC52 /* BudgetBook */,
-				944F19722DBB7B0C0062AC52 /* BudgetBookTests */,
-				944F197C2DBB7B0C0062AC52 /* BudgetBookUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
 		944F19622DBB7B0B0062AC52 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		944F19712DBB7B0C0062AC52 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		944F197B2DBB7B0C0062AC52 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -253,34 +155,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		944F196F2DBB7B0C0062AC52 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		944F19792DBB7B0C0062AC52 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 /* End PBXSourcesBuildPhase section */
-
-/* Begin PBXTargetDependency section */
-		944F19752DBB7B0C0062AC52 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 944F19632DBB7B0B0062AC52 /* BudgetBook */;
-			targetProxy = 944F19742DBB7B0C0062AC52 /* PBXContainerItemProxy */;
-		};
-		944F197F2DBB7B0C0062AC52 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 944F19632DBB7B0B0062AC52 /* BudgetBook */;
-			targetProxy = 944F197E2DBB7B0C0062AC52 /* PBXContainerItemProxy */;
-		};
-/* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		944F19852DBB7B0C0062AC52 /* Debug */ = {
@@ -464,78 +339,6 @@
 			};
 			name = Release;
 		};
-		944F198B2DBB7B0C0062AC52 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ito.taiga.BudgetBookTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BudgetBook.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BudgetBook";
-			};
-			name = Debug;
-		};
-		944F198C2DBB7B0C0062AC52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 18.4;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ito.taiga.BudgetBookTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BudgetBook.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BudgetBook";
-			};
-			name = Release;
-		};
-		944F198E2DBB7B0C0062AC52 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ito.taiga.BudgetBookUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BudgetBook;
-			};
-			name = Debug;
-		};
-		944F198F2DBB7B0C0062AC52 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				CODE_SIGN_STYLE = Automatic;
-				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 2KUQ5AS45S;
-				GENERATE_INFOPLIST_FILE = YES;
-				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.ito.taiga.BudgetBookUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_EMIT_LOC_STRINGS = NO;
-				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_TARGET_NAME = BudgetBook;
-			};
-			name = Release;
-		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -557,28 +360,17 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		944F198A2DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBookTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				944F198B2DBB7B0C0062AC52 /* Debug */,
-				944F198C2DBB7B0C0062AC52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		944F198D2DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBookUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				944F198E2DBB7B0C0062AC52 /* Debug */,
-				944F198F2DBB7B0C0062AC52 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
 /* End XCConfigurationList section */
 
+/* Begin XCLocalSwiftPackageReference section */
+		94B8C8632E07C4300008FEF0 /* XCLocalSwiftPackageReference "BudgetBookPackage" */ = {
+			isa = XCLocalSwiftPackageReference;
+			relativePath = BudgetBookPackage;
+		};
+/* End XCLocalSwiftPackageReference section */
+
 /* Begin XCSwiftPackageProductDependency section */
-		949E6C4F2DBBDFA1007B8112 /* AppFeature */ = {
+		94B8C8642E07C4300008FEF0 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;
 		};
