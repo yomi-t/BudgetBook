@@ -2,30 +2,50 @@ import ComposableArchitecture
 
 @Reducer
 public struct AppReducer: Sendable {
-    
-    //MARK: - State
+
+    // MARK: - State
+    @ObservableState
     public struct State: Equatable {
-        public init() {}
+        public var selectedTab: Tab
+        var customTabState: CustomTabReducer.State
+
+        public init(selectedTab: Tab = .home) {
+            self.selectedTab = selectedTab
+            self.customTabState = .init(selectedTab: .home)
+        }
     }
-    
-    //MARK: - Action
+
+    // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
+        case customTabAction(CustomTabReducer.Action)
         public enum ViewAction: Sendable {
             case onAppear
         }
     }
-    
-    //MARK: - Dependencies
-    public init() {}
-    
-    //MARK: - Reducer
+
+    // MARK: - Reducer
     public var body: some ReducerOf<Self> {
-        Reduce { _, action in
+        Scope(state: \.customTabState, action: \.customTabAction) {
+            CustomTabReducer()
+        }
+        Reduce { state, action in
             switch action {
             case .view(.onAppear):
                 return .none
+
+            case .customTabAction(.select(let tab)):
+                state.selectedTab = tab
+                return .none
+
+            default:
+                return .none
             }
         }
+    }
+
+    // MARK: - Dependencies
+    public init() {
+        // Dependencies
     }
 }
