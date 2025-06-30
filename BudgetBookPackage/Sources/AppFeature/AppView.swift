@@ -6,11 +6,6 @@ public struct AppView: View {
     public let store: StoreOf<AppReducer>
     public init (store: StoreOf<AppReducer>) {
         self.store = store
-
-        let appearance = UITabBarAppearance()
-        appearance.configureWithDefaultBackground()
-        UITabBar.appearance().scrollEdgeAppearance = appearance
-        UITabBar.appearance().standardAppearance = appearance
     }
     public var body: some View {
         ZStack {
