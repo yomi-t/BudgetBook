@@ -25,7 +25,7 @@ public class IncomeRepository: IncomeRepositoryProtocol {
         do {
             return try container?.mainContext.fetch(descriptor) ?? []
         } catch {
-            print("Error fetching balances: \(error)")
+            print("Error fetching incomes: \(error)")
             return []
         }
     }

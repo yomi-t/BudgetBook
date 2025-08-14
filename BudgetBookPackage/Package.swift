@@ -77,15 +77,6 @@ let package = Package(
             name: "SharedModel"
         ),
         .testTarget(
-            name: "AddFeatureTests",
-            dependencies: [
-                .composableArchitecture,
-                "AddFeature",
-                "SharedModel",
-                .swiftTesting
-            ]
-        ),
-        .testTarget(
             name: "AppFeatureTests",
             dependencies: [
                 .composableArchitecture,

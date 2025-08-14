@@ -50,7 +50,7 @@ extension BalanceRepository {
     private func selectFirstBalance(_ balances: [Balance]) -> [Balance] {
         var latestBalances: [Balance] = []
         for balance in balances {
-            if latestBalances.contains(where: { $0.account == balance.account } ) {
+            if latestBalances.contains(where: { $0.account == balance.account }) {
                 continue
             } else {
                 latestBalances.append(balance)

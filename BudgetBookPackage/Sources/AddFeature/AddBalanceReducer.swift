@@ -56,7 +56,7 @@ public struct AddBalanceReducer: Sendable {
                 guard let amount = state.amount else {
                     return .none
                 }
-                return .run { [account = state.selectedAccount, year = state.selectedYear, month = state.selectedMonth] send in
+                return .run { [account = state.selectedAccount, year = state.selectedYear, month = state.selectedMonth] _ in
                     await BalanceRepository.shared.add(
                         Balance(
                             account: account,

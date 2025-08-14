@@ -3,6 +3,7 @@ import SwiftData
 
 @Model
 public final class Balance {
+    @Attribute(.unique)
     public var id: String
     public var account: String
     public var year: Int
@@ -17,4 +18,3 @@ public final class Balance {
         self.amount = amount
     }
 }
-
