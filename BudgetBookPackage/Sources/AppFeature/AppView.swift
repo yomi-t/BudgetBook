@@ -1,3 +1,4 @@
+import AddFeature
 import ComposableArchitecture
 import HomeFeature
 import SwiftUI
@@ -21,17 +22,15 @@ public struct AppView: View {
                                 HomeReducer()
                             })
 
-                        case .leftMoney:
+                        case .balance:
                             Text("Left Money View")
                                 .font(.largeTitle)
                                 .foregroundColor(.white)
 
                         case .add:
-                            Text("last View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                            AddView(store: store.scope(state: \.addState, action: \.addAction))
 
-                        case .leftMoneyList:
+                        case .balanceList:
                             Text("Left Money List View")
                                 .font(.largeTitle)
                                 .foregroundColor(.white)
@@ -48,6 +47,7 @@ public struct AppView: View {
                 }
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
 }
 

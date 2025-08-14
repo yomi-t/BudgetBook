@@ -23,27 +23,83 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 .composableArchitecture,
+                "AddFeature",
                 "HomeFeature"
+            ]
+        ),
+        .target(
+            name: "AddFeature",
+            dependencies: [
+                .composableArchitecture,
+                "Components",
+                "Extensions",
+                "SharedModel",
+                "Repository"
+            ]
+        ),
+        .target(
+            name: "Components"
+        ),
+        .target(
+            name: "Extensions",
+            swiftSettings: [
+                .define("SWIFT_PACKAGE")
             ]
         ),
         .target(
             name: "HomeFeature",
             dependencies: [
                 .composableArchitecture,
+                "Repository",
                 "SharedModel"
             ]
         ),
         .target(
-            name: "Resources"
+            name: "Protocols",
+            dependencies: [
+                "SharedModel"
+            ]
+        ),
+        .target(
+            name: "Repository",
+            dependencies: [
+                "Protocols",
+                "SharedModel"
+            ]
+        ),
+        .target(
+            name: "Resources",
+            resources: [
+                .process("Assets.xcassets")
+            ]
         ),
         .target(
             name: "SharedModel"
         ),
         .testTarget(
+            name: "AddFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                "AddFeature",
+                "SharedModel",
+                .swiftTesting
+            ]
+        ),
+        .testTarget(
             name: "AppFeatureTests",
             dependencies: [
+                .composableArchitecture,
                 .swiftTesting,
                 "AppFeature"
+            ]
+        ),
+        .testTarget(
+            name: "HomeFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                "HomeFeature",
+                "SharedModel",
+                .swiftTesting
             ]
         )
     ],
@@ -55,7 +111,9 @@ extension Target.Dependency {
 }
 for target in package.targets {
     var settings = target.swiftSettings ?? []
-    settings.append(.enableUpcomingFeature("InferSendableFromCaptures"))
+    settings.append(.unsafeFlags(["-Xfrontend", "-disable-availability-checking"]))
+    settings.append(.unsafeFlags(["-Xfrontend", "-warn-concurrency"]))
+    target.swiftSettings = settings
 }
 
 extension Target.PluginUsage {

@@ -2,27 +2,29 @@ import ComposableArchitecture
 import SharedModel
 
 @Reducer
-public struct LeftMoneyItemReducer: Sendable {
+public struct BalanceListReducer {
     // MARK: - State
     @ObservableState
     public struct State {
-        public init(item: LeftMoneyItem) {
-            self.item = item
+        public init(_ balances: [Balance] = []) {
+            self.balances = balances
         }
-        public let item: LeftMoneyItem
+        public var balances: [Balance] = []
     }
-
+    
     // MARK: - Action
-    public enum Action: Sendable, ViewAction {
+    public enum Action: ViewAction {
         case view(ViewAction)
-        public enum ViewAction: Sendable {
+        public enum ViewAction {
             case onAppear
         }
     }
-
+    
     // MARK: - Dependencies
-    public init() {}
-
+    public init() {
+        // Dependencies
+    }
+    
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Reduce { _, action in

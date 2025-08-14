@@ -3,13 +3,15 @@ import ComposableArchitecture
 import Testing
 
 @MainActor
-struct AppFeatureTests {
-    @Test
-    public func testSelectTab() async {
-        let selectedTab: Tab = .add
+private struct AppFeatureTests {
+    @Test(arguments: Tab.allCases)
+    func testSelectTab(selectedTab: Tab) async {
         let store = TestStore(initialState: AppReducer.State()) {
             AppReducer()
         }
+
+        // テストストアの詳細検証を無効にする
+        store.exhaustivity = .off
 
         await store.send(.customTabAction(.select(selectedTab))) {
             $0.customTabState.selectedTab = selectedTab

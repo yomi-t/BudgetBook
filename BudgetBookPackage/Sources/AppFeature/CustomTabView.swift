@@ -20,27 +20,7 @@ public struct CustomTabView: View {
                             .offset(x: CGFloat(selectedIndex) * itemWidth + (CGFloat(selectedIndex) * tabSpacing))
                             .animation(.easeOut(duration: 0.2), value: store.selectedTab)
                     }
-                    HStack(spacing: tabSpacing) {
-                        ForEach(Tab.allCases, id: \.self) { tab in
-                            Button(
-                                action: {
-                                    store.send(.select(tab))
-                                }, label: {
-                                    if tab == .add {
-                                        CenterItemLabel(
-                                            tab: tab,
-                                            itemWidth: itemWidth,
-                                            isSelected: store.selectedTab == tab
-                                        )
-                                    } else {
-                                        ItemLabel(tab: tab)
-                                            .frame(width: itemWidth, height: itemWidth)
-                                            .foregroundColor(store.selectedTab == tab ? .white : .gray)
-                                    }
-                                }
-                            )
-                        }
-                    }
+                    BaseView(store: store, itemWidth: itemWidth, tabSpacing: tabSpacing)
                 }
                 .frame(height: itemWidth, alignment: .bottom)
                 .padding(tabSpacing)
@@ -49,6 +29,38 @@ public struct CustomTabView: View {
                 .shadow(radius: 10)
             }
             .padding(.horizontal, 20)
+        }
+    }
+}
+
+private struct BaseView: View {
+    let store: StoreOf<CustomTabReducer>
+    let itemWidth: CGFloat
+    let tabSpacing: CGFloat
+    init(store: StoreOf<CustomTabReducer>, itemWidth: CGFloat, tabSpacing: CGFloat) {
+        self.store = store
+        self.itemWidth = itemWidth
+        self.tabSpacing = tabSpacing
+    }
+    var body: some View {
+        HStack(spacing: tabSpacing) {
+            ForEach(Tab.allCases, id: \.self) { tab in
+                Button {
+                    store.send(.select(tab))
+                } label: {
+                    if tab == .add {
+                        CenterItemLabel(
+                            tab: tab,
+                            itemWidth: itemWidth,
+                            isSelected: store.selectedTab == tab
+                        )
+                    } else {
+                        ItemLabel(tab: tab)
+                            .frame(width: itemWidth, height: itemWidth)
+                            .foregroundColor(store.selectedTab == tab ? .white : .gray)
+                    }
+                }
+            }
         }
     }
 }
