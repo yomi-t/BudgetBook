@@ -29,7 +29,7 @@ public struct IncomeGraphView: View {
         .background(.ultraThickMaterial)
         .cornerRadius(20)
         .padding(.horizontal, 20)
-        .padding(.vertical, 20)
+        .padding(.top, 20)
         .shadow(radius: 10)
     }
 }

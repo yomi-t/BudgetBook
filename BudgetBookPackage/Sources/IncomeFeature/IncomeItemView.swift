@@ -10,10 +10,11 @@ public struct IncomeItemView: View {
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
+                Text("\(store.item.year - 2000)年\(store.item.month)月")
                 Text(store.item.source)
                     .font(.title3)
                 Spacer()
-                    .frame(minWidth: 0)
+                    .layoutPriority(-.infinity)
                 Text("\(store.item.amount)")
                     .font(.title3)
                     .fontWeight(.medium)

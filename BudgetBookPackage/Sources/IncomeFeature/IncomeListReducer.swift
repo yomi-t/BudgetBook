@@ -30,7 +30,6 @@ public struct IncomeListReducer {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                print(state.incomes)
                 return .none
             }
         }

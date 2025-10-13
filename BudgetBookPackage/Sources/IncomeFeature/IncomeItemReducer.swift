@@ -28,7 +28,6 @@ public struct IncomeItemReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                print(state.item)
                 return .none
             }
         }
