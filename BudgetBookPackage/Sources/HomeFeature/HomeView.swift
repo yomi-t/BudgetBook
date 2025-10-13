@@ -22,19 +22,11 @@ public struct HomeView: View {
                 ) {
                     BalanceListReducer()
                 })
-                .frame(height: geometry.size.height - 130)
+                .frame(height: max(0, geometry.size.height - 130))
             }
         }
         .onAppear {
             send(.onAppear)
         }
     }
-}
-
-#Preview {
-    HomeView(store: .init(
-        initialState: HomeReducer.State()
-    ) {
-        HomeReducer()
-    })
 }

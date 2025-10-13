@@ -39,8 +39,12 @@ public struct AddBalanceReducer: Sendable {
     }
     
     // MARK: - Dependencies
-    public init() {}
-    
+    private let balanceRepository: BalanceRepository
+
+    public init(balanceRepository: BalanceRepository) {
+        self.balanceRepository = balanceRepository
+    }
+
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         BindingReducer()
@@ -48,16 +52,17 @@ public struct AddBalanceReducer: Sendable {
             switch action {
             case .view(.onAppear):
                 return .none
-                
+
             case .binding:
                 return .none
-                
+
             case .tapAddBtn:
                 guard let amount = state.amount else {
                     return .none
                 }
+                state.amount = nil
                 return .run { [account = state.selectedAccount, year = state.selectedYear, month = state.selectedMonth] _ in
-                    await BalanceRepository.shared.add(
+                    await self.balanceRepository.add(
                         Balance(
                             account: account,
                             year: year,

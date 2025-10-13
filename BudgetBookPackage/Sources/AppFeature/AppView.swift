@@ -1,13 +1,23 @@
 import AddFeature
 import ComposableArchitecture
+import IncomeFeature
 import HomeFeature
+import Repository
+import SharedModel
+import SwiftData
 import SwiftUI
 
 public struct AppView: View {
     public let store: StoreOf<AppReducer>
-    public init (store: StoreOf<AppReducer>) {
+    private let balanceRepository: BalanceRepository
+    private let incomeRepository: IncomeRepository
+
+    public init(store: StoreOf<AppReducer>, balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
         self.store = store
+        self.balanceRepository = balanceRepository
+        self.incomeRepository = incomeRepository
     }
+
     public var body: some View {
         ZStack {
             BackgroundView()
@@ -19,13 +29,15 @@ public struct AppView: View {
                             HomeView(store: .init(
                                 initialState: HomeReducer.State()
                             ) {
-                                HomeReducer()
+                                HomeReducer(balanceRepository: balanceRepository)
                             })
 
-                        case .balance:
-                            Text("Left Money View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                        case .income:
+                            IncomeView(store: .init(
+                                initialState: IncomeReducer.State()
+                            ) {
+                                IncomeReducer(incomeRepository: incomeRepository)
+                            })
 
                         case .add:
                             AddView(store: store.scope(state: \.addState, action: \.addAction))
@@ -52,9 +64,17 @@ public struct AppView: View {
 }
 
 #Preview {
-    AppView(store: .init(
-        initialState: AppReducer.State()
-    ) {
-        AppReducer()
-    })
+    let container = try! ModelContainer(for: Balance.self, Income.self)
+    let balanceRepository = BalanceRepository(modelContext: container.mainContext)
+    let incomeRepository = IncomeRepository(modelContext: container.mainContext)
+
+    return AppView(
+        store: .init(
+            initialState: AppReducer.State()
+        ) {
+            AppReducer(balanceRepository: balanceRepository, incomeRepository: incomeRepository)
+        },
+        balanceRepository: balanceRepository,
+        incomeRepository: incomeRepository
+    )
 }

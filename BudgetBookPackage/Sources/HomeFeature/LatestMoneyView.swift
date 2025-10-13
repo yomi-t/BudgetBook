@@ -29,7 +29,7 @@ public struct LastMoneyView: View {
         .frame(maxWidth: .infinity, maxHeight: 100)
         .background(.thickMaterial)
         .cornerRadius(20)
-        .padding(.top, 30)
+        .padding(.top, 20)
         .padding(.horizontal, 20)
         .shadow(radius: 10)
     }

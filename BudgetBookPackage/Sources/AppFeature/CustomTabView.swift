@@ -12,17 +12,20 @@ public struct CustomTabView: View {
     public var body: some View {
         VStack {
             GeometryReader { geometry in
-                let itemWidth = (geometry.size.width / CGFloat(Tab.allCases.count)) - tabSpacing
+                // Calculate item width based on available width and number of tabs
+                let count = max(1, CGFloat(Tab.allCases.count))
+                let rawWidth = geometry.size.width / count - tabSpacing
+                let itemWidth = max(0, rawWidth.isFinite ? rawWidth : 0)
                 ZStack(alignment: .leading) {
-                    if let selectedIndex = Tab.allCases.firstIndex(of: store.selectedTab) {
+                    if itemWidth > 0, let selectedIndex = Tab.allCases.firstIndex(of: store.selectedTab) {
                         SelectBackgroundView()
                             .frame(width: itemWidth, height: itemWidth)
-                            .offset(x: CGFloat(selectedIndex) * itemWidth + (CGFloat(selectedIndex) * tabSpacing))
+                            .offset(x: CGFloat(selectedIndex) * (itemWidth + tabSpacing))
                             .animation(.easeOut(duration: 0.2), value: store.selectedTab)
                     }
                     BaseView(store: store, itemWidth: itemWidth, tabSpacing: tabSpacing)
                 }
-                .frame(height: itemWidth, alignment: .bottom)
+                .frame(height: max(0, itemWidth), alignment: .bottom)
                 .padding(tabSpacing)
                 .background(.thickMaterial)
                 .cornerRadius(.infinity)

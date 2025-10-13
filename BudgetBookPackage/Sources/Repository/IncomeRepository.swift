@@ -4,17 +4,20 @@ import SwiftData
 
 @MainActor
 public class IncomeRepository: IncomeRepositoryProtocol {
-    private var container: ModelContainer?
-    
-    public static let shared = IncomeRepository()
+    private let modelContext: ModelContext
 
-    private init() {
-        self.container = try? ModelContainer(for: Income.self)
+    public init(modelContext: ModelContext) {
+        self.modelContext = modelContext
     }
 
     public func add(_ income: Income) async {
-        container?.mainContext.insert(income)
-        try? container?.mainContext.save()
+        do {
+            modelContext.insert(income)
+            try modelContext.save()
+        } catch {
+            print("Error saving income: \(error)")
+        }
+        
     }
 
     public func fetchAllIncomes() async -> [Income] {
@@ -23,10 +26,11 @@ public class IncomeRepository: IncomeRepositoryProtocol {
             .init(\.month)
         ])
         do {
-            return try container?.mainContext.fetch(descriptor) ?? []
+            return try modelContext.fetch(descriptor)
         } catch {
             print("Error fetching incomes: \(error)")
             return []
         }
     }
 }
+

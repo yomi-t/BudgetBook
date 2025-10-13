@@ -1,10 +1,4 @@
-//
-//  BudgetBookApp.swift
-//  BudgetBook
-//
-//  Created by TAIGA ITO on 2025/04/25.
-//
-
+import SharedModel
 import SwiftData
 import SwiftUI
 
@@ -14,5 +8,6 @@ internal struct BudgetBookApp: App {
         WindowGroup {
             ContentView()
         }
+        .modelContainer(for: [Balance.self, Income.self])
     }
 }

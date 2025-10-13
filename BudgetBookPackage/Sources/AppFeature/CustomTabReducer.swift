@@ -2,7 +2,7 @@ import ComposableArchitecture
 
 public enum Tab: CaseIterable, Sendable {
     case home
-    case balance
+    case income
     case add
     case balanceList
     case settings
@@ -12,7 +12,7 @@ public enum Tab: CaseIterable, Sendable {
         case .home:
             return "house"
 
-        case .balance:
+        case .income:
             return "dollarsign.circle"
 
         case .add:
@@ -30,8 +30,8 @@ public enum Tab: CaseIterable, Sendable {
         case .home:
             return "Home"
 
-        case .balance:
-            return "Left"
+        case .income:
+            return "Income"
 
         case .add:
             return "Add"

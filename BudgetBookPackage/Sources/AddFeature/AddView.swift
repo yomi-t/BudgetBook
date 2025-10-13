@@ -27,11 +27,3 @@ public struct AddView: View {
         }
     }
 }
-
-#Preview {
-    AddView(store: .init(
-        initialState: AddReducer.State()
-    ) {
-        AddReducer()
-    })
-}

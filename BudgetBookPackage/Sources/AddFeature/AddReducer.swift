@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Repository
 
 @Reducer
 public struct AddReducer: Sendable {
@@ -23,35 +24,39 @@ public struct AddReducer: Sendable {
         }
     }
     
+    // MARK: - Dependencies
+    private let balanceRepository: BalanceRepository
+    private let incomeRepository: IncomeRepository
+
+    public init(balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
+        self.balanceRepository = balanceRepository
+        self.incomeRepository = incomeRepository
+    }
+
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         BindingReducer()
         Scope(state: \.balanceState, action: \.balance) {
-            AddBalanceReducer()
+            AddBalanceReducer(balanceRepository: balanceRepository)
         }
         Scope(state: \.incomeState, action: \.income) {
-            AddIncomeReducer()
+            AddIncomeReducer(incomeRepository: incomeRepository)
         }
         Reduce { _, action in
             switch action {
             case .view(.onAppear):
                 return .none
-            
+
             case .binding:
                 return .none
-            
+
             case .balance:
                 return .none
-            
+
             case .income:
                 return .none
             }
         }
-    }
-    
-    // MARK: - Dependencies
-    public init() {
-        // Dependencies
     }
     
     

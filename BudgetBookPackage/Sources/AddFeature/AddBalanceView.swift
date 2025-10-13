@@ -53,7 +53,7 @@ public struct AddBalanceView: View {
                                 ),
                                 values: $store.months
                             )
-                            Text("月")
+                            Text("月末")
                                 .foregroundColor(.secondary)
                             Spacer()
                         }
@@ -151,12 +151,4 @@ public struct AddBalanceView: View {
         .padding(.horizontal, 20)
         .shadow(radius: 10)
     }
-}
-
-#Preview {
-    AddBalanceView(store: .init(
-        initialState: AddBalanceReducer.State()
-    ) {
-        AddBalanceReducer()
-    })
 }

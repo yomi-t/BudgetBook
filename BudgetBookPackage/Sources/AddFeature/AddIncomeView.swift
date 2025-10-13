@@ -29,7 +29,7 @@ public struct AddIncomeView: View {
                     
                     // Date Selection Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("決算月")
+                        Text("収入月")
                             .font(.headline)
                             .foregroundColor(.primary)
                         
@@ -151,12 +151,4 @@ public struct AddIncomeView: View {
         .padding(.horizontal, 20)
         .shadow(radius: 10)
     }
-}
-
-#Preview {
-    AddIncomeView(store: .init(
-        initialState: AddIncomeReducer.State()
-    ) {
-        AddIncomeReducer()
-    })
 }

@@ -1,5 +1,6 @@
 import AddFeature
 import ComposableArchitecture
+import Repository
 
 @Reducer
 public struct AppReducer: Sendable {
@@ -28,13 +29,22 @@ public struct AppReducer: Sendable {
         }
     }
 
+    // MARK: - Dependencies
+    private let balanceRepository: BalanceRepository
+    private let incomeRepository: IncomeRepository
+
+    public init(balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
+        self.balanceRepository = balanceRepository
+        self.incomeRepository = incomeRepository
+    }
+
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Scope(state: \.customTabState, action: \.customTabAction) {
             CustomTabReducer()
         }
         Scope(state: \.addState, action: \.addAction) {
-            AddReducer()
+            AddReducer(balanceRepository: balanceRepository, incomeRepository: incomeRepository)
         }
         Reduce { state, action in
             switch action {
@@ -52,10 +62,5 @@ public struct AppReducer: Sendable {
                 return .none
             }
         }
-    }
-
-    // MARK: - Dependencies
-    public init() {
-        // Dependencies
     }
 }

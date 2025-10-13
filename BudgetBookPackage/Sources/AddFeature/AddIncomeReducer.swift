@@ -4,7 +4,7 @@ import Repository
 import SharedModel
 
 @Reducer
-public struct AddIncomeReducer {
+public struct AddIncomeReducer: Sendable{
 
     // MARK: - State
     @ObservableState
@@ -32,10 +32,17 @@ public struct AddIncomeReducer {
         case view(ViewAction)
         case binding(BindingAction<State>)
         case tapAddBtn
-        
+
         public enum ViewAction: Sendable {
             case onAppear
         }
+    }
+
+    // MARK: - Dependencies
+    private let incomeRepository: IncomeRepository
+
+    public init(incomeRepository: IncomeRepository) {
+        self.incomeRepository = incomeRepository
     }
 
     // MARK: - Reducer
@@ -45,7 +52,7 @@ public struct AddIncomeReducer {
             switch action {
             case .view(.onAppear):
                 return .none
-                
+
             case .binding:
                 return .none
 
@@ -53,8 +60,9 @@ public struct AddIncomeReducer {
                 guard let amount = state.amount else {
                     return .none
                 }
+                state.amount = nil
                 return .run { [source = state.source, year = state.selectedYear, month = state.selectedMonth] send in
-                    await IncomeRepository.shared.add(
+                    await self.incomeRepository.add(
                         Income(
                             source: source,
                             year: year,
@@ -62,6 +70,7 @@ public struct AddIncomeReducer {
                             amount: amount
                         )
                     )
+                    print("Added income: \(amount), \(year), \(month), \(amount)")
                 }
             }
         }
