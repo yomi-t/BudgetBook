@@ -38,7 +38,7 @@ public struct IncomeListView: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 20)
         .shadow(radius: 10)
-        .onAppear() {
+        .onAppear {
             store.send(.view(.onAppear))
         }
     }

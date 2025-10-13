@@ -62,4 +62,3 @@ extension BalanceRepository {
         return latestBalances
     }
 }
-

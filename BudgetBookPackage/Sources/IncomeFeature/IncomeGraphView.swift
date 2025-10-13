@@ -1,6 +1,6 @@
-import SwiftUI
 import Charts
 import ComposableArchitecture
+import SwiftUI
 
 public struct IncomeGraphView: View {
     public let store: StoreOf<IncomeGraphReducer>

@@ -40,7 +40,7 @@ public struct IncomeReducer: Sendable {
             case .updateData(let incomes):
                 print("Updating state with \(incomes.count) incomes")
                 state.incomes = incomes
-                state.graphData = incomes.map{IncomeGraphModel(id: $0.id, yearMonth: $0.yearMonth(), amount: $0.amount)}
+                state.graphData = incomes.map { IncomeGraphModel(id: $0.id, yearMonth: $0.yearMonth(), amount: $0.amount) }
                 return .none
             }
         }

@@ -1,7 +1,7 @@
 import ComposableArchitecture
 import HomeFeature
-import Testing
 import SharedModel
+import Testing
 
 @MainActor
 private struct HomeFeatureTests {

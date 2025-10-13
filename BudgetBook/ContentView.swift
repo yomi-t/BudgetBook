@@ -5,7 +5,8 @@ import SwiftData
 import SwiftUI
 
 public struct ContentView: View {
-    @Environment(\.modelContext) private var modelContext
+    @Environment(\.modelContext)
+    private var modelContext
 
     public var body: some View {
         let balanceRepository = BalanceRepository(modelContext: modelContext)

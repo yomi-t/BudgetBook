@@ -12,7 +12,7 @@ public struct IncomeGraphModel: Identifiable, Equatable {
     }
     
     public func formatGraphData(incomes: [Income]) -> [IncomeGraphModel] {
-        return incomes.map {
+        incomes.map {
             IncomeGraphModel(id: $0.id, yearMonth: $0.yearMonth(), amount: $0.amount)
         }
     }

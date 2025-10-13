@@ -4,8 +4,7 @@ import Repository
 import SharedModel
 
 @Reducer
-public struct AddIncomeReducer: Sendable{
-
+public struct AddIncomeReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
@@ -61,7 +60,7 @@ public struct AddIncomeReducer: Sendable{
                     return .none
                 }
                 state.amount = nil
-                return .run { [source = state.source, year = state.selectedYear, month = state.selectedMonth] send in
+                return .run { [source = state.source, year = state.selectedYear, month = state.selectedMonth] _ in
                     await self.incomeRepository.add(
                         Income(
                             source: source,

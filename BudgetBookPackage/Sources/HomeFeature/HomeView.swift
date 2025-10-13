@@ -11,7 +11,7 @@ public struct HomeView: View {
     public var body: some View {
         GeometryReader { geometry in
             VStack(spacing: 0) {
-                LastMoneyView(store: .init(
+                LatestMoneyView(store: .init(
                     initialState: LatestMoneyReducer.State(latestMoney: store.latestMoney)
                 ) {
                     LatestMoneyReducer()

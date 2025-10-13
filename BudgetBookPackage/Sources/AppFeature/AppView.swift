@@ -1,7 +1,7 @@
 import AddFeature
 import ComposableArchitecture
-import IncomeFeature
 import HomeFeature
+import IncomeFeature
 import Repository
 import SharedModel
 import SwiftData
@@ -61,20 +61,4 @@ public struct AppView: View {
         }
         .ignoresSafeArea(.keyboard)
     }
-}
-
-#Preview {
-    let container = try! ModelContainer(for: Balance.self, Income.self)
-    let balanceRepository = BalanceRepository(modelContext: container.mainContext)
-    let incomeRepository = IncomeRepository(modelContext: container.mainContext)
-
-    return AppView(
-        store: .init(
-            initialState: AppReducer.State()
-        ) {
-            AppReducer(balanceRepository: balanceRepository, incomeRepository: incomeRepository)
-        },
-        balanceRepository: balanceRepository,
-        incomeRepository: incomeRepository
-    )
 }

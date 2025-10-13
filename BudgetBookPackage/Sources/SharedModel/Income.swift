@@ -19,6 +19,6 @@ public final class Income {
     }
     
     public func yearMonth() -> String {
-        return "\(month)-\(year)"
+        "\(month)-\(year)"
     }
 }
