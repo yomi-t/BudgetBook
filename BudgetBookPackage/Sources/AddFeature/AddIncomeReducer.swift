@@ -9,7 +9,7 @@ public struct AddIncomeReducer: Sendable {
     @ObservableState
     public struct State: Equatable {
         public var amount: Int?
-        public var sources: [String] = ["Life is Tech!", "Lumino", "リクルート"]
+        public var sources: [String] = ["Life is Tech!", "Lumino", "リクルート", "dely"]
         public var source: String = "Life is Tech!"
         public var years: [String]
         public var months: [String]

@@ -1,4 +1,5 @@
 import AppFeature
+//import IncomeFeature
 import Repository
 import SharedModel
 import SwiftData
@@ -21,6 +22,13 @@ public struct ContentView: View {
             balanceRepository: balanceRepository,
             incomeRepository: incomeRepository
         )
+//        IncomeView(
+//            store: .init(
+//                initialState: IncomeReducer.State()
+//            ) {
+//                IncomeReducer(incomeRepository: incomeRepository)
+//            }
+//        )
     }
 }
 

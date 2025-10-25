@@ -10,7 +10,7 @@ public struct IncomeView: View {
         VStack {
             IncomeGraphView(store: .init(
                 initialState:
-                    IncomeGraphReducer.State(graphData: store.graphData)
+                    IncomeGraphReducer.State(incomeData: store.incomes)
             ) {
                 IncomeGraphReducer()
             })

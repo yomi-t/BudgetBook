@@ -11,7 +11,9 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AppFeature",
-            targets: ["AppFeature"])
+            targets: ["AppFeature"]),
+        .library(name: "IncomeFeature",
+                 targets: ["IncomeFeature"])
     ],
     dependencies: [
         .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
@@ -60,6 +62,13 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "Repository",
+                "Mocks",
+                "SharedModel",
+            ]
+        ),
+        .target(
+            name: "Mocks",
+            dependencies: [
                 "SharedModel"
             ]
         ),

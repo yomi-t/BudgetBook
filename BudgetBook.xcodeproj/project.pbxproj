@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		943D5E932E9D529A005EDD6C /* IncomeFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 943D5E922E9D529A005EDD6C /* IncomeFeature */; };
 		94B8C8652E07C4300008FEF0 /* AppFeature in Frameworks */ = {isa = PBXBuildFile; productRef = 94B8C8642E07C4300008FEF0 /* AppFeature */; };
 /* End PBXBuildFile section */
 
@@ -27,17 +28,26 @@
 		944F19612DBB7B0B0062AC52 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			files = (
+				943D5E932E9D529A005EDD6C /* IncomeFeature in Frameworks */,
 				94B8C8652E07C4300008FEF0 /* AppFeature in Frameworks */,
 			);
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		943D5E912E9D529A005EDD6C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		944F195B2DBB7B0A0062AC52 = {
 			isa = PBXGroup;
 			children = (
 				944F199F2DBB87700062AC52 /* BudgetBookPackage */,
 				944F19662DBB7B0B0062AC52 /* BudgetBook */,
+				943D5E912E9D529A005EDD6C /* Frameworks */,
 				944F19652DBB7B0B0062AC52 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -70,6 +80,7 @@
 			name = BudgetBook;
 			packageProductDependencies = (
 				94B8C8642E07C4300008FEF0 /* AppFeature */,
+				943D5E922E9D529A005EDD6C /* IncomeFeature */,
 			);
 			productName = BudgetBook;
 			productReference = 944F19642DBB7B0B0062AC52 /* BudgetBook.app */;
@@ -142,6 +153,7 @@
 				"",
 				"echo \"Running SwiftLint: $SWIFTLINT\"",
 				"\"$SWIFTLINT\"",
+				"",
 				"",
 			);
 		};
@@ -376,6 +388,10 @@
 /* End XCLocalSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		943D5E922E9D529A005EDD6C /* IncomeFeature */ = {
+			isa = XCSwiftPackageProductDependency;
+			productName = IncomeFeature;
+		};
 		94B8C8642E07C4300008FEF0 /* AppFeature */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = AppFeature;

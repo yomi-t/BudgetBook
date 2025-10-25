@@ -7,7 +7,7 @@ public struct IncomeListReducer {
     @ObservableState
     public struct State {
         public init(incomes: [Income] = []) {
-            self.incomes = incomes
+            self.incomes = incomes.reversed()
         }
         public var incomes: [Income] = []
     }
@@ -27,7 +27,7 @@ public struct IncomeListReducer {
     
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
-        Reduce { state, action in
+        Reduce { _, action in
             switch action {
             case .view(.onAppear):
                 return .none

@@ -9,7 +9,7 @@ public final class Income {
     public var year: Int
     public var month: Int
     public var amount: Int
-
+    
     public init(source: String, year: Int, month: Int, amount: Int) {
         self.id = UUID().uuidString
         self.source = source
@@ -20,5 +20,11 @@ public final class Income {
     
     public func yearMonth() -> String {
         "\(month)-\(year)"
+    }
+    
+    public func displayMonth() -> String {
+        let monthStr = String(format: "%02d", month)
+        let yearStr = String(year % 1000)
+        return "\(monthStr)/\(yearStr)"
     }
 }
