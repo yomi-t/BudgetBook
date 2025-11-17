@@ -1,6 +1,6 @@
 import Charts
 import ComposableArchitecture
-import Mocks
+import Core
 import SwiftUI
 
 public struct IncomeGraphView: View {

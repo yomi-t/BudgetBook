@@ -1,5 +1,4 @@
 import SwiftUI
-import UIKit
 
 public struct WheelPicker: View {
     @Binding var selectedValue: String
@@ -25,11 +24,11 @@ public struct WheelPicker: View {
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
                     .frame(minWidth: width)
-                    .background(Color(UIColor.systemBackground))
+                    .background(Color(.systemGray6))
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(UIColor.systemGray4), lineWidth: 1)
+                            .stroke(Color(.systemGray4), lineWidth: 1)
                     )
             }
             .sheet(isPresented: $isOpen) {

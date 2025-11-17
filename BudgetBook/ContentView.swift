@@ -1,7 +1,6 @@
 import AppFeature
-//import IncomeFeature
-import Repository
-import SharedModel
+import Core
+// import IncomeFeature
 import SwiftData
 import SwiftUI
 

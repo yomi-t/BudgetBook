@@ -1,6 +1,5 @@
 import ComposableArchitecture
-import Repository
-import SharedModel
+import Core
 
 @Reducer
 public struct HomeReducer: Sendable {

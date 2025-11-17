@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import Repository
+import Core
 
 @Reducer
 public struct AddReducer: Sendable {

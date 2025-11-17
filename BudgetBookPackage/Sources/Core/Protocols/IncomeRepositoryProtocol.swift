@@ -1,4 +1,3 @@
-import SharedModel
 import SwiftData
 
 @MainActor

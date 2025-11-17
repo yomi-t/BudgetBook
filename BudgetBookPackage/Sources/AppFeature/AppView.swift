@@ -1,9 +1,8 @@
 import AddFeature
 import ComposableArchitecture
+import Core
 import HomeFeature
 import IncomeFeature
-import Repository
-import SharedModel
 import SwiftData
 import SwiftUI
 

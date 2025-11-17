@@ -1,4 +1,4 @@
-import SharedModel
+import Core
 import SwiftData
 import SwiftUI
 

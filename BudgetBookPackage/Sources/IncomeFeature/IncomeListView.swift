@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import SharedModel
+import Core
 import SwiftUI
 
 public struct IncomeListView: View {

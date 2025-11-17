@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import SharedModel
+import Core
 
 @Reducer
 public struct IncomeGraphReducer {
@@ -53,4 +53,3 @@ public struct IncomeGraphReducer {
         
     }
 }
-

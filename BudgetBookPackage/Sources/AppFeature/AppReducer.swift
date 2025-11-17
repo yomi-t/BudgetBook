@@ -1,6 +1,6 @@
 import AddFeature
 import ComposableArchitecture
-import Repository
+import Core
 
 @Reducer
 public struct AppReducer: Sendable {

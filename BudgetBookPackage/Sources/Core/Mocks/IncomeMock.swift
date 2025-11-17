@@ -1,5 +1,3 @@
-import SharedModel
-
 public class IncomeMock {
     @MainActor public static let sampleData: [Income] = [
         .init(source: "あ", year: 2024, month: 1, amount: 50000),

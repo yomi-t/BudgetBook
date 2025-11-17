@@ -1,6 +1,5 @@
-import Components
 import ComposableArchitecture
-import Extensions
+import Core
 import SwiftUI
 
 public struct AddIncomeView: View {

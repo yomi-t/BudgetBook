@@ -1,5 +1,5 @@
 import ComposableArchitecture
-import SharedModel
+import Core
 
 @Reducer
 public struct IncomeItemReducer: Sendable {

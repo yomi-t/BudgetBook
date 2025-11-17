@@ -1,5 +1,3 @@
-import Protocols
-import SharedModel
 import SwiftData
 
 @MainActor

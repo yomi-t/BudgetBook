@@ -1,4 +1,4 @@
-import SharedModel
+import Core
 
 /// @Parameter
 /// id: String

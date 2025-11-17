@@ -34,17 +34,14 @@ let package = Package(
             name: "AddFeature",
             dependencies: [
                 .composableArchitecture,
-                "Components",
-                "Extensions",
-                "SharedModel",
-                "Repository"
+                "Core"
             ]
         ),
         .target(
-            name: "Components"
-        ),
-        .target(
-            name: "Extensions",
+            name: "Core",
+            resources: [
+                .process("./Resources/Assets.xcassets")
+            ],
             swiftSettings: [
                 .define("SWIFT_PACKAGE")
             ]
@@ -53,46 +50,15 @@ let package = Package(
             name: "HomeFeature",
             dependencies: [
                 .composableArchitecture,
-                "Repository",
-                "SharedModel"
+                "Core"
             ]
         ),
         .target(
             name: "IncomeFeature",
             dependencies: [
                 .composableArchitecture,
-                "Repository",
-                "Mocks",
-                "SharedModel",
+                "Core",
             ]
-        ),
-        .target(
-            name: "Mocks",
-            dependencies: [
-                "SharedModel"
-            ]
-        ),
-        .target(
-            name: "Protocols",
-            dependencies: [
-                "SharedModel"
-            ]
-        ),
-        .target(
-            name: "Repository",
-            dependencies: [
-                "Protocols",
-                "SharedModel"
-            ]
-        ),
-        .target(
-            name: "Resources",
-            resources: [
-                .process("Assets.xcassets")
-            ]
-        ),
-        .target(
-            name: "SharedModel"
         ),
         .testTarget(
             name: "AppFeatureTests",
@@ -107,7 +73,7 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "HomeFeature",
-                "SharedModel",
+                "Core",
                 .swiftTesting
             ]
         )
