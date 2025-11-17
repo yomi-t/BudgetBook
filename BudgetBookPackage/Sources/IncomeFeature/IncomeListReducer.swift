@@ -15,6 +15,7 @@ public struct IncomeListReducer {
     // MARK: - Action
     public enum Action: ViewAction {
         case view(ViewAction)
+        case onTapDelete(Income)
         public enum ViewAction {
             case onAppear
         }
@@ -30,6 +31,9 @@ public struct IncomeListReducer {
         Reduce { _, action in
             switch action {
             case .view(.onAppear):
+                return .none
+
+            case .onTapDelete(let item):
                 return .none
             }
         }

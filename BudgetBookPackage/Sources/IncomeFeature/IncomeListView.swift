@@ -20,18 +20,27 @@ public struct IncomeListView: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal, 20)
             
-            ScrollView {
-                LazyVStack(spacing: 0) {
-                    ForEach(store.incomes, id: \.id) { item in
-                        IncomeItemView(store: .init(
-                            initialState: IncomeItemReducer.State(item: item)
-                        ) {
-                            IncomeItemReducer()
-                        })
+            List {
+                ForEach(store.incomes, id: \.id) { item in
+                    IncomeItemView(store: .init(
+                        initialState: IncomeItemReducer.State(item: item)
+                    ) {
+                        IncomeItemReducer()
+                    })
+                    .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                        Button(role: .destructive) {
+                            store.send(.onTapDelete(item))
+                        } label: {
+                            Label("", systemImage: "trash")
+                        }
                     }
                 }
+                .listRowSeparator(.hidden, edges: .all)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowBackground(Color.clear)
             }
             .frame(maxHeight: .infinity)
+            .listStyle(.plain)
         }
         .background(.ultraThickMaterial)
         .cornerRadius(20)
