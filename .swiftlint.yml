@@ -79,6 +79,11 @@ force_cast: warning
 force_try: warning
 force_unwrapping: warning
 
+file_name:
+  excluded:
+    - Assets.swift
+    - Strings.swift
+
 identifier_name:
   min_length: 2
   excluded:

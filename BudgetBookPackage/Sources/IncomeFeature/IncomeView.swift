@@ -14,12 +14,10 @@ public struct IncomeView: View {
             ) {
                 IncomeGraphReducer()
             })
-            IncomeListView(store: .init(
-                initialState:
-                    IncomeListReducer.State(incomes: store.incomes)
-            ) {
-                IncomeListReducer()
-            })
+            IncomeListView(store: store.scope(
+                state: \.incomeListState,
+                action: \.incomeListAction
+            ))
         }
         .onAppear {
             store.send(.view(.onAppear))

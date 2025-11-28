@@ -8,13 +8,9 @@ import SwiftUI
 
 public struct AppView: View {
     public let store: StoreOf<AppReducer>
-    private let balanceRepository: BalanceRepository
-    private let incomeRepository: IncomeRepository
 
-    public init(store: StoreOf<AppReducer>, balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
+    public init(store: StoreOf<AppReducer>) {
         self.store = store
-        self.balanceRepository = balanceRepository
-        self.incomeRepository = incomeRepository
     }
 
     public var body: some View {
@@ -28,14 +24,14 @@ public struct AppView: View {
                             HomeView(store: .init(
                                 initialState: HomeReducer.State()
                             ) {
-                                HomeReducer(balanceRepository: balanceRepository)
+                                HomeReducer()
                             })
 
                         case .income:
                             IncomeView(store: .init(
                                 initialState: IncomeReducer.State()
                             ) {
-                                IncomeReducer(incomeRepository: incomeRepository)
+                                IncomeReducer()
                             })
 
                         case .add:

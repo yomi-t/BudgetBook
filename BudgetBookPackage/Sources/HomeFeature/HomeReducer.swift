@@ -21,11 +21,10 @@ public struct HomeReducer: Sendable {
     }
 
     // MARK: - Dependencies
-    private var balanceRepository: BalanceRepository
+    @Dependency(\.balanceRepository)
+    private var balanceRepository
 
-    public init(balanceRepository: BalanceRepository) {
-        self.balanceRepository = balanceRepository
-    }
+    public init() {}
 
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
@@ -33,8 +32,12 @@ public struct HomeReducer: Sendable {
             switch action {
             case .view(.onAppear):
                 return .run { @MainActor send in
-                    let datas = await self.balanceRepository.fetchLatestBalances()
-                    send(.updateBalances(datas))
+                    do {
+                        let datas = try await balanceRepository.fetchLatestBalances()
+                        send(.updateBalances(datas))
+                    } catch {
+                        print("Error fetching balances: \(error)")
+                    }
                 }
 
             case .updateBalances(let balances):

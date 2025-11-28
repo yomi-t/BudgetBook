@@ -36,11 +36,10 @@ public struct AddBalanceReducer: Sendable {
     }
     
     // MARK: - Dependencies
-    private let balanceRepository: BalanceRepository
+    @Dependency(\.balanceRepository)
+    private var balanceRepository
 
-    public init(balanceRepository: BalanceRepository) {
-        self.balanceRepository = balanceRepository
-    }
+    public init() {}
 
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
@@ -59,15 +58,19 @@ public struct AddBalanceReducer: Sendable {
                 }
                 state.amount = nil
                 return .run { [account = state.selectedAccount, year = state.selectedYear, month = state.selectedMonth] _ in
-                    await self.balanceRepository.add(
-                        Balance(
-                            account: account,
-                            year: year,
-                            month: month,
-                            amount: amount
+                    do {
+                        try await balanceRepository.add(
+                            Balance(
+                                account: account,
+                                year: year,
+                                month: month,
+                                amount: amount
+                            )
                         )
-                    )
-                    print("Added balance: \(account), \(year), \(month), \(amount)")
+                        print("Added balance: \(account), \(year), \(month), \(amount)")
+                    } catch {
+                        print("Error adding balance: \(error)")
+                    }
                 }
             }
         }

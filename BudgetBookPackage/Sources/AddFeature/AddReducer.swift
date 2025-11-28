@@ -25,22 +25,17 @@ public struct AddReducer: Sendable {
     }
     
     // MARK: - Dependencies
-    private let balanceRepository: BalanceRepository
-    private let incomeRepository: IncomeRepository
 
-    public init(balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
-        self.balanceRepository = balanceRepository
-        self.incomeRepository = incomeRepository
-    }
+    public init() {}
 
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         BindingReducer()
         Scope(state: \.balanceState, action: \.balance) {
-            AddBalanceReducer(balanceRepository: balanceRepository)
+            AddBalanceReducer()
         }
         Scope(state: \.incomeState, action: \.income) {
-            AddIncomeReducer(incomeRepository: incomeRepository)
+            AddIncomeReducer()
         }
         Reduce { _, action in
             switch action {

@@ -39,6 +39,9 @@ let package = Package(
         ),
         .target(
             name: "Core",
+            dependencies: [
+                .composableArchitecture
+            ],
             resources: [
                 .process("./Resources/Assets.xcassets")
             ],

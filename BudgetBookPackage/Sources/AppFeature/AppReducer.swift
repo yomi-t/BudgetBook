@@ -30,13 +30,7 @@ public struct AppReducer: Sendable {
     }
 
     // MARK: - Dependencies
-    private let balanceRepository: BalanceRepository
-    private let incomeRepository: IncomeRepository
-
-    public init(balanceRepository: BalanceRepository, incomeRepository: IncomeRepository) {
-        self.balanceRepository = balanceRepository
-        self.incomeRepository = incomeRepository
-    }
+    public init() {}
 
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
@@ -44,7 +38,7 @@ public struct AppReducer: Sendable {
             CustomTabReducer()
         }
         Scope(state: \.addState, action: \.addAction) {
-            AddReducer(balanceRepository: balanceRepository, incomeRepository: incomeRepository)
+            AddReducer()
         }
         Reduce { state, action in
             switch action {

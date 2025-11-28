@@ -8,6 +8,6 @@ internal struct BudgetBookApp: App {
         WindowGroup {
             ContentView()
         }
-        .modelContainer(for: [Balance.self, Income.self])
+        .modelContainer(SwiftDataModelConfigurationProvider.shared.container)
     }
 }
