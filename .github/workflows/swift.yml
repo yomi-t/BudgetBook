@@ -16,7 +16,9 @@ jobs:
         run: sudo xcode-select -s /Applications/Xcode_16.4.app
 
       - name: Build iOS App
-        run: xcodebuild -project BudgetBook.xcodeproj -scheme BudgetBook -destination 'platform=iOS Simulator,name=iPhone 16' -sdk iphonesimulator build
+        run: xcodebuild -project BudgetBook.xcodeproj \
+                        -scheme BudgetBook \
+                        -sdk iphonesimulator
 
       - name: Run package tests
         working-directory: BudgetBookPackage
