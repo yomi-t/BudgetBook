@@ -16,7 +16,7 @@ let package = Package(
                  targets: ["IncomeFeature"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", branch: "main"),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "6.1.1")
     ],
