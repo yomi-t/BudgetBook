@@ -1,4 +1,4 @@
-Githuname: iOS starter workflow
+Githubname: iOS starter workflow
 
 on:
   pull_request:
