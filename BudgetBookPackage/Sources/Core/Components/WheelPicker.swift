@@ -24,11 +24,11 @@ public struct WheelPicker: View {
                     .padding(.horizontal, 12)
                     .padding(.vertical, 8)
                     .frame(minWidth: width)
-                    .background(Color(.systemGray6))
+                    .background(.white)
                     .cornerRadius(8)
                     .overlay(
                         RoundedRectangle(cornerRadius: 8)
-                            .stroke(Color(.systemGray4), lineWidth: 1)
+                            .stroke(.gray.opacity(0.3), lineWidth: 1)
                     )
             }
             .sheet(isPresented: $isOpen) {

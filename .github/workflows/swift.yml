@@ -1,4 +1,4 @@
-name: iOS starter workflow
+Githuname: iOS starter workflow
 
 on:
   pull_request:
@@ -15,6 +15,10 @@ jobs:
       - name: Set Xcode version
         run: sudo xcode-select -s /Applications/Xcode_16.4.app
 
-      - name: Run package tests
-        working-directory: BudgetBookPackage
-        run: swift test
+      - name: Build and Test iOS App
+        run: |
+          xcodebuild test \
+            -scheme BudgetBook \
+            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -only-testing:BudgetBookPackage \
+            CODE_SIGNING_ALLOWED=NO

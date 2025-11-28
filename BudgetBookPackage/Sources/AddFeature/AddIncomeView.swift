@@ -3,6 +3,7 @@ import Core
 import SwiftUI
 
 public struct AddIncomeView: View {
+    @FocusState private var focusState: Bool
     @Bindable private var store: StoreOf<AddIncomeReducer>
     let numberFormatter: NumberFormatter
     public init(store: StoreOf<AddIncomeReducer>) {
@@ -16,7 +17,7 @@ public struct AddIncomeView: View {
             Color.clear
                 .contentShape(Rectangle())
                 .onTapGesture {
-                    UIApplication.shared.endEditing(true)
+                    self.focusState = false
                 }
             
             ScrollView {
@@ -84,11 +85,11 @@ public struct AddIncomeView: View {
                             .frame(maxWidth: .infinity)
                             .padding(.vertical, 12)
                             .padding(.horizontal, 16)
-                            .background(Color(.systemBackground))
+                            .background(Color(.white))
                             .cornerRadius(8)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color(.systemGray4), lineWidth: 1)
+                                    .stroke(.gray.opacity(0.3), lineWidth: 1)
                             )
                         }
                     }
@@ -105,12 +106,13 @@ public struct AddIncomeView: View {
                             .font(.title3)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
-                            .background(Color(.systemBackground))
+                            .background(Color(.white))
                             .cornerRadius(8)
                             .keyboardType(.numberPad)
+                            .focused(self.$focusState)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
-                                    .stroke(Color(.systemGray4), lineWidth: 1)
+                                    .stroke(.gray.opacity(0.3), lineWidth: 1)
                             )
                     }
                     .cornerRadius(12)
@@ -142,7 +144,7 @@ public struct AddIncomeView: View {
             .padding(.horizontal, 20)
         }
         .onTapGesture {
-            UIApplication.shared.endEditing(true)
+            self.focusState = false
         }
         .background(.thickMaterial)
         .cornerRadius(20)
