@@ -1,10 +1,8 @@
-import Core
-
 /// @Parameter
 /// id: String
 /// yearMonth: String
 /// amount: Int
-public struct IncomeGraphModel: Identifiable, Equatable {
+public struct IncomeGraphModel: Identifiable, Equatable, Sendable {
     public var id: String
     public var yearMonth: String
     public var amount: Int
@@ -29,5 +27,22 @@ public struct IncomeGraphModel: Identifiable, Equatable {
     public func month() -> Int {
         let month = self.yearMonth.components(separatedBy: "-").first ?? "0"
         return Int(month) ?? 0
+    }
+}
+
+public extension Array<IncomeGraphModel> {
+    func sortByMonth() -> [IncomeGraphModel] {
+        self.sorted { (lhs: IncomeGraphModel, rhs: IncomeGraphModel) -> Bool in
+            if lhs.year() == rhs.year() {
+                return lhs.month() < rhs.month()
+            }
+            return lhs.year() < rhs.year()
+        }
+    }
+    
+    func rangeAmount() -> ClosedRange<Int> {
+        let minValue = Swift.max((self.map { $0.amount }.min() ?? 0) - 10000, 0)
+        let maxValue = (self.map { $0.amount }.max() ?? 0) + 10000
+        return minValue...maxValue
     }
 }

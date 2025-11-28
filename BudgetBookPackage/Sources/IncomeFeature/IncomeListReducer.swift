@@ -5,7 +5,7 @@ import Core
 public struct IncomeListReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State {
+    public struct State: Equatable {
         public init(incomes: [Income] = []) {
             self.incomes = incomes.reversed()
         }

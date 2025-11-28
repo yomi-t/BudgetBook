@@ -72,10 +72,26 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "CoreTests",
+            dependencies: [
+                "Core",
+                .swiftTesting
+            ]
+        ),
+        .testTarget(
             name: "HomeFeatureTests",
             dependencies: [
                 .composableArchitecture,
                 "HomeFeature",
+                "Core",
+                .swiftTesting
+            ]
+        ),
+        .testTarget(
+            name: "IncomeFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                "IncomeFeature",
                 "Core",
                 .swiftTesting
             ]

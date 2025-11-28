@@ -5,7 +5,7 @@ import Core
 public struct IncomeReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State {
+    public struct State: Equatable {
         
         public var incomes: [Income] = []
         public var incomeListState: IncomeListReducer.State

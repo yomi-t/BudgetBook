@@ -1,6 +1,6 @@
 import ComposableArchitecture
+import Core
 import HomeFeature
-import SharedModel
 import Testing
 
 @MainActor

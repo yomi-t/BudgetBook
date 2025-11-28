@@ -37,7 +37,21 @@ public struct Income: Sendable, Equatable {
     
     public func displayMonth() -> String {
         let monthStr = String(format: "%02d", month)
-        let yearStr = String(year % 1000)
+        let yearStr = String(format: "%02d", year % 100)
         return "\(monthStr)/\(yearStr)"
+    }
+}
+
+public extension Array<Income> {
+    func convertToGraphData() -> [IncomeGraphModel] {
+        var data: [IncomeGraphModel] = []
+        for item in self {
+            if let sameMonthIndex = data.firstIndex(where: { $0.yearMonth == item.displayMonth() }) {
+                data[sameMonthIndex].amount += item.amount
+            } else {
+                data.append(.init(item))
+            }
+        }
+        return data.sortByMonth()
     }
 }
