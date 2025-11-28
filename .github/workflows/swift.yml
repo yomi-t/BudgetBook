@@ -12,40 +12,37 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_16.4.app
-
       - name: Build iOS App
         run: |
           xcodebuild build \
             -scheme BudgetBook \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             CODE_SIGNING_ALLOWED=NO
-            
+
       - name: Run AppFeatureTests
         run: |
           xcodebuild test \
             -scheme AppFeatureTests \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Run CoreTests
         run: |
           xcodebuild test \
             -scheme CoreTests \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             CODE_SIGNING_ALLOWED=NO
 
       - name: Run HomeFeatureTests
         run: |
           xcodebuild test \
             -scheme HomeFeatureTests \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             CODE_SIGNING_ALLOWED=NO
-            
+
       - name: Run IncomeFeatureTests
         run: |
           xcodebuild test \
             -scheme IncomeFeatureTests \
-            -destination 'platform=iOS Simulator,name=iPhone 17 Pro' \
+            -destination 'platform=iOS Simulator,name=iPhone 16 Pro' \
             CODE_SIGNING_ALLOWED=NO
