@@ -24,6 +24,7 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme BudgetBook \
             -sdk iphonesimulator \
+            -skipMacroValidation \
             build
 
       - name: Run package tests
@@ -33,4 +34,5 @@ jobs:
             -scheme BudgetBook \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -skipMacroValidation \
             clean test
