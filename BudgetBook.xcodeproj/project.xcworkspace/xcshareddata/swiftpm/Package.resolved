@@ -1,5 +1,5 @@
 {
-  "originHash" : "0f8b6b5b48a2de40f075461980c40e4168f6c8a247b5e8fd9e71894c06f85e64",
+  "originHash" : "4f3d385a68219d83155ae46a7f1fa183fa6551bb35966378a830c4669863fa38",
   "pins" : [
     {
       "identity" : "combine-schedulers",
@@ -40,10 +40,10 @@
     {
       "identity" : "swift-composable-architecture",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/pointfreeco/swift-composable-architecture",
+      "location" : "https://github.com/pointfreeco/swift-composable-architecture.git",
       "state" : {
-        "revision" : "b1d27a82b498b8e697acabd8cc01b585d26aab19",
-        "version" : "1.19.1"
+        "branch" : "main",
+        "revision" : "f8158b92f2a84a34bc00c10db2bc7d3465bf4d33"
       }
     },
     {
@@ -87,8 +87,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/pointfreeco/swift-navigation",
       "state" : {
-        "revision" : "ae208d1a5cf33aee1d43734ea780a09ada6e2a21",
-        "version" : "2.3.1"
+        "revision" : "bf498690e1f6b4af790260f542e8428a4ba10d78",
+        "version" : "2.6.0"
       }
     },
     {
