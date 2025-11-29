@@ -21,6 +21,7 @@ jobs:
       - name: Build iOS App
         run: |
           xcodebuild \
+            -project BudgetBook.xcodeproj \
             -scheme BudgetBook \
             -sdk iphonesimulator \
             build
@@ -28,6 +29,7 @@ jobs:
       - name: Run package tests
         run: |
           xcodebuild \
+            -project BudgetBook.xcodeproj \
             -scheme BudgetBook \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 15' \
