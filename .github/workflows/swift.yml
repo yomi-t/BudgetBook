@@ -18,6 +18,38 @@ jobs:
         with:
           xcode-version: "16.4"
 
-      - name: Run package tests
-        working-directory: BudgetBookPackage
-        run: swift test
+      - name: Run CoreTests
+        run: |
+          xcodebuild test \
+            -project BudgetBook.xcodeproj \
+            -scheme CoreTests \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -skipMacroValidation
+
+      - name: Run HomeFeatureTests
+        run: |
+          xcodebuild test \
+            -project BudgetBook.xcodeproj \
+            -scheme HomeFeatureTests \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -skipMacroValidation
+
+      - name: Run AppFeatureTests
+        run: |
+          xcodebuild test \
+            -project BudgetBook.xcodeproj \
+            -scheme AppFeatureTests \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -skipMacroValidation
+
+      - name: Run IncomeFeatureTests
+        run: |
+          xcodebuild test \
+            -project BudgetBook.xcodeproj \
+            -scheme IncomeFeatureTests \
+            -sdk iphonesimulator \
+            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -skipMacroValidation
