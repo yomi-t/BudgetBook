@@ -24,7 +24,7 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme CoreTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -skipMacroValidation
 
       - name: Run HomeFeatureTests
@@ -33,7 +33,7 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme HomeFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -skipMacroValidation
 
       - name: Run AppFeatureTests
@@ -42,7 +42,7 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme AppFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -skipMacroValidation
 
       - name: Run IncomeFeatureTests
@@ -51,5 +51,5 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme IncomeFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
+            -destination 'platform=iOS Simulator,name=iPhone 17' \
             -skipMacroValidation
