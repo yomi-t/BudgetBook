@@ -19,11 +19,5 @@ jobs:
           xcode-version: "16.4"
 
       - name: Run package tests
-        run: |
-          xcodebuild \
-            -project BudgetBook.xcodeproj \
-            -scheme BudgetBook \
-            -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 15' \
-            -skipMacroValidation \
-            clean test
+        working-directory: BudgetBookPackage
+        run: swift test
