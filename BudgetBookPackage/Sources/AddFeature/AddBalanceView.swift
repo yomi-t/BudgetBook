@@ -102,14 +102,14 @@ public struct AddBalanceView: View {
                             .foregroundColor(.primary)
                         
                         TextField("金額を入力", value: $store.amount, formatter: numberFormatter)
+                            .keyboardType(.numberPad)
+                            .focused(self.$focusState)
                             .multilineTextAlignment(.trailing)
                             .font(.title3)
                             .padding(.vertical, 8)
                             .padding(.horizontal, 16)
                             .background(Color(.white))
                             .cornerRadius(8)
-                            .keyboardType(.numberPad)
-                            .focused(self.$focusState)
                             .overlay(
                                 RoundedRectangle(cornerRadius: 8)
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
