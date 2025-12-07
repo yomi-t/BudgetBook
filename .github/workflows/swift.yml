@@ -25,7 +25,6 @@ jobs:
             -scheme CoreTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
 
       - name: Run HomeFeatureTests
         run: |
@@ -34,7 +33,6 @@ jobs:
             -scheme HomeFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
 
       - name: Run AppFeatureTests
         run: |
@@ -43,7 +41,6 @@ jobs:
             -scheme AppFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
 
       - name: Run IncomeFeatureTests
         run: |
@@ -52,4 +49,3 @@ jobs:
             -scheme IncomeFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
