@@ -102,7 +102,9 @@ public struct AddIncomeView: View {
                             .foregroundColor(.primary)
                         
                         TextField("金額を入力", value: $store.amount, formatter: numberFormatter)
+                            #if os(iOS)
                             .keyboardType(.numberPad)
+                            #endif
                             .focused(self.$focusState)
                             .multilineTextAlignment(.trailing)
                             .font(.title3)
