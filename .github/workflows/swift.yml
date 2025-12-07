@@ -13,14 +13,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # 【修正1】キャッシュの設定を追加
-      # これにより、ビルド時間が短縮されるだけでなく、
-      # パッケージの保存場所が固定され、マクロのエラーが起きにくくなります。
       - name: Cache Swift Packages
         uses: actions/cache@v4
         with:
           path: SourcePackages
-          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}
+          key: ${{ runner.os }}-spm-${{ hashFiles('**/Package.resolved') }}-v2
           restore-keys: |
             ${{ runner.os }}-spm-
 
@@ -29,8 +26,9 @@ jobs:
         with:
           xcode-version: "16.4"
 
-      # 【修正2】パッケージ解決を先に行う
-      # 4回のテスト実行のたびにResolveが走るのを防ぎます
+      - name: Clean DerivedData
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData
+
       - name: Resolve Package Dependencies
         run: |
           xcodebuild -resolvePackageDependencies \
@@ -44,9 +42,10 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme CoreTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -skipMacroValidation \
-            -clonedSourcePackagesDirPath SourcePackages
+            -clonedSourcePackagesDirPath SourcePackages \
+            OTHER_SWIFT_FLAGS="$(inherited) -Xfrontend -disable-sandbox"
 
       - name: Run HomeFeatureTests
         run: |
@@ -54,9 +53,10 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme HomeFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -skipMacroValidation \
-            -clonedSourcePackagesDirPath SourcePackages
+            -clonedSourcePackagesDirPath SourcePackages \
+            OTHER_SWIFT_FLAGS="$(inherited) -Xfrontend -disable-sandbox"
 
       - name: Run AppFeatureTests
         run: |
@@ -64,9 +64,10 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme AppFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -skipMacroValidation \
-            -clonedSourcePackagesDirPath SourcePackages
+            -clonedSourcePackagesDirPath SourcePackages \
+            OTHER_SWIFT_FLAGS="$(inherited) -Xfrontend -disable-sandbox"
 
       - name: Run IncomeFeatureTests
         run: |
@@ -74,6 +75,7 @@ jobs:
             -project BudgetBook.xcodeproj \
             -scheme IncomeFeatureTests \
             -sdk iphonesimulator \
-            -destination 'platform=iOS Simulator,name=iPhone 17' \
+            -destination 'platform=iOS Simulator,name=iPhone 16' \
             -skipMacroValidation \
-            -clonedSourcePackagesDirPath SourcePackages
+            -clonedSourcePackagesDirPath SourcePackages \
+            OTHER_SWIFT_FLAGS="$(inherited) -Xfrontend -disable-sandbox"
