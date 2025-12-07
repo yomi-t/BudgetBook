@@ -13,11 +13,9 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      - name: Set up Xcode
-        uses: maxim-lobanov/setup-xcode@v1
-        with:
-          xcode-version: "16.4"
-          
+      # 【修正1】キャッシュの設定を追加
+      # これにより、ビルド時間が短縮されるだけでなく、
+      # パッケージの保存場所が固定され、マクロのエラーが起きにくくなります。
       - name: Cache Swift Packages
         uses: actions/cache@v4
         with:
@@ -26,6 +24,20 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-spm-
 
+      - name: Set up Xcode
+        uses: maxim-lobanov/setup-xcode@v1
+        with:
+          xcode-version: "16.4"
+
+      # 【修正2】パッケージ解決を先に行う
+      # 4回のテスト実行のたびにResolveが走るのを防ぎます
+      - name: Resolve Package Dependencies
+        run: |
+          xcodebuild -resolvePackageDependencies \
+            -project BudgetBook.xcodeproj \
+            -scheme CoreTests \
+            -clonedSourcePackagesDirPath SourcePackages
+
       - name: Run CoreTests
         run: |
           xcodebuild test \
@@ -33,7 +45,8 @@ jobs:
             -scheme CoreTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
+            -skipMacroValidation \
+            -clonedSourcePackagesDirPath SourcePackages
 
       - name: Run HomeFeatureTests
         run: |
@@ -42,7 +55,8 @@ jobs:
             -scheme HomeFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
+            -skipMacroValidation \
+            -clonedSourcePackagesDirPath SourcePackages
 
       - name: Run AppFeatureTests
         run: |
@@ -51,7 +65,8 @@ jobs:
             -scheme AppFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
+            -skipMacroValidation \
+            -clonedSourcePackagesDirPath SourcePackages
 
       - name: Run IncomeFeatureTests
         run: |
@@ -60,4 +75,5 @@ jobs:
             -scheme IncomeFeatureTests \
             -sdk iphonesimulator \
             -destination 'platform=iOS Simulator,name=iPhone 17' \
-            -skipMacroValidation
+            -skipMacroValidation \
+            -clonedSourcePackagesDirPath SourcePackages
