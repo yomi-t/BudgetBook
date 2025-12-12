@@ -41,8 +41,7 @@ public extension Array<IncomeGraphModel> {
     }
     
     func rangeAmount() -> ClosedRange<Int> {
-        let minValue = Swift.max((self.map { $0.amount }.min() ?? 0) - 10000, 0)
         let maxValue = (self.map { $0.amount }.max() ?? 0) + 10000
-        return minValue...maxValue
+        return 0...maxValue
     }
 }
