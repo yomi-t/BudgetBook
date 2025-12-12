@@ -5,8 +5,8 @@ on:
     branches: [ "**" ]
 
 jobs:
-  build:
-    name: Build and Test default scheme using any available iPhone simulator
+  test:
+    name: Test default scheme using any available iPhone simulator
     runs-on: macos-15
     steps:
       - name: Checkout

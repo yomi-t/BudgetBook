@@ -1,12 +1,18 @@
+import AddFeature
 import ComposableArchitecture
+import Core
 import HomeFeature
+import IncomeFeature
+import SwiftData
 import SwiftUI
 
 public struct AppView: View {
     public let store: StoreOf<AppReducer>
-    public init (store: StoreOf<AppReducer>) {
+
+    public init(store: StoreOf<AppReducer>) {
         self.store = store
     }
+
     public var body: some View {
         ZStack {
             BackgroundView()
@@ -21,17 +27,17 @@ public struct AppView: View {
                                 HomeReducer()
                             })
 
-                        case .leftMoney:
-                            Text("Left Money View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                        case .income:
+                            IncomeView(store: .init(
+                                initialState: IncomeReducer.State()
+                            ) {
+                                IncomeReducer()
+                            })
 
                         case .add:
-                            Text("last View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                            AddView(store: store.scope(state: \.addState, action: \.addAction))
 
-                        case .leftMoneyList:
+                        case .balanceList:
                             Text("Left Money List View")
                                 .font(.largeTitle)
                                 .foregroundColor(.white)
@@ -48,13 +54,6 @@ public struct AppView: View {
                 }
             }
         }
+        .ignoresSafeArea(.keyboard)
     }
-}
-
-#Preview {
-    AppView(store: .init(
-        initialState: AppReducer.State()
-    ) {
-        AppReducer()
-    })
 }

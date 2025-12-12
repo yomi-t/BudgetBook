@@ -1,15 +1,15 @@
 import ComposableArchitecture
-import SharedModel
+import Core
 
 @Reducer
-public struct LeftMoneyItemReducer: Sendable {
+public struct BalanceItemReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State {
-        public init(item: LeftMoneyItem) {
+        public init(item: Balance) {
             self.item = item
         }
-        public let item: LeftMoneyItem
+        public let item: Balance
     }
 
     // MARK: - Action

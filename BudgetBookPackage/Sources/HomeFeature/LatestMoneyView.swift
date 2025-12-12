@@ -1,9 +1,9 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct LastMoneyView: View {
-    public let store: StoreOf<LastMoneyReducer>
-    public init (store: StoreOf<LastMoneyReducer>) {
+public struct LatestMoneyView: View {
+    public let store: StoreOf<LatestMoneyReducer>
+    public init (store: StoreOf<LatestMoneyReducer>) {
         self.store = store
     }
 
@@ -17,7 +17,7 @@ public struct LastMoneyView: View {
                 Rectangle()
                     .frame(width: 20, height: 1)
                     .foregroundStyle(.clear)
-                Text("\(store.lastMoney)")
+                Text("\(store.latestMoney)")
                     .font(.title)
                     .fontWeight(.bold)
                 Text("円")
@@ -29,16 +29,16 @@ public struct LastMoneyView: View {
         .frame(maxWidth: .infinity, maxHeight: 100)
         .background(.thickMaterial)
         .cornerRadius(20)
-        .padding(.top, 30)
+        .padding(.top, 20)
         .padding(.horizontal, 20)
         .shadow(radius: 10)
     }
 }
 
 #Preview {
-    LastMoneyView(store: .init(
-        initialState: LastMoneyReducer.State(lastMoney: 392_012)
+    LatestMoneyView(store: .init(
+        initialState: LatestMoneyReducer.State(latestMoney: 392_012)
     ) {
-        LastMoneyReducer()
+        LatestMoneyReducer()
     })
 }

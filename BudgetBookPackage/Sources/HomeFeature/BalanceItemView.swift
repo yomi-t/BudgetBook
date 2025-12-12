@@ -1,16 +1,16 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct LeftMoneyItemView: View {
-    public let store: StoreOf<LeftMoneyItemReducer>
-    public init (store: StoreOf<LeftMoneyItemReducer>) {
+public struct BalanceItemView: View {
+    public let store: StoreOf<BalanceItemReducer>
+    public init (store: StoreOf<BalanceItemReducer>) {
         self.store = store
     }
 
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text(store.item.title)
+                Text(store.item.account)
                     .font(.title3)
                 Spacer()
                     .frame(minWidth: 0)
@@ -30,9 +30,9 @@ public struct LeftMoneyItemView: View {
 }
 
 #Preview {
-    LeftMoneyItemView(store: .init(
-        initialState: LeftMoneyItemReducer.State(item: .init(id: "a", title: "三井住友", amount: 100_000))
+    BalanceItemView(store: .init(
+        initialState: BalanceItemReducer.State(item: .init(account: "三井住友", year: 2025, month: 4, amount: 100_000))
     ) {
-        LeftMoneyItemReducer()
+        BalanceItemReducer()
     })
 }

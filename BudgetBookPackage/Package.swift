@@ -11,10 +11,12 @@ let package = Package(
         // Products define the executables and libraries a package produces, making them visible to other packages.
         .library(
             name: "AppFeature",
-            targets: ["AppFeature"])
+            targets: ["AppFeature"]),
+        .library(name: "IncomeFeature",
+                 targets: ["IncomeFeature"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", exact: "1.19.1"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", branch: "main"),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "6.1.1")
     ],
@@ -23,27 +25,75 @@ let package = Package(
             name: "AppFeature",
             dependencies: [
                 .composableArchitecture,
-                "HomeFeature"
+                "AddFeature",
+                "HomeFeature",
+                "IncomeFeature"
+            ]
+        ),
+        .target(
+            name: "AddFeature",
+            dependencies: [
+                .composableArchitecture,
+                "Core"
+            ]
+        ),
+        .target(
+            name: "Core",
+            dependencies: [
+                .composableArchitecture
+            ],
+            resources: [
+                .process("./Resources/Assets.xcassets")
+            ],
+            swiftSettings: [
+                .define("SWIFT_PACKAGE")
             ]
         ),
         .target(
             name: "HomeFeature",
             dependencies: [
                 .composableArchitecture,
-                "SharedModel"
+                "Core"
             ]
         ),
         .target(
-            name: "Resources"
-        ),
-        .target(
-            name: "SharedModel"
+            name: "IncomeFeature",
+            dependencies: [
+                .composableArchitecture,
+                "Core",
+            ]
         ),
         .testTarget(
             name: "AppFeatureTests",
             dependencies: [
+                .composableArchitecture,
                 .swiftTesting,
                 "AppFeature"
+            ]
+        ),
+        .testTarget(
+            name: "CoreTests",
+            dependencies: [
+                "Core",
+                .swiftTesting
+            ]
+        ),
+        .testTarget(
+            name: "HomeFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                "HomeFeature",
+                "Core",
+                .swiftTesting
+            ]
+        ),
+        .testTarget(
+            name: "IncomeFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                "IncomeFeature",
+                "Core",
+                .swiftTesting
             ]
         )
     ],
@@ -55,7 +105,9 @@ extension Target.Dependency {
 }
 for target in package.targets {
     var settings = target.swiftSettings ?? []
-    settings.append(.enableUpcomingFeature("InferSendableFromCaptures"))
+    settings.append(.unsafeFlags(["-Xfrontend", "-disable-availability-checking"]))
+    settings.append(.unsafeFlags(["-Xfrontend", "-warn-concurrency"]))
+    target.swiftSettings = settings
 }
 
 extension Target.PluginUsage {

@@ -1,6 +1,7 @@
 import ComposableArchitecture
 import SwiftUI
 
+@ViewAction(for: HomeReducer.self)
 public struct HomeView: View {
     public let store: StoreOf<HomeReducer>
     public init (store: StoreOf<HomeReducer>) {
@@ -8,25 +9,24 @@ public struct HomeView: View {
     }
 
     public var body: some View {
-        VStack {
-            LastMoneyView(store: .init(
-                initialState: LastMoneyReducer.State()
-            ) {
-                LastMoneyReducer()
-            })
-            LeftMoneyListView(store: .init(
-                initialState: LeftMoneyListReducer.State()
-            ) {
-                LeftMoneyListReducer()
-            })
+        GeometryReader { geometry in
+            VStack(spacing: 0) {
+                LatestMoneyView(store: .init(
+                    initialState: LatestMoneyReducer.State(latestMoney: store.latestMoney)
+                ) {
+                    LatestMoneyReducer()
+                })
+                
+                BalanceListView(store: .init(
+                    initialState: BalanceListReducer.State(store.latestBalances)
+                ) {
+                    BalanceListReducer()
+                })
+                .frame(height: max(0, geometry.size.height - 130))
+            }
+        }
+        .onAppear {
+            send(.onAppear)
         }
     }
-}
-
-#Preview {
-    HomeView(store: .init(
-        initialState: HomeReducer.State()
-    ) {
-        HomeReducer()
-    })
 }

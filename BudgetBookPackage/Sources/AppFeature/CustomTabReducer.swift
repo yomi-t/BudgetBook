@@ -2,9 +2,9 @@ import ComposableArchitecture
 
 public enum Tab: CaseIterable, Sendable {
     case home
-    case leftMoney
+    case income
     case add
-    case leftMoneyList
+    case balanceList
     case settings
 
     func iconName() -> String {
@@ -12,13 +12,13 @@ public enum Tab: CaseIterable, Sendable {
         case .home:
             return "house"
 
-        case .leftMoney:
+        case .income:
             return "dollarsign.circle"
 
         case .add:
             return "plus"
 
-        case .leftMoneyList:
+        case .balanceList:
             return "list.bullet"
 
         case .settings:
@@ -30,13 +30,13 @@ public enum Tab: CaseIterable, Sendable {
         case .home:
             return "Home"
 
-        case .leftMoney:
-            return "Left"
+        case .income:
+            return "Income"
 
         case .add:
             return "Add"
 
-        case .leftMoneyList:
+        case .balanceList:
             return "Left List"
 
         case .settings:

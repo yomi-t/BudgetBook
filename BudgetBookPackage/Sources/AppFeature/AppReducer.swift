@@ -1,4 +1,6 @@
+import AddFeature
 import ComposableArchitecture
+import Core
 
 @Reducer
 public struct AppReducer: Sendable {
@@ -8,10 +10,12 @@ public struct AppReducer: Sendable {
     public struct State: Equatable {
         public var selectedTab: Tab
         var customTabState: CustomTabReducer.State
+        var addState: AddReducer.State
 
         public init(selectedTab: Tab = .home) {
             self.selectedTab = selectedTab
-            self.customTabState = .init(selectedTab: .home)
+            self.customTabState = .init(selectedTab: selectedTab)
+            self.addState = .init()
         }
     }
 
@@ -19,15 +23,22 @@ public struct AppReducer: Sendable {
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         case customTabAction(CustomTabReducer.Action)
+        case addAction(AddReducer.Action)
         public enum ViewAction: Sendable {
             case onAppear
         }
     }
 
+    // MARK: - Dependencies
+    public init() {}
+
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Scope(state: \.customTabState, action: \.customTabAction) {
             CustomTabReducer()
+        }
+        Scope(state: \.addState, action: \.addAction) {
+            AddReducer()
         }
         Reduce { state, action in
             switch action {
@@ -38,14 +49,12 @@ public struct AppReducer: Sendable {
                 state.selectedTab = tab
                 return .none
 
+            case .addAction:
+                return .none
+
             default:
                 return .none
             }
         }
-    }
-
-    // MARK: - Dependencies
-    public init() {
-        // Dependencies
     }
 }

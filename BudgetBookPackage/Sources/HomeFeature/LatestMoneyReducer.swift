@@ -1,15 +1,15 @@
 import ComposableArchitecture
 
 @Reducer
-public struct LastMoneyReducer: Sendable {
+public struct LatestMoneyReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
-        public init(lastMoney: Int = 0) {
-            self.lastMoney = lastMoney
+        public init(latestMoney: Int = 0) {
+            self.latestMoney = latestMoney
         }
 
-        public var lastMoney: Int
+        public var latestMoney: Int
     }
 
     // MARK: - Action
