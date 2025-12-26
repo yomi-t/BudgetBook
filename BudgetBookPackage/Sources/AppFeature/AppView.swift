@@ -3,6 +3,7 @@ import ComposableArchitecture
 import Core
 import HomeFeature
 import IncomeFeature
+import SettingFeature
 import SwiftData
 import SwiftUI
 
@@ -43,9 +44,11 @@ public struct AppView: View {
                                 .foregroundColor(.white)
 
                         case .settings:
-                            Text("Settings View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                            SettingView(store: .init(
+                                initialState: SettingReducer.State()
+                            ) {
+                                SettingReducer()
+                            })
                         }
                     }
                     .frame(maxWidth: .infinity)

@@ -21,7 +21,7 @@ public struct AddIncomeView: View {
                 }
             
             ScrollView {
-                VStack(spacing: 20) {
+                LazyVStack(spacing: 20) {
                     // Header
                     Text("収入を追加")
                         .font(.title2)
@@ -69,8 +69,8 @@ public struct AddIncomeView: View {
                         Menu {
                             Picker("収入元", selection: $store.source) {
                                 ForEach(store.sources, id: \.self) { income in
-                                    Text(income)
-                                        .tag(income)
+                                    Text(income.name)
+                                        .tag(income.name)
                                 }
                             }
                         } label: {
@@ -153,5 +153,8 @@ public struct AddIncomeView: View {
         .padding(.vertical, 10)
         .padding(.horizontal, 20)
         .shadow(radius: 10)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
 }

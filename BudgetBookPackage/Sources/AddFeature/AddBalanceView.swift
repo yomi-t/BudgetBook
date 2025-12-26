@@ -21,7 +21,7 @@ public struct AddBalanceView: View {
                 }
             
             ScrollView {
-                VStack(spacing: 20) {
+                LazyVStack(spacing: 20) {
                     // Header
                     Text("残高を追加")
                         .font(.title2)
@@ -69,8 +69,8 @@ public struct AddBalanceView: View {
                         Menu {
                             Picker("口座", selection: $store.selectedAccount) {
                                 ForEach(store.accounts, id: \.self) { account in
-                                    Text(account)
-                                        .tag(account)
+                                    Text(account.name)
+                                        .tag(account.name)
                                 }
                             }
                         } label: {
@@ -153,5 +153,8 @@ public struct AddBalanceView: View {
         .padding(.vertical, 10)
         .padding(.horizontal, 20)
         .shadow(radius: 10)
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
     }
 }

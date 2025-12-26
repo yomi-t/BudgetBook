@@ -11,8 +11,10 @@ public class SwiftDataModelConfigurationProvider {
         // Define schema and configuration
         let schema = Schema(
             [
+                AccountDTO.self,
                 BalanceDTO.self,
-                IncomeDTO.self
+                IncomeDTO.self,
+                SourceDTO.self
             ]
         )
         let configuration = ModelConfiguration(isStoredInMemoryOnly: false)
