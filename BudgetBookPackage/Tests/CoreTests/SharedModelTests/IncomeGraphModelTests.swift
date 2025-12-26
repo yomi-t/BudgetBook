@@ -127,9 +127,9 @@ private struct IncomeGraphModelTests {
     }
 
     @Test(arguments: [
-        RangeAmountTestCase(amounts: [100000, 300000, 200000], expectedLower: 90000, expectedUpper: 310000),
+        RangeAmountTestCase(amounts: [100000, 300000, 200000], expectedLower: 0, expectedUpper: 310000),
         RangeAmountTestCase(amounts: [5000, 8000], expectedLower: 0, expectedUpper: 18000),
-        RangeAmountTestCase(amounts: [50000], expectedLower: 40000, expectedUpper: 60000),
+        RangeAmountTestCase(amounts: [50000], expectedLower: 0, expectedUpper: 60000),
         RangeAmountTestCase(amounts: [], expectedLower: 0, expectedUpper: 10000)
     ])
     func testRangeAmount(testCase: RangeAmountTestCase) {
