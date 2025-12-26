@@ -11,8 +11,8 @@ public struct AddBalanceReducer: Sendable {
         public var months: [String]
         public var selectedMonth: Int
         public var selectedYear: Int
-        public var accounts: [String] = ["三井住友", "三菱UFJ", "ゆうちょ銀行"]
-        public var selectedAccount: String = "三井住友"
+        public var accounts: [Account] = []
+        public var selectedAccount: String = ""
         public var amount: Int?
         public init() {
             let currentYear = Calendar.current.component(.year, from: Date())
@@ -30,6 +30,7 @@ public struct AddBalanceReducer: Sendable {
         case view(ViewAction)
         case binding(BindingAction<State>)
         case tapAddBtn
+        case updateAccounts([Account])
         public enum ViewAction: Sendable {
             case onAppear
         }
@@ -38,6 +39,9 @@ public struct AddBalanceReducer: Sendable {
     // MARK: - Dependencies
     @Dependency(\.balanceRepository)
     private var balanceRepository
+    
+    @Dependency(\.accountRepository)
+    private var accountRepository
 
     public init() {}
 
@@ -47,7 +51,14 @@ public struct AddBalanceReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .none
+                return .run { @MainActor send in
+                    do {
+                        let accounts = try await accountRepository.fetchAll()
+                        send(.updateAccounts(accounts))
+                    } catch {
+                        print("Error fetching accounts: \(error)")
+                    }
+                }
 
             case .binding:
                 return .none
@@ -72,6 +83,16 @@ public struct AddBalanceReducer: Sendable {
                         print("Error adding balance: \(error)")
                     }
                 }
+                
+            case .updateAccounts(let accounts):
+                state.accounts = accounts
+                print("Accounts updated: \(accounts)")
+                if accounts.isEmpty {
+                    state.selectedAccount = "口座を追加してください"
+                } else {
+                    state.selectedAccount = accounts[0].name
+                }
+                return .none
             }
         }
     }
