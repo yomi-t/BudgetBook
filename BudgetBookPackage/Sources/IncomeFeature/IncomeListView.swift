@@ -22,11 +22,7 @@ public struct IncomeListView: View {
             
             List {
                 ForEach(store.incomes, id: \.id) { item in
-                    IncomeItemView(store: .init(
-                        initialState: IncomeItemReducer.State(item: item)
-                    ) {
-                        IncomeItemReducer()
-                    })
+                    IncomeItemView(income: item)
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button(role: .destructive) {
                             store.send(.onTapDelete(item))

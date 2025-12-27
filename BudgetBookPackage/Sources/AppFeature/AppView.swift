@@ -28,22 +28,22 @@ public struct AppView: View {
                             ) {
                                 HomeReducer()
                             })
+                            
+                        case .balanceList:
+                            BalanceView(store: .init(
+                                initialState: BalanceReducer.State()
+                            ) {
+                                BalanceReducer()
+                            })
+
+                        case .add:
+                            AddView(store: store.scope(state: \.addState, action: \.addAction))
 
                         case .income:
                             IncomeView(store: .init(
                                 initialState: IncomeReducer.State()
                             ) {
                                 IncomeReducer()
-                            })
-
-                        case .add:
-                            AddView(store: store.scope(state: \.addState, action: \.addAction))
-
-                        case .balanceList:
-                            BalanceView(store: .init(
-                                initialState: BalanceReducer.State()
-                            ) {
-                                BalanceReducer()
                             })
 
                         case .settings:

@@ -24,7 +24,3 @@ public struct IncomeView: View {
         }
     }
 }
-
-#Preview {
-    
-}

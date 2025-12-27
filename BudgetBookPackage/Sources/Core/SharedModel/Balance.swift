@@ -34,7 +34,7 @@ public struct Balance: Sendable, Equatable {
     public func displayMonth() -> String {
         let monthStr = String(format: "%02d", month)
         let yearStr = String(format: "%02d", year % 100)
-        return "\(monthStr)/\(yearStr)"
+        return "\(yearStr)/\(monthStr)"
     }
 }
 
