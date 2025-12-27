@@ -1,4 +1,5 @@
 import AddFeature
+import BalanceFeature
 import ComposableArchitecture
 import Core
 import HomeFeature
@@ -39,9 +40,11 @@ public struct AppView: View {
                             AddView(store: store.scope(state: \.addState, action: \.addAction))
 
                         case .balanceList:
-                            Text("Left Money List View")
-                                .font(.largeTitle)
-                                .foregroundColor(.white)
+                            BalanceView(store: .init(
+                                initialState: BalanceReducer.State()
+                            ) {
+                                BalanceReducer()
+                            })
 
                         case .settings:
                             SettingView(store: .init(

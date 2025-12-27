@@ -37,7 +37,7 @@ public enum Tab: CaseIterable, Sendable {
             return "Add"
 
         case .balanceList:
-            return "Left List"
+            return "Balance"
 
         case .settings:
             return "Settings"

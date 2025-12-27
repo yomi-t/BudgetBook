@@ -26,6 +26,7 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "AddFeature",
+                "BalanceFeature",
                 "HomeFeature",
                 "IncomeFeature",
                 "SettingFeature",
@@ -36,6 +37,13 @@ let package = Package(
             dependencies: [
                 .composableArchitecture,
                 "Core"
+            ]
+        ),
+        .target(
+            name: "BalanceFeature",
+            dependencies: [
+                .composableArchitecture,
+                "Core",
             ]
         ),
         .target(

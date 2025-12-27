@@ -30,4 +30,24 @@ public struct Balance: Sendable, Equatable {
         self.month = dto.month
         self.amount = dto.amount
     }
+    
+    public func displayMonth() -> String {
+        let monthStr = String(format: "%02d", month)
+        let yearStr = String(format: "%02d", year % 100)
+        return "\(monthStr)/\(yearStr)"
+    }
+}
+
+public extension Array<Balance> {
+    func convertToGraphData() -> [BalanceGraphModel] {
+        var data: [BalanceGraphModel] = []
+        for item in self {
+            if let sameMonthIndex = data.firstIndex(where: { $0.yearMonth == item.displayMonth() }) {
+                data[sameMonthIndex].amount += item.amount
+            } else {
+                data.append(.init(item))
+            }
+        }
+        return data.sortByMonth()
+    }
 }
