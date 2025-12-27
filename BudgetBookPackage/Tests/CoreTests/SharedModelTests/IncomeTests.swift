@@ -118,9 +118,9 @@ private struct IncomeTests {
         let graphData = incomes.convertToGraphData()
 
         #expect(graphData.count == 2)
-        #expect(graphData[0].yearMonth == "03/25")
+        #expect(graphData[0].yearMonth == "25/03")
         #expect(graphData[0].amount == 350000)
-        #expect(graphData[1].yearMonth == "04/25")
+        #expect(graphData[1].yearMonth == "25/04")
         #expect(graphData[1].amount == 350000)
     }
 
@@ -135,9 +135,9 @@ private struct IncomeTests {
         let graphData = incomes.convertToGraphData()
 
         #expect(graphData.count == 3)
-        #expect(graphData[0].yearMonth == "05/25")
-        #expect(graphData[1].yearMonth == "03/25")
-        #expect(graphData[2].yearMonth == "12/24")
+        #expect(graphData[0].yearMonth == "25/05")
+        #expect(graphData[1].yearMonth == "25/03")
+        #expect(graphData[2].yearMonth == "24/12")
     }
 
     @Test

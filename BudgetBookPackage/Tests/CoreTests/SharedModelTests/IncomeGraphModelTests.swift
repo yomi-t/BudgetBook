@@ -5,13 +5,13 @@ private struct IncomeGraphModelTests {
     @Test(arguments: [
         IncomeGraphModel(
             id: "test-id",
-            yearMonth: "03/25",
+            yearMonth: "25/03",
             amount: 300000
         )
     ])
     func testInitWithParameters(_ model: IncomeGraphModel) {
         #expect(model.id == "test-id")
-        #expect(model.yearMonth == "03/25")
+        #expect(model.yearMonth == "25/03")
         #expect(model.amount == 300000)
     }
 
@@ -22,11 +22,11 @@ private struct IncomeGraphModelTests {
     }
 
     @Test(arguments: [
-        InitFromIncomeTestCase(year: 2025, month: 3, expectedYearMonth: "03/25"),
-        InitFromIncomeTestCase(year: 2024, month: 12, expectedYearMonth: "12/24"),
-        InitFromIncomeTestCase(year: 2025, month: 1, expectedYearMonth: "01/25"),
-        InitFromIncomeTestCase(year: 2000, month: 6, expectedYearMonth: "06/00"),
-        InitFromIncomeTestCase(year: 2099, month: 7, expectedYearMonth: "07/99")
+        InitFromIncomeTestCase(year: 2025, month: 3, expectedYearMonth: "25/03"),
+        InitFromIncomeTestCase(year: 2024, month: 12, expectedYearMonth: "24/12"),
+        InitFromIncomeTestCase(year: 2025, month: 1, expectedYearMonth: "25/01"),
+        InitFromIncomeTestCase(year: 2000, month: 6, expectedYearMonth: "00/06"),
+        InitFromIncomeTestCase(year: 2099, month: 7, expectedYearMonth: "99/07")
     ])
     func testInitFromIncome(testCase: InitFromIncomeTestCase) {
         let income = Income(
