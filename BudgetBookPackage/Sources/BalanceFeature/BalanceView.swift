@@ -17,13 +17,10 @@ public struct BalanceView: View {
                     BalanceGraphReducer()
                 }
             )
-            BalanceListView(
-                store: .init(
-                    initialState: BalanceListReducer.State(balances: store.balances)
-                ) {
-                    BalanceListReducer()
-                }
-            )
+            BalanceListView(store: store.scope(
+                state: \.balanceListState,
+                action: \.balanceListAction
+            ))
         }
         .onAppear {
             store.send(.view(.onAppear))

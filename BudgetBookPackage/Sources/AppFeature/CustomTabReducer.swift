@@ -2,24 +2,24 @@ import ComposableArchitecture
 
 public enum Tab: CaseIterable, Sendable {
     case home
-    case income
-    case add
     case balanceList
+    case add
+    case income
     case settings
 
     func iconName() -> String {
         switch self {
         case .home:
             return "house"
-
-        case .income:
-            return "dollarsign.circle"
+            
+        case .balanceList:
+            return "list.bullet"
 
         case .add:
             return "plus"
 
-        case .balanceList:
-            return "list.bullet"
+        case .income:
+            return "dollarsign.circle"
 
         case .settings:
             return "gear"
@@ -30,14 +30,14 @@ public enum Tab: CaseIterable, Sendable {
         case .home:
             return "Home"
 
-        case .income:
-            return "Income"
+        case .balanceList:
+            return "Balance"
 
         case .add:
             return "Add"
-
-        case .balanceList:
-            return "Balance"
+            
+        case .income:
+            return "Income"
 
         case .settings:
             return "Settings"

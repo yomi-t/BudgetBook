@@ -1,21 +1,19 @@
 import ComposableArchitecture
+import Core
 import SwiftUI
 
 public struct IncomeItemView: View {
-    public let store: StoreOf<IncomeItemReducer>
-    public init (store: StoreOf<IncomeItemReducer>) {
-        self.store = store
-    }
+    public var income: Income
 
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(store.item.year - 2000)年\(store.item.month)月")
-                Text(store.item.source)
+                Text("\(income.year - 2000)年\(income.month)月")
+                Text(income.source)
                     .font(.title3)
                 Spacer()
                     .layoutPriority(-.infinity)
-                Text("\(store.item.amount)")
+                Text("\(income.amount)")
                     .font(.title3)
                     .fontWeight(.medium)
             }
@@ -31,9 +29,10 @@ public struct IncomeItemView: View {
 }
 
 #Preview {
-    IncomeItemView(store: .init(
-        initialState: IncomeItemReducer.State(item: .init(source: "リクルート", year: 2024, month: 6, amount: 300_000))
-    ) {
-        IncomeItemReducer()
-    })
+    IncomeItemView(income: .init(
+        source: "リクルート",
+        year: 2024,
+        month: 6,
+        amount: 300_000
+    ))
 }

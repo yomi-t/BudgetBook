@@ -32,13 +32,13 @@ private struct IncomeTests {
     }
 
     @Test(arguments: [
-        DisplayMonthTestCase(year: 2025, month: 3, expected: "03/25"),
-        DisplayMonthTestCase(year: 2025, month: 11, expected: "11/25"),
-        DisplayMonthTestCase(year: 2024, month: 1, expected: "01/24"),
-        DisplayMonthTestCase(year: 2024, month: 12, expected: "12/24"),
-        DisplayMonthTestCase(year: 2000, month: 5, expected: "05/00"),
-        DisplayMonthTestCase(year: 2100, month: 6, expected: "06/00"),
-        DisplayMonthTestCase(year: 2099, month: 7, expected: "07/99")
+        DisplayMonthTestCase(year: 2025, month: 3, expected: "25/03"),
+        DisplayMonthTestCase(year: 2025, month: 11, expected: "25/11"),
+        DisplayMonthTestCase(year: 2024, month: 1, expected: "24/01"),
+        DisplayMonthTestCase(year: 2024, month: 12, expected: "24/12"),
+        DisplayMonthTestCase(year: 2000, month: 5, expected: "00/05"),
+        DisplayMonthTestCase(year: 2100, month: 6, expected: "00/06"),
+        DisplayMonthTestCase(year: 2099, month: 7, expected: "99/07")
     ])
     func testDisplayMonthFormat(testCase: DisplayMonthTestCase) {
         let income = Income(
