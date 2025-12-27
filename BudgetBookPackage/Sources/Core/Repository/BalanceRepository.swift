@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Foundation
 import SwiftData
 
 public extension DependencyValues {
@@ -12,6 +13,7 @@ public struct BalanceRepository: Sendable {
     public var fetchAll: @Sendable @DataActor () throws -> [Balance]
     public var fetchLatestBalances: @Sendable @DataActor () throws -> [Balance]
     public var add: @Sendable @DataActor (Balance) throws -> Void
+    public var delete: @Sendable @DataActor (Balance) throws -> Void
 
     enum BalanceError: Error {
         case add
@@ -45,6 +47,21 @@ public struct BalanceRepository: Sendable {
             let context = try database.context()
             context.insert(BalanceDTO(model))
             try context.save()
+        }
+        
+        self.delete = { model in
+            let context = try database.context()
+            let modelId = model.id
+            let predicate = #Predicate<BalanceDTO> { dto in
+                dto.id == modelId
+            }
+            let descriptor = FetchDescriptor<BalanceDTO>(predicate: predicate)
+            if let object = try context.fetch(descriptor).first {
+                context.delete(object)
+                try context.save()
+            } else {
+                throw BalanceError.delete
+            }
         }
     }
 }
