@@ -6,10 +6,10 @@ public struct IncomeListReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
+        public var monthlyIncomes: [[Income]] = []
         public init(incomes: [Income] = []) {
-            self.incomes = incomes.reversed()
+            self.monthlyIncomes = groupIncomesByMonth(incomes)
         }
-        public var incomes: [Income] = []
     }
     
     // MARK: - Action
@@ -51,5 +51,23 @@ public struct IncomeListReducer: Sendable {
                 return .none
             }
         }
+    }
+}
+
+extension IncomeListReducer.State {
+    private func groupIncomesByMonth(_ incomes: [Income]) -> [[Income]] {
+        var monthlyList: [[Income]] = []
+        for income in incomes {
+            guard let latest = monthlyList.last?.first else {
+                monthlyList.append([income])
+                continue
+            }
+            if latest.yearMonth() == income.yearMonth() {
+                monthlyList[monthlyList.count - 1].append(income)
+            } else {
+                monthlyList.append([income])
+            }
+        }
+        return monthlyList.reversed()
     }
 }

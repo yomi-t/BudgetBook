@@ -8,6 +8,12 @@ public struct IncomeView: View {
     }
     public var body: some View {
         VStack {
+            IncomeYearView(store: .init(
+                initialState:
+                    IncomeYearReducer.State(incomeData: store.incomes)
+            ) {
+                IncomeYearReducer()
+            })
             IncomeGraphView(store: .init(
                 initialState:
                     IncomeGraphReducer.State(incomeData: store.incomes)
