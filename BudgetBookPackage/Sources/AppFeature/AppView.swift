@@ -21,7 +21,7 @@ public struct AppView: View {
             GeometryReader { geometry in
                 VStack(spacing: 0) {
                     VStack {
-                        switch store.selectedTab {
+                        switch store.page {
                         case .home:
                             HomeView(store: .init(
                                 initialState: HomeReducer.State()
@@ -29,7 +29,7 @@ public struct AppView: View {
                                 HomeReducer()
                             })
                             
-                        case .balanceList:
+                        case .balance:
                             BalanceView(store: .init(
                                 initialState: BalanceReducer.State()
                             ) {
@@ -40,12 +40,15 @@ public struct AppView: View {
                             AddView(store: store.scope(state: \.addState, action: \.addAction))
 
                         case .income:
-                            IncomeView(store: .init(
-                                initialState: IncomeReducer.State()
+                            IncomeView(store: store.scope(state: \.incomeState, action: \.incomeAction))
+                            
+                        case .incomeDetail(let incomes):
+                            IncomeDetailView(store: .init(
+                                initialState: IncomeDetailReducer.State(incomes)
                             ) {
-                                IncomeReducer()
+                                IncomeDetailReducer()
                             })
-
+                            
                         case .settings:
                             SettingView(store: .init(
                                 initialState: SettingReducer.State()

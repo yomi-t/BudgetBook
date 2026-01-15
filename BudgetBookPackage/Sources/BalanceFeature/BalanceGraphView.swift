@@ -21,7 +21,9 @@ public struct BalanceGraphView: View {
             .chartYAxis {
                 AxisMarks(position: .trailing) {
                     AxisGridLine()
-                    AxisValueLabel($0.as(Int.self).map { "\($0 / 10000)万円" } ?? "")
+                    AxisValueLabel($0.as(Double.self).map {
+                        "\((String(format: "%.1f", $0 / 10000)))万円"
+                    } ?? "")
                 }
             }
             .chartYScale(domain: store.range)

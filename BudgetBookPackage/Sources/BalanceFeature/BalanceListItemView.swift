@@ -10,16 +10,17 @@ public struct BalanceListItemView: View {
         VStack(spacing: 0) {
             HStack {
                 Text("\(balance.year - 2000)年\(balance.month)月")
+                    .font(.footnote)
                 Text(balance.account)
-                    .font(.title3)
+                    .font(.body)
                 Spacer()
                     .layoutPriority(-.infinity)
                 Text("\(balance.amount)")
-                    .font(.title3)
+                    .font(.body)
                     .fontWeight(.medium)
             }
             .padding(.horizontal, 8)
-            .padding(.vertical, 20)
+            .padding(.vertical, 15)
             Rectangle()
                 .frame(height: 1)
                 .foregroundColor(.gray)

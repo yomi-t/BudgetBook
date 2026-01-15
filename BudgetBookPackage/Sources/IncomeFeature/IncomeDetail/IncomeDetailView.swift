@@ -1,15 +1,16 @@
+import ComposableArchitecture
 import SwiftUI
 
-public struct DetailIncomeView: View {
-    
-    public init() {
-        
+public struct IncomeDetailView: View {
+    public let store: StoreOf<IncomeDetailReducer>
+    public init(store: StoreOf<IncomeDetailReducer>) {
+        self.store = store
     }
     
     public var body: some View {
         VStack {
-            SourceRateGraphView()
-            IncomeSourceListView()
+            SourceRateGraphView(data: store.incomes)
+            IncomeSourceListView(datas: store.incomes)
         }
     }
 }

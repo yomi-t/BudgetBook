@@ -10,6 +10,11 @@ public struct BalanceView: View {
     
     public var body: some View {
         VStack {
+            LatestMoneyView(store: .init(
+                initialState: LatestMoneyReducer.State(balanceData: store.balances),
+            ) {
+                LatestMoneyReducer()
+            })
             BalanceGraphView(
                 store: .init(
                     initialState: BalanceGraphReducer.State(balanceData: store.balances)

@@ -15,7 +15,7 @@ public struct IncomeReducer: Sendable {
         }
     }
 
-    public enum Action: ViewAction {
+    public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         case updateData([Income])
         case incomeListAction(IncomeListReducer.Action)
@@ -51,7 +51,7 @@ public struct IncomeReducer: Sendable {
             case .updateData(let incomes):
                 print("Updating state with \(incomes.count) incomes")
                 state.incomes = incomes
-                state.incomeListState.incomes = incomes.reversed()
+                state.incomeListState = .init(incomes: incomes.reversed())
                 return .none
 
             case .incomeListAction(.delegate(.didDeleteIncome)):

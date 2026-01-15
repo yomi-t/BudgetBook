@@ -1,15 +1,15 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct LatestMoneyView: View {
-    public let store: StoreOf<LatestMoneyReducer>
-    public init (store: StoreOf<LatestMoneyReducer>) {
+public struct IncomeYearView: View {
+    public let store: StoreOf<IncomeYearReducer>
+    public init (store: StoreOf<IncomeYearReducer>) {
         self.store = store
     }
 
     public var body: some View {
         VStack {
-            Text("先月の残金")
+            Text("今年一年の収入")
                 .font(.callout)
                 .fontWeight(.light)
                 .padding(.bottom, 5)
@@ -17,7 +17,7 @@ public struct LatestMoneyView: View {
                 Rectangle()
                     .frame(width: 20, height: 1)
                     .foregroundStyle(.clear)
-                Text("\(store.latestMoney)")
+                Text("\(store.incomeYearTotal)")
                     .font(.title)
                     .fontWeight(.bold)
                 Text("円")

@@ -48,3 +48,11 @@ public struct BalanceListView: View {
         }
     }
 }
+
+#Preview {
+    BalanceListView(store: .init(
+        initialState: BalanceListReducer.State(),
+    ) {
+        BalanceListReducer()
+    })
+}

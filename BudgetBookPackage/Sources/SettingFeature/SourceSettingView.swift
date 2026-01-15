@@ -4,14 +4,11 @@ import SwiftUI
 
 public struct SourceSettingView: View {
     
-    @Binding var sources: [Source]
-    private var deleteSourceAction: (Source) -> Void
-    private var showAddSourceView: (Bool) -> Void
-    
-    public init(sources: Binding<[Source]>, deleteSourceAction: @escaping (Source) -> Void, showAddSourceView: @escaping (Bool) -> Void) {
-        self._sources = sources
-        self.deleteSourceAction = deleteSourceAction
-        self.showAddSourceView = showAddSourceView
+    @Bindable private var store: StoreOf<SourceSettingReducer>
+    public init (
+        store: StoreOf<SourceSettingReducer>
+    ) {
+        self.store = store
     }
     
     public var body: some View {
@@ -23,7 +20,7 @@ public struct SourceSettingView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 10) {
-                    ForEach(sources, id: \.self) { source in
+                    ForEach(store.sources, id: \.self) { source in
                         HStack {
                             Text(source.name)
                             
@@ -31,7 +28,7 @@ public struct SourceSettingView: View {
                             
                             // swiftlint:disable:next multiline_arguments
                             Button(action: {
-                                deleteSourceAction(source)
+                                store.send(.onTapDeleteSource(source))
                             }, label: {
                                 Image(systemName: "trash")
                                     .foregroundColor(.red)
@@ -46,7 +43,7 @@ public struct SourceSettingView: View {
                     
                     // swiftlint:disable:next multiline_arguments
                     Button(action: {
-                        showAddSourceView(true)
+                        store.send(.showAddAlert(true))
                     }, label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -67,6 +64,20 @@ public struct SourceSettingView: View {
             .padding(.vertical, 10)
             .padding(.horizontal, 20)
             .shadow(radius: 10)
+        }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
+        .alert("収入源を追加", isPresented: $store.isShowAddAlert) {
+            TextField("収入源を入力", text: $store.addSourceName)
+            Button("キャンセル", role: .cancel) {
+                store.send(.showAddAlert(false))
+            }
+            Button("決定") {
+                store.send(.onTapAddSource) // 親に値を渡す
+                store.send(.showAddAlert(false))
+            }
+            .disabled(store.addSourceName.isEmpty)
         }
     }
 }

@@ -13,15 +13,17 @@ public struct IncomeListReducer: Sendable {
     }
     
     // MARK: - Action
-    public enum Action: ViewAction {
+    public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         case onTapDelete(Income)
+        case onTapCell([Income])
         case delegate(Delegate)
-        public enum ViewAction {
+        public enum ViewAction: Sendable {
             case onAppear
         }
-        public enum Delegate {
+        public enum Delegate: Sendable {
             case didDeleteIncome
+            case navigateToDetail([Income])
         }
     }
     
@@ -46,6 +48,9 @@ public struct IncomeListReducer: Sendable {
                         print("Error deleting income: \(error)")
                     }
                 }
+                
+            case .onTapCell(let incomes):
+                return .send(.delegate(.navigateToDetail(incomes)))
 
             case .delegate:
                 return .none

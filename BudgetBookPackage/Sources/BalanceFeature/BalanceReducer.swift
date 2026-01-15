@@ -40,7 +40,7 @@ public struct BalanceReducer: Sendable {
             case .view(.onAppear):
                 return .run { @MainActor send in
                     do {
-                        let datas = try await balanceRepository.fetchLatestBalances()
+                        let datas = try await balanceRepository.fetchAll()
                         send(.updateBalances(datas))
                     } catch {
                         print("Error fetching balances: \(error)")
@@ -60,7 +60,7 @@ public struct BalanceReducer: Sendable {
                 
             case .updateBalances(let balances):
                 state.balances = balances
-                state.balanceListState.balances = balances
+                state.balanceListState.balances = balances.reversed()
                 print("balances updated: \(balances)")
                 return .none
                 

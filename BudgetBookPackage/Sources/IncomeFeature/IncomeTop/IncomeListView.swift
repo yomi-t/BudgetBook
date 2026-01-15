@@ -22,7 +22,13 @@ public struct IncomeListView: View {
             
             List {
                 ForEach(store.monthlyIncomes, id: \.self) { item in
-                    IncomeItemView(monthlyIncome: item)
+                    Button(
+                        action: {
+                            store.send(.onTapCell(item))
+                        }, label: {
+                            IncomeItemView(monthlyIncome: item)
+                        }
+                    )
                 }
                 .listRowSeparator(.hidden, edges: .all)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))

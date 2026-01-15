@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Income: Sendable, Equatable {
+public struct Income: Sendable, Equatable, Hashable {
     public var id: String
     public var source: String
     public var year: Int
