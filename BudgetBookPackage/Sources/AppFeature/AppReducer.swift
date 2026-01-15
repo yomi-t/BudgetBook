@@ -56,29 +56,28 @@ public struct AppReducer: Sendable {
                 switch tab {
                 case .home:
                     state.page = .home
-                    
+
                 case .balance:
                     state.page = .balance
-                    
+
                 case .add:
                     state.page = .add
-                    
+
                 case .income:
                     state.page = .income
-                    
+
                 case .settings:
                     state.page = .settings
                 }
                 return .none
 
-            case .addAction:
-                return .none
-                
-            case .incomeAction(.incomeListAction(.delegate(.navigateToDetail(let incomes)))):
-                state.page = .incomeDetail(incomes)
+            case .customTabAction:
                 return .none
 
-            default:
+            case .addAction:
+                return .none
+
+            case .incomeAction:
                 return .none
             }
         }

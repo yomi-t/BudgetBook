@@ -27,12 +27,15 @@ public struct IncomeListView: View {
                             store.send(.onTapCell(item))
                         }, label: {
                             IncomeItemView(monthlyIncome: item)
+                                .contentShape(Rectangle())
                         }
                     )
+                    .buttonStyle(ListItemButtonStyle())
                 }
                 .listRowSeparator(.hidden, edges: .all)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowBackground(Color.clear)
+                .padding(.horizontal, 16)
             }
             .frame(maxHeight: .infinity)
             .listStyle(.plain)
@@ -40,7 +43,8 @@ public struct IncomeListView: View {
         .background(.ultraThickMaterial)
         .cornerRadius(20)
         .padding(.horizontal, 20)
-        .padding(.vertical, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 20)
         .shadow(radius: 10)
         .onAppear {
             store.send(.view(.onAppear))

@@ -8,26 +8,51 @@ public struct IncomeView: View {
         self.store = store
     }
     public var body: some View {
-        VStack {
-            IncomeYearView(store: .init(
-                initialState:
-                    IncomeYearReducer.State(incomeData: store.incomes)
+        GeometryReader { geometry in
+            NavigationStackStore(
+                store.scope(state: \.path, action: \.path)
             ) {
-                IncomeYearReducer()
-            })
-            IncomeGraphView(store: .init(
-                initialState:
-                    IncomeGraphReducer.State(incomeData: store.incomes)
-            ) {
-                IncomeGraphReducer()
-            })
-            IncomeListView(store: store.scope(
-                state: \.incomeListState,
-                action: \.incomeListAction
-            ))
-        }
-        .onAppear {
-            store.send(.view(.onAppear))
+                ZStack {
+                    BackgroundView()
+                        .ignoresSafeArea()
+
+                    VStack {
+                        IncomeYearView(store: .init(
+                            initialState:
+                                IncomeYearReducer.State(incomeData: store.incomes)
+                        ) {
+                            IncomeYearReducer()
+                        })
+                        IncomeGraphView(store: .init(
+                            initialState:
+                                IncomeGraphReducer.State(incomeData: store.incomes)
+                        ) {
+                            IncomeGraphReducer()
+                        })
+                        IncomeListView(store: store.scope(
+                            state: \.incomeListState,
+                            action: \.incomeListAction
+                        ))
+                    }
+                    .padding(.bottom, geometry.size.width / 5)
+                }
+                .onAppear {
+                    store.send(.view(.onAppear))
+                }
+            } destination: { store in
+                switch store.case {
+                case let .incomeDetail(store):
+                    GeometryReader { geometry in
+                        ZStack {
+                            BackgroundView()
+                                .ignoresSafeArea()
+
+                            IncomeDetailView(store: store)
+                                .padding(.bottom, geometry.size.width / 5)
+                        }
+                    }
+                }
+            }
         }
     }
 }

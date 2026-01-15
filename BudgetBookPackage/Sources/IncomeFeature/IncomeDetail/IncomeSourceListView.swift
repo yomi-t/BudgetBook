@@ -35,7 +35,8 @@ public struct IncomeSourceListView: View {
         .background(.ultraThickMaterial)
         .cornerRadius(20)
         .padding(.horizontal, 20)
-        .padding(.vertical, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 20)
         .shadow(radius: 10)
     }
 }

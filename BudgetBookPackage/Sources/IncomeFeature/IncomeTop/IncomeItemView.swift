@@ -15,6 +15,11 @@ public struct IncomeItemView: View {
                 Text("\(monthlyIncome.reduce(0) { $0 + $1.amount })")
                     .font(.body)
                     .fontWeight(.medium)
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 5, height: 10)
+                    .foregroundStyle(Color.gray)
+                    .padding(.horizontal, 3)
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 15)
@@ -23,6 +28,5 @@ public struct IncomeItemView: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal, 8)
         }
-        .padding(.horizontal, 16)
     }
 }

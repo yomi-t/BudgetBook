@@ -5,7 +5,7 @@ import Core
 public struct IncomeDetailReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State: Equatable {
+    public struct State: Equatable, Sendable {
         var incomes: [Income]
         public init(_ incomes: [Income]) {
             self.incomes = incomes.sorted { $0.amount > $1.amount }

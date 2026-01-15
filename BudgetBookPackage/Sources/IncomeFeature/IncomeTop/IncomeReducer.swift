@@ -6,9 +6,9 @@ public struct IncomeReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
-        
         public var incomes: [Income] = []
         public var incomeListState: IncomeListReducer.State
+        public var path = StackState<Path.State>()
 
         public init() {
             self.incomeListState = IncomeListReducer.State()
@@ -19,6 +19,7 @@ public struct IncomeReducer: Sendable {
         case view(ViewAction)
         case updateData([Income])
         case incomeListAction(IncomeListReducer.Action)
+        case path(StackActionOf<Path>)
         public enum ViewAction: Sendable {
             case onAppear
         }
@@ -65,9 +66,25 @@ public struct IncomeReducer: Sendable {
                     }
                 }
 
+            case .incomeListAction(.delegate(.navigateToDetail(let incomes))):
+                state.path.append(.incomeDetail(IncomeDetailReducer.State(incomes)))
+                return .none
+
             case .incomeListAction:
+                return .none
+
+            case .path:
                 return .none
             }
         }
+        .forEach(\.path, action: \.path)
+    }
+
+    @Reducer
+    public enum Path {
+        case incomeDetail(IncomeDetailReducer)
     }
 }
+
+extension IncomeReducer.Path.State: Equatable, Sendable {}
+extension IncomeReducer.Path.Action: Sendable {}

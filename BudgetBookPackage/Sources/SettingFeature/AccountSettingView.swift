@@ -59,7 +59,7 @@ public struct AccountSettingView: View {
             .padding(20)
             .background(.thickMaterial)
             .cornerRadius(20)
-            .padding(.vertical, 10)
+            .padding(.top, 10)
             .padding(.horizontal, 20)
             .shadow(radius: 10)
         }
