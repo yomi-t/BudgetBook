@@ -50,4 +50,20 @@ public extension Array<Balance> {
         }
         return data.sortByMonth()
     }
+    
+    func latestBalance() -> Int {
+        // 先月ぶん
+        var latestYear = 0
+        var latestMonth = 0
+
+        let calendar = Calendar.current
+        let now = Date()
+        if let latestMonthDate = calendar.date(byAdding: .month, value: -1, to: now) {
+            latestYear = calendar.component(.year, from: latestMonthDate)
+            latestMonth = calendar.component(.month, from: latestMonthDate)
+        }
+        return self
+            .filter { $0.year == latestYear && $0.month == latestMonth }
+            .reduce(0) { $0 + $1.amount }
+    }
 }
