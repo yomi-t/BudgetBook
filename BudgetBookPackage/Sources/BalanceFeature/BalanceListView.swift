@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: BalanceListReducer.self)
 public struct BalanceListView: View {
     public let store: StoreOf<BalanceListReducer>
 
@@ -25,7 +26,7 @@ public struct BalanceListView: View {
                     BalanceListItemView(balance: item)
                     .swipeActions(edge: .trailing, allowsFullSwipe: false) {
                         Button(role: .destructive) {
-                            store.send(.onTapDelete(item))
+                            send(.onTapDelete(item))
                         } label: {
                             Label("", systemImage: "trash")
                         }
@@ -45,7 +46,7 @@ public struct BalanceListView: View {
         .padding(.bottom, 20)
         .shadow(radius: 10)
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
     }
 }

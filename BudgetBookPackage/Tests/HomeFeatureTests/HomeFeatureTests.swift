@@ -198,7 +198,7 @@ private struct HomeFeatureTests {
             $0.inputGoal = testCase.inputGoal
         }
 
-        await store.send(.setGoal) {
+        await store.send(.view(.setGoal)) {
             $0.goal = testCase.expectedGoal
         }
     }

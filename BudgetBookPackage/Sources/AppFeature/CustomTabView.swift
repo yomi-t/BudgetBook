@@ -37,6 +37,7 @@ public struct CustomTabView: View {
     }
 }
 
+@ViewAction(for: CustomTabReducer.self)
 private struct BaseView: View {
     let store: StoreOf<CustomTabReducer>
     let itemWidth: CGFloat
@@ -50,7 +51,7 @@ private struct BaseView: View {
         HStack(spacing: tabSpacing) {
             ForEach(Tab.allCases, id: \.self) { tab in
                 Button {
-                    store.send(.select(tab))
+                    send(.select(tab))
                 } label: {
                     if tab == .add {
                         CenterItemLabel(

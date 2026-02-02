@@ -59,8 +59,8 @@ public struct CustomTabReducer: Sendable {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear
+            case select(Tab)
         }
-        case select(Tab)
     }
 
     // MARK: - Dependencies
@@ -75,7 +75,7 @@ public struct CustomTabReducer: Sendable {
             case .view(.onAppear):
                 return .none
 
-            case .select(let tab):
+            case .view(.select(let tab)):
                 state.selectedTab = tab
                 return .none
             }

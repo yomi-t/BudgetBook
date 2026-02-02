@@ -19,12 +19,12 @@ public struct AccountSettingReducer: Sendable {
     public enum Action: ViewAction, BindableAction {
         case view(ViewAction)
         case binding(BindingAction<State>)
-        case onTapAddAccount
-        case onTapDeleteAccount(Account)
-        case showAddAlert(Bool)
         case updateAccounts([Account])
         public enum ViewAction: Sendable {
             case onAppear
+            case onTapDeleteAccount(Account)
+            case showAddAlert(Bool)
+            case onTapAddAccount
         }
     }
 
@@ -45,10 +45,7 @@ public struct AccountSettingReducer: Sendable {
                     send(.updateAccounts(accounts))
                 }
                 
-            case .binding:
-                return .none
-                
-            case .onTapAddAccount:
+            case .view(.onTapAddAccount):
                 return .run { @MainActor [addAccountName = state.addAccountName] send in
                     do {
                         try await accountRepository.add(addAccountName)
@@ -59,7 +56,7 @@ public struct AccountSettingReducer: Sendable {
                     }
                 }
                 
-            case .onTapDeleteAccount(let account):
+            case .view(.onTapDeleteAccount(let account)):
                 return .run { @MainActor send in
                     do {
                         try await accountRepository.delete(account)
@@ -70,9 +67,12 @@ public struct AccountSettingReducer: Sendable {
                     }
                 }
                 
-            case .showAddAlert(let isShow):
+            case .view(.showAddAlert(let isShow)):
                 state.isShowAddAlert = isShow
                 state.addAccountName = ""
+                return .none
+                
+            case .binding:
                 return .none
                 
             case .updateAccounts(let accounts):

@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: IncomeReducer.self)
 public struct IncomeView: View {
     public let store: StoreOf<IncomeReducer>
     public init (store: StoreOf<IncomeReducer>) {
@@ -37,7 +38,7 @@ public struct IncomeView: View {
                     .padding(.bottom, geometry.size.width / 5)
                 }
                 .onAppear {
-                    store.send(.view(.onAppear))
+                    send(.onAppear)
                 }
             } destination: { store in
                 switch store.case {

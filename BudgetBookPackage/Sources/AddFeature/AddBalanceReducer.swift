@@ -29,10 +29,10 @@ public struct AddBalanceReducer: Sendable {
     public enum Action: Sendable, ViewAction, BindableAction {
         case view(ViewAction)
         case binding(BindingAction<State>)
-        case tapAddBtn
         case updateAccounts([Account])
         public enum ViewAction: Sendable {
             case onAppear
+            case tapAddBtn
         }
     }
     
@@ -59,11 +59,8 @@ public struct AddBalanceReducer: Sendable {
                         print("Error fetching accounts: \(error)")
                     }
                 }
-
-            case .binding:
-                return .none
-
-            case .tapAddBtn:
+                
+            case .view(.tapAddBtn):
                 guard let amount = state.amount else {
                     return .none
                 }
@@ -83,6 +80,9 @@ public struct AddBalanceReducer: Sendable {
                         print("Error adding balance: \(error)")
                     }
                 }
+
+            case .binding:
+                return .none
                 
             case .updateAccounts(let accounts):
                 state.accounts = accounts

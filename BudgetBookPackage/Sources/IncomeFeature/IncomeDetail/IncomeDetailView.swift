@@ -10,7 +10,10 @@ public struct IncomeDetailView: View {
     public var body: some View {
         VStack {
             SourceRateGraphView(data: store.incomes)
-            IncomeSourceListView(datas: store.incomes)
+            IncomeSourceListView(store: store.scope(
+                state: \.incomeSourceListState,
+                action: \.incomeSourceListAction
+            ))
         }
     }
 }

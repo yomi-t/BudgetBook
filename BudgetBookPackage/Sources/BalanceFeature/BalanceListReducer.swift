@@ -15,10 +15,10 @@ public struct BalanceListReducer: Sendable {
     // MARK: - Action
     public enum Action: ViewAction {
         case view(ViewAction)
-        case onTapDelete(Balance)
         case delegate(Delegate)
         public enum ViewAction {
             case onAppear
+            case onTapDelete(Balance)
         }
         public enum Delegate {
             case didDeleteBalance
@@ -36,7 +36,7 @@ public struct BalanceListReducer: Sendable {
             case .view(.onAppear):
                 return .none
 
-            case .onTapDelete(let item):
+            case .view(.onTapDelete(let item)):
                 return .run { send in
                     do {
                         try await balanceRepository.delete(item)

@@ -52,7 +52,7 @@ public struct AppReducer: Sendable {
             case .view(.onAppear):
                 return .none
 
-            case .customTabAction(.select(let tab)):
+            case .customTabAction(.view(.select(let tab))):
                 switch tab {
                 case .home:
                     state.page = .home

@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: HomeReducer.self)
 public struct HomeView: View {
     @Bindable public var store: StoreOf<HomeReducer>
     public init (store: StoreOf<HomeReducer>) {
@@ -21,7 +22,7 @@ public struct HomeView: View {
                         LatestExpenseView(latestExpense: store.latestExpense)
                     }
                     GoalSettingButton(goal: store.goal, inputGoal: $store.inputGoal) {
-                        store.send(.setGoal)
+                        send(.setGoal)
                     }
                     
                     GoalView(toGoal: store.toGoal, monthEstimate: store.monthEstimate)
@@ -34,7 +35,7 @@ public struct HomeView: View {
             }
             .navigationTitle("ホーム")
             .onAppear {
-                store.send(.view(.onAppear))
+                send(.onAppear)
             }
         }
     }

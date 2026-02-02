@@ -2,9 +2,10 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: SourceSettingReducer.self)
 public struct SourceSettingView: View {
     
-    @Bindable private var store: StoreOf<SourceSettingReducer>
+    @Bindable public var store: StoreOf<SourceSettingReducer>
     public init (
         store: StoreOf<SourceSettingReducer>
     ) {
@@ -28,7 +29,7 @@ public struct SourceSettingView: View {
                             
                             // swiftlint:disable:next multiline_arguments
                             Button(action: {
-                                store.send(.onTapDeleteSource(source))
+                                send(.onTapDeleteSource(source))
                             }, label: {
                                 Image(systemName: "trash")
                                     .foregroundColor(.red)
@@ -43,7 +44,7 @@ public struct SourceSettingView: View {
                     
                     // swiftlint:disable:next multiline_arguments
                     Button(action: {
-                        store.send(.showAddAlert(true))
+                        send(.showAddAlert(true))
                     }, label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -67,16 +68,16 @@ public struct SourceSettingView: View {
             .shadow(radius: 10)
         }
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
         .alert("収入源を追加", isPresented: $store.isShowAddAlert) {
             TextField("収入源を入力", text: $store.addSourceName)
             Button("キャンセル", role: .cancel) {
-                store.send(.showAddAlert(false))
+                send(.showAddAlert(false))
             }
             Button("決定") {
-                store.send(.onTapAddSource) // 親に値を渡す
-                store.send(.showAddAlert(false))
+                send(.onTapAddSource) // 親に値を渡す
+                send(.showAddAlert(false))
             }
             .disabled(store.addSourceName.isEmpty)
         }

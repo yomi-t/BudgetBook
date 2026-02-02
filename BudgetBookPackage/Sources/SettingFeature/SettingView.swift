@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: SettingReducer.self)
 public struct SettingView: View {
     @Bindable public var store: StoreOf<SettingReducer>
     public init (store: StoreOf<SettingReducer>) {
@@ -59,7 +60,7 @@ public struct SettingView: View {
             }
         }
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
     }
 }

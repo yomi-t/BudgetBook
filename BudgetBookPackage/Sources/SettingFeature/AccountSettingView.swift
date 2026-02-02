@@ -2,9 +2,10 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: AccountSettingReducer.self)
 public struct AccountSettingView: View {
     
-    @Bindable private var store: StoreOf<AccountSettingReducer>
+    @Bindable public var store: StoreOf<AccountSettingReducer>
     public init(store: StoreOf<AccountSettingReducer>) {
         self.store = store
     }
@@ -26,7 +27,7 @@ public struct AccountSettingView: View {
                             
                             // swiftlint:disable:next multiline_arguments
                             Button(action: {
-                                store.send(.onTapDeleteAccount(account))
+                                send(.onTapDeleteAccount(account))
                             }, label: {
                                 Image(systemName: "trash")
                                     .foregroundColor(.red)
@@ -41,7 +42,7 @@ public struct AccountSettingView: View {
                     
                     // swiftlint:disable:next multiline_arguments
                     Button(action: {
-                        store.send(.showAddAlert(true))
+                        send(.showAddAlert(true))
                     }, label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -64,16 +65,16 @@ public struct AccountSettingView: View {
             .shadow(radius: 10)
         }
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
         .alert("口座を追加", isPresented: $store.isShowAddAlert) {
             TextField("口座名を入力", text: $store.addAccountName)
             Button("キャンセル") {
-                store.send(.showAddAlert(false))
+                send(.showAddAlert(false))
             }
             Button("決定") {
-                store.send(.onTapAddAccount)
-                store.send(.showAddAlert(false))
+                send(.onTapAddAccount)
+                send(.showAddAlert(false))
             }
             .disabled(store.addAccountName.isEmpty)
         }
