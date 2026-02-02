@@ -2,22 +2,24 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
-public struct BalanceListItemView: View {
-    
-    var balance: Balance
+public struct IncomeItemView: View {
+    public var monthlyIncome: [Income]
 
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\(balance.year - 2000)年\(balance.month)月")
+                Text("\((monthlyIncome.first?.year ?? 0) % 1000)年\(monthlyIncome.first?.month ?? 0)月")
                     .font(.footnote)
-                Text(balance.account)
-                    .font(.body)
                 Spacer()
                     .layoutPriority(-.infinity)
-                Text("\(balance.amount)")
+                Text("\(monthlyIncome.reduce(0) { $0 + $1.amount })")
                     .font(.body)
                     .fontWeight(.medium)
+                Image(systemName: "chevron.right")
+                    .resizable()
+                    .frame(width: 5, height: 10)
+                    .foregroundStyle(Color.gray)
+                    .padding(.horizontal, 3)
             }
             .padding(.horizontal, 8)
             .padding(.vertical, 15)
@@ -26,6 +28,5 @@ public struct BalanceListItemView: View {
                 .foregroundColor(.gray)
                 .padding(.horizontal, 8)
         }
-        .padding(.horizontal, 16)
     }
 }

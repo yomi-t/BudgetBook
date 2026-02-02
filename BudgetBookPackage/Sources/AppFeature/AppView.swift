@@ -16,45 +16,42 @@ public struct AppView: View {
     }
 
     public var body: some View {
-        ZStack {
-            BackgroundView()
-            GeometryReader { geometry in
-                VStack(spacing: 0) {
-                    VStack {
-                        switch store.selectedTab {
-                        case .home:
-                            HomeView(store: .init(
-                                initialState: HomeReducer.State()
-                            ) {
-                                HomeReducer()
-                            })
-                            
-                        case .balanceList:
-                            BalanceView(store: .init(
-                                initialState: BalanceReducer.State()
-                            ) {
-                                BalanceReducer()
-                            })
+        GeometryReader { geometry in
+            ZStack {
+                VStack {
+                    switch store.page {
+                    case .home:
+                        HomeView(store: .init(
+                            initialState: HomeReducer.State()
+                        ) {
+                            HomeReducer()
+                        })
 
-                        case .add:
-                            AddView(store: store.scope(state: \.addState, action: \.addAction))
+                    case .balance:
+                        BalanceView(store: .init(
+                            initialState: BalanceReducer.State()
+                        ) {
+                            BalanceReducer()
+                        })
 
-                        case .income:
-                            IncomeView(store: .init(
-                                initialState: IncomeReducer.State()
-                            ) {
-                                IncomeReducer()
-                            })
+                    case .add:
+                        AddView(store: store.scope(state: \.addState, action: \.addAction))
 
-                        case .settings:
-                            SettingView(store: .init(
-                                initialState: SettingReducer.State()
-                            ) {
-                                SettingReducer()
-                            })
-                        }
+                    case .income:
+                        IncomeView(store: store.scope(state: \.incomeState, action: \.incomeAction))
+
+                    case .settings:
+                        SettingView(store: .init(
+                            initialState: SettingReducer.State()
+                        ) {
+                            SettingReducer()
+                        })
                     }
-                    .frame(maxWidth: .infinity)
+                }
+                .frame(maxWidth: .infinity, maxHeight: .infinity)
+
+                VStack {
+                    Spacer()
                     CustomTabView(store: store.scope(state: \.customTabState, action: \.customTabAction))
                         .frame(height: geometry.size.width / 5)
                 }

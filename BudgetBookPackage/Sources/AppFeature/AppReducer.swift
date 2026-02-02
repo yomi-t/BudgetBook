@@ -1,6 +1,7 @@
 import AddFeature
 import ComposableArchitecture
 import Core
+import IncomeFeature
 
 @Reducer
 public struct AppReducer: Sendable {
@@ -8,14 +9,16 @@ public struct AppReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
-        public var selectedTab: Tab
         var customTabState: CustomTabReducer.State
         var addState: AddReducer.State
+        var incomeState: IncomeReducer.State
+        var page: Page
 
         public init(selectedTab: Tab = .home) {
-            self.selectedTab = selectedTab
             self.customTabState = .init(selectedTab: selectedTab)
             self.addState = .init()
+            self.incomeState = IncomeReducer.State()
+            self.page = .home
         }
     }
 
@@ -24,6 +27,7 @@ public struct AppReducer: Sendable {
         case view(ViewAction)
         case customTabAction(CustomTabReducer.Action)
         case addAction(AddReducer.Action)
+        case incomeAction(IncomeReducer.Action)
         public enum ViewAction: Sendable {
             case onAppear
         }
@@ -40,19 +44,40 @@ public struct AppReducer: Sendable {
         Scope(state: \.addState, action: \.addAction) {
             AddReducer()
         }
+        Scope(state: \.incomeState, action: \.incomeAction) {
+            IncomeReducer()
+        }
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
                 return .none
 
             case .customTabAction(.select(let tab)):
-                state.selectedTab = tab
+                switch tab {
+                case .home:
+                    state.page = .home
+
+                case .balance:
+                    state.page = .balance
+
+                case .add:
+                    state.page = .add
+
+                case .income:
+                    state.page = .income
+
+                case .settings:
+                    state.page = .settings
+                }
+                return .none
+
+            case .customTabAction:
                 return .none
 
             case .addAction:
                 return .none
 
-            default:
+            case .incomeAction:
                 return .none
             }
         }

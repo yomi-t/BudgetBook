@@ -6,22 +6,24 @@ public struct IncomeListReducer: Sendable {
     // MARK: - State
     @ObservableState
     public struct State: Equatable {
+        public var monthlyIncomes: [[Income]] = []
         public init(incomes: [Income] = []) {
-            self.incomes = incomes.reversed()
+            self.monthlyIncomes = groupIncomesByMonth(incomes)
         }
-        public var incomes: [Income] = []
     }
     
     // MARK: - Action
-    public enum Action: ViewAction {
+    public enum Action: Sendable, ViewAction {
         case view(ViewAction)
         case onTapDelete(Income)
+        case onTapCell([Income])
         case delegate(Delegate)
-        public enum ViewAction {
+        public enum ViewAction: Sendable {
             case onAppear
         }
-        public enum Delegate {
+        public enum Delegate: Sendable {
             case didDeleteIncome
+            case navigateToDetail([Income])
         }
     }
     
@@ -46,10 +48,31 @@ public struct IncomeListReducer: Sendable {
                         print("Error deleting income: \(error)")
                     }
                 }
+                
+            case .onTapCell(let incomes):
+                return .send(.delegate(.navigateToDetail(incomes)))
 
             case .delegate:
                 return .none
             }
         }
+    }
+}
+
+extension IncomeListReducer.State {
+    private func groupIncomesByMonth(_ incomes: [Income]) -> [[Income]] {
+        var monthlyList: [[Income]] = []
+        for income in incomes {
+            guard let latest = monthlyList.last?.first else {
+                monthlyList.append([income])
+                continue
+            }
+            if latest.yearMonth() == income.yearMonth() {
+                monthlyList[monthlyList.count - 1].append(income)
+            } else {
+                monthlyList.append([income])
+            }
+        }
+        return monthlyList.reversed()
     }
 }

@@ -1,17 +1,17 @@
 import ComposableArchitecture
+import Core
 
 @Reducer
-public struct LatestMoneyReducer: Sendable {
+public struct IncomeDetailReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State: Equatable {
-        public init(latestMoney: Int = 0) {
-            self.latestMoney = latestMoney
+    public struct State: Equatable, Sendable {
+        var incomes: [Income]
+        public init(_ incomes: [Income]) {
+            self.incomes = incomes.sorted { $0.amount > $1.amount }
         }
-
-        public var latestMoney: Int
     }
-
+    
     // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
@@ -19,16 +19,20 @@ public struct LatestMoneyReducer: Sendable {
             case onAppear
         }
     }
-
+    
     // MARK: - Dependencies
+    @Dependency(\.incomeRepository)
+    private var incomeRepository
+    
     public init() {}
-
+    
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         Reduce { _, action in
             switch action {
             case .view(.onAppear):
                 return .none
+
             }
         }
     }

@@ -4,14 +4,9 @@ import SwiftUI
 
 public struct AccountSettingView: View {
     
-    @Binding var accounts: [Account]
-    private var deleteAccountAction: (Account) -> Void
-    private var showAddAccountView: (Bool) -> Void
-    
-    public init(accounts: Binding<[Account]>, deleteAccountAction: @escaping (Account) -> Void, showAddAccountView: @escaping (Bool) -> Void) {
-        self._accounts = accounts
-        self.deleteAccountAction = deleteAccountAction
-        self.showAddAccountView = showAddAccountView
+    @Bindable private var store: StoreOf<AccountSettingReducer>
+    public init(store: StoreOf<AccountSettingReducer>) {
+        self.store = store
     }
     
     public var body: some View {
@@ -23,7 +18,7 @@ public struct AccountSettingView: View {
                     .frame(maxWidth: .infinity, alignment: .leading)
                 
                 VStack(spacing: 10) {
-                    ForEach(accounts, id: \.self) { account in
+                    ForEach(store.accounts, id: \.self) { account in
                         HStack {
                             Text(account.name)
                             
@@ -31,7 +26,7 @@ public struct AccountSettingView: View {
                             
                             // swiftlint:disable:next multiline_arguments
                             Button(action: {
-                                deleteAccountAction(account)
+                                store.send(.onTapDeleteAccount(account))
                             }, label: {
                                 Image(systemName: "trash")
                                     .foregroundColor(.red)
@@ -46,7 +41,7 @@ public struct AccountSettingView: View {
                     
                     // swiftlint:disable:next multiline_arguments
                     Button(action: {
-                        showAddAccountView(true)
+                        store.send(.showAddAlert(true))
                     }, label: {
                         Image(systemName: "plus")
                             .resizable()
@@ -64,9 +59,23 @@ public struct AccountSettingView: View {
             .padding(20)
             .background(.thickMaterial)
             .cornerRadius(20)
-            .padding(.vertical, 10)
+            .padding(.top, 10)
             .padding(.horizontal, 20)
             .shadow(radius: 10)
+        }
+        .onAppear {
+            store.send(.view(.onAppear))
+        }
+        .alert("口座を追加", isPresented: $store.isShowAddAlert) {
+            TextField("口座名を入力", text: $store.addAccountName)
+            Button("キャンセル") {
+                store.send(.showAddAlert(false))
+            }
+            Button("決定") {
+                store.send(.onTapAddAccount)
+                store.send(.showAddAlert(false))
+            }
+            .disabled(store.addAccountName.isEmpty)
         }
     }
 }

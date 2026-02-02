@@ -1,24 +1,20 @@
-import ComposableArchitecture
 import SwiftUI
 
-public struct LatestMoneyView: View {
-    public let store: StoreOf<LatestMoneyReducer>
-    public init (store: StoreOf<LatestMoneyReducer>) {
-        self.store = store
-    }
-
-    public var body: some View {
+internal struct LatestIncomeView: View {
+    let latestIncome: Int
+    var body: some View {
         VStack {
-            Text("先月の残金")
+            Text("先月の収入")
                 .font(.callout)
-                .fontWeight(.light)
+                .foregroundStyle(Color.green)
+                .fontWeight(.medium)
                 .padding(.bottom, 5)
             HStack {
                 Rectangle()
                     .frame(width: 20, height: 1)
                     .foregroundStyle(.clear)
-                Text("\(store.latestMoney)")
-                    .font(.title)
+                Text("\(latestIncome)")
+                    .font(.title2)
                     .fontWeight(.bold)
                 Text("円")
                     .font(.footnote)
@@ -30,15 +26,8 @@ public struct LatestMoneyView: View {
         .background(.thickMaterial)
         .cornerRadius(20)
         .padding(.top, 20)
-        .padding(.horizontal, 20)
+        .padding(.leading, 20)
+        .padding(.trailing, 10)
         .shadow(radius: 10)
     }
-}
-
-#Preview {
-    LatestMoneyView(store: .init(
-        initialState: LatestMoneyReducer.State(latestMoney: 392_012)
-    ) {
-        LatestMoneyReducer()
-    })
 }
