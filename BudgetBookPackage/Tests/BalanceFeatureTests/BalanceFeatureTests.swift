@@ -56,7 +56,7 @@ private struct BalanceFeatureTests {
 
         await store.send(.updateBalances(testCase.balances)) {
             $0.balances = testCase.balances
-            $0.balanceListState.balances = testCase.balances.reversed()
+            $0.balanceListState = .init(balances: testCase.balances.reversed())
         }
     }
 
@@ -148,14 +148,112 @@ private struct BalanceFeatureTests {
 
         await store.send(.updateBalances(testCase.balances)) {
             $0.balances = testCase.balances
-            $0.balanceListState.balances = testCase.balances.reversed()
-            
-            // 順序が逆になっていることを確認
-            let reversed = Array(testCase.balances.reversed())
-            for (index, balance) in reversed.enumerated() where $0.balanceListState.balances[index].id != balance.id {
-                Issue.record("\(testCase.description): Balance order is not reversed correctly at index \(index)")
-                
+            $0.balanceListState = .init(balances: testCase.balances.reversed())
+
+            // monthlyBalancesが正しくグループ化されていることを確認
+            let flatBalances = $0.balanceListState.monthlyBalances.flatMap { $0 }
+            if flatBalances.count != testCase.balances.count {
+                Issue.record("\(testCase.description): Balance count mismatch")
             }
         }
+    }
+
+    struct MonthlyGroupingTestCase: Sendable {
+        let balances: [Balance]
+        let expectedGroupCount: Int
+        let description: String
+    }
+
+    @Test(arguments: [
+        MonthlyGroupingTestCase(
+            balances: [
+                Balance(account: "現金", year: 2025, month: 1, amount: 50000),
+                Balance(account: "銀行", year: 2025, month: 1, amount: 100000)
+            ],
+            expectedGroupCount: 1,
+            description: "同じ月の残高は1つのグループになる"
+        ),
+        MonthlyGroupingTestCase(
+            balances: [
+                Balance(account: "現金", year: 2025, month: 1, amount: 50000),
+                Balance(account: "銀行", year: 2025, month: 1, amount: 100000),
+                Balance(account: "クレジットカード", year: 2025, month: 2, amount: 75000)
+            ],
+            expectedGroupCount: 2,
+            description: "異なる月の残高は別々のグループになる"
+        ),
+        MonthlyGroupingTestCase(
+            balances: [
+                Balance(account: "現金", year: 2025, month: 1, amount: 10000),
+                Balance(account: "銀行", year: 2025, month: 2, amount: 20000),
+                Balance(account: "投資", year: 2025, month: 3, amount: 30000),
+                Balance(account: "貯金", year: 2025, month: 4, amount: 40000)
+            ],
+            expectedGroupCount: 4,
+            description: "4つの異なる月で4グループになる"
+        ),
+        MonthlyGroupingTestCase(
+            balances: [],
+            expectedGroupCount: 0,
+            description: "空の配列は0グループ"
+        )
+    ])
+    func testMonthlyGrouping(_ testCase: MonthlyGroupingTestCase) async {
+        let store = TestStore(initialState: BalanceReducer.State()) {
+            BalanceReducer()
+        }
+
+        store.exhaustivity = .off
+
+        await store.send(.updateBalances(testCase.balances)) {
+            $0.balances = testCase.balances
+            $0.balanceListState = .init(balances: testCase.balances.reversed())
+
+            // 月ごとのグループ数が正しいことを確認
+            if $0.balanceListState.monthlyBalances.count != testCase.expectedGroupCount {
+                Issue.record("\(testCase.description): Expected \(testCase.expectedGroupCount) groups but got \($0.balanceListState.monthlyBalances.count)")
+            }
+
+            // 各グループ内の残高が同じ年月であることを確認
+            for group in $0.balanceListState.monthlyBalances {
+                guard let first = group.first else { continue }
+                let yearMonth = first.yearMonth()
+                for balance in group where balance.yearMonth() != yearMonth {
+                    Issue.record("\(testCase.description): Balance in group has different yearMonth")
+                }
+            }
+        }
+    }
+
+    @Test
+    func testNavigateToDetail() async {
+        let testBalances = [
+            Balance(account: "現金", year: 2025, month: 1, amount: 50000),
+            Balance(account: "銀行", year: 2025, month: 1, amount: 100000)
+        ]
+
+        let store = TestStore(initialState: BalanceReducer.State()) {
+            BalanceReducer()
+        }
+
+        store.exhaustivity = .off
+
+        await store.send(.balanceListAction(.delegate(.navigateToDetail(testBalances)))) {
+            $0.path.append(.balanceDetail(BalanceDetailReducer.State(testBalances)))
+        }
+    }
+
+    @Test
+    func testDeleteBalance() async {
+        let store = TestStore(initialState: BalanceReducer.State()) {
+            BalanceReducer()
+        } withDependencies: {
+            $0.balanceRepository.delete = { _ in }
+            $0.balanceRepository.fetchAll = { [] }
+        }
+
+        store.exhaustivity = .off
+
+        await store.send(.balanceListAction(.delegate(.didDeleteBalance)))
     }
 }
