@@ -37,11 +37,6 @@ private struct ExpenseManagerLatestTests {
         let calendar = Calendar.current
         let now = Date()
 
-        guard let lastMonth = calendar.date(byAdding: .month, value: -1, to: now) else {
-            Issue.record("Failed to calculate last month")
-            return
-        }
-
         // テストデータの年月を現在の日付に合わせて調整
         let adjustedBalances = testCase.balances.map { balance in
             let monthOffset = (balance.year - 2025) * 12 + balance.month
