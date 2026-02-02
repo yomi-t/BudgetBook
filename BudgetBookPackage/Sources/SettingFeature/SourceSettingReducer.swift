@@ -19,12 +19,12 @@ public struct SourceSettingReducer: Sendable {
     public enum Action: ViewAction, BindableAction {
         case view(ViewAction)
         case binding(BindingAction<State>)
-        case onTapAddSource
-        case onTapDeleteSource(Source)
-        case showAddAlert(Bool)
         case updateSources([Source])
         public enum ViewAction: Sendable {
             case onAppear
+            case onTapDeleteSource(Source)
+            case showAddAlert(Bool)
+            case onTapAddSource
         }
     }
 
@@ -46,10 +46,7 @@ public struct SourceSettingReducer: Sendable {
                     send(.updateSources(sources))
                 }
                 
-            case .binding:
-                return .none
-                
-            case .onTapAddSource:
+            case .view(.onTapAddSource):
                 return .run { @MainActor [addSourceName = state.addSourceName] send in
                     do {
                         try await sourceRepository.add(addSourceName)
@@ -60,7 +57,7 @@ public struct SourceSettingReducer: Sendable {
                     }
                 }
             
-            case .onTapDeleteSource(let source):
+            case .view(.onTapDeleteSource(let source)):
                 return .run { @MainActor send in
                     do {
                         try await sourceRepository.delete(source)
@@ -71,9 +68,12 @@ public struct SourceSettingReducer: Sendable {
                     }
                 }
                 
-            case .showAddAlert(let isShow):
+            case .view(.showAddAlert(let isShow)):
                 state.isShowAddAlert = isShow
                 state.addSourceName = ""
+                return .none
+                
+            case .binding:
                 return .none
                     
             case .updateSources(let sources):

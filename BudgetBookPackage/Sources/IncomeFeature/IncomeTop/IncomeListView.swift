@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: IncomeListReducer.self)
 public struct IncomeListView: View {
     public let store: StoreOf<IncomeListReducer>
 
@@ -24,7 +25,7 @@ public struct IncomeListView: View {
                 ForEach(store.monthlyIncomes, id: \.self) { item in
                     Button(
                         action: {
-                            store.send(.onTapCell(item))
+                            send(.onTapCell(item))
                         }, label: {
                             IncomeItemView(monthlyIncome: item)
                                 .contentShape(Rectangle())
@@ -47,7 +48,7 @@ public struct IncomeListView: View {
         .padding(.bottom, 20)
         .shadow(radius: 10)
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
     }
 }

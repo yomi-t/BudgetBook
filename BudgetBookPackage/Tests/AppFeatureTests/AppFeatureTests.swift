@@ -25,7 +25,7 @@ private struct AppFeatureTests {
         // テストストアの詳細検証を無効にする
         store.exhaustivity = .off
 
-        await store.send(.customTabAction(.select(testCase.tab))) {
+        await store.send(.customTabAction(.view(.select(testCase.tab)))) {
             $0.customTabState.selectedTab = testCase.tab
             $0.page = testCase.expectedPage
         }
@@ -73,7 +73,7 @@ private struct AppFeatureTests {
         store.exhaustivity = .off
         
         for tab in testCase.tabs {
-            await store.send(.customTabAction(.select(tab))) {
+            await store.send(.customTabAction(.view(.select(tab)))) {
                 $0.customTabState.selectedTab = tab
                 // Tabに対応するPageを設定
                 switch tab {

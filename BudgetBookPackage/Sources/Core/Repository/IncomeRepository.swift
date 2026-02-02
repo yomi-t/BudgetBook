@@ -11,6 +11,7 @@ public extension DependencyValues {
 
 public struct IncomeRepository: Sendable {
     public var fetchAll: @Sendable @DataActor () throws -> [Income]
+    public var fetchMonth: @Sendable @DataActor (Int, Int) throws -> [Income]
     public var add: @Sendable @DataActor (Income) throws -> Void
     public var delete: @Sendable @DataActor (Income) throws -> Void
 
@@ -27,6 +28,16 @@ public struct IncomeRepository: Sendable {
                 .init(\.year),
                 .init(\.month)
             ])
+            let response = try context.fetch(descriptor)
+            return response.map { Income(dto: $0) }
+        }
+        
+        self.fetchMonth = { year, month in
+            let context = try database.context()
+            let predicate = #Predicate<IncomeDTO> { dto in
+                dto.year == year && dto.month == month
+            }
+            let descriptor = FetchDescriptor<IncomeDTO>(predicate: predicate)
             let response = try context.fetch(descriptor)
             return response.map { Income(dto: $0) }
         }
@@ -48,6 +59,7 @@ public struct IncomeRepository: Sendable {
                 context.delete(dto)
                 try context.save()
             }
+            print("Income deleted: \(model)")
         }
     }
 }

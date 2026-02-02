@@ -2,28 +2,30 @@ import ComposableArchitecture
 import Core
 
 @Reducer
-public struct IncomeListReducer: Sendable {
+public struct IncomeSourceListReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State: Equatable {
-        public var monthlyIncomes: [[Income]] = []
-        public init(incomes: [Income] = []) {
-            self.monthlyIncomes = groupIncomesByMonth(incomes)
+    public struct State: Equatable, Sendable {
+        public init(incomes: [Income]) {
+            self.incomes = incomes
+            self.year = incomes.first?.year ?? 0
+            self.month = incomes.first?.month ?? 0
         }
+        public var incomes: [Income] = []
+        public let year: Int
+        public let month: Int
     }
     
     // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
-        case onTapDelete(Income)
         case delegate(Delegate)
         public enum ViewAction: Sendable {
             case onAppear
-            case onTapCell([Income])
+            case onTapDelete(Income)
         }
         public enum Delegate: Sendable {
             case didDeleteIncome
-            case navigateToDetail([Income])
         }
     }
     
@@ -37,11 +39,8 @@ public struct IncomeListReducer: Sendable {
             switch action {
             case .view(.onAppear):
                 return .none
-                
-            case .view(.onTapCell(let incomes)):
-                return .send(.delegate(.navigateToDetail(incomes)))
 
-            case .onTapDelete(let item):
+            case .view(.onTapDelete(let item)):
                 return .run { send in
                     do {
                         try await incomeRepository.delete(item)
@@ -56,23 +55,5 @@ public struct IncomeListReducer: Sendable {
                 return .none
             }
         }
-    }
-}
-
-extension IncomeListReducer.State {
-    private func groupIncomesByMonth(_ incomes: [Income]) -> [[Income]] {
-        var monthlyList: [[Income]] = []
-        for income in incomes {
-            guard let latest = monthlyList.last?.first else {
-                monthlyList.append([income])
-                continue
-            }
-            if latest.yearMonth() == income.yearMonth() {
-                monthlyList[monthlyList.count - 1].append(income)
-            } else {
-                monthlyList.append([income])
-            }
-        }
-        return monthlyList.reversed()
     }
 }

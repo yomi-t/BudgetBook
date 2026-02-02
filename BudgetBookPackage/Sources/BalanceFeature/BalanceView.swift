@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: BalanceReducer.self)
 public struct BalanceView: View {
 
     public let store: StoreOf<BalanceReducer>
@@ -37,7 +38,7 @@ public struct BalanceView: View {
             }
         }
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
     }
 }

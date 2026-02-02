@@ -2,9 +2,10 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: AddBalanceReducer.self)
 public struct AddBalanceView: View {
     @FocusState private var focusState: Bool
-    @Bindable private var store: StoreOf<AddBalanceReducer>
+    @Bindable public var store: StoreOf<AddBalanceReducer>
     let numberFormatter: NumberFormatter
     public init(store: StoreOf<AddBalanceReducer>) {
         self.store = store
@@ -121,7 +122,7 @@ public struct AddBalanceView: View {
                     
                     // Add Button
                     Button {
-                        store.send(.tapAddBtn)
+                        send(.tapAddBtn)
                     } label: {
                         Text("追加")
                             .font(.headline)
@@ -154,7 +155,7 @@ public struct AddBalanceView: View {
         .padding(.horizontal, 20)
         .shadow(radius: 10)
         .onAppear {
-            store.send(.view(.onAppear))
+            send(.onAppear)
         }
     }
 }

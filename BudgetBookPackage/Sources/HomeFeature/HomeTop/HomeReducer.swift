@@ -28,11 +28,11 @@ public struct HomeReducer: Sendable {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear
+            case setGoal
         }
         case binding(BindingAction<State>)
         case updateDatas([Balance], [Income])
         case path(StackActionOf<Path>)
-        case setGoal
     }
 
     // MARK: - Dependencies
@@ -60,6 +60,11 @@ public struct HomeReducer: Sendable {
                     }
                 }
                 
+            case .view(.setGoal):
+                state.goal = state.inputGoal
+                UserDefaultsManager.set(state.inputGoal, forKey: .goal)
+                return .none
+                
             case .binding:
                 return .none
 
@@ -73,11 +78,6 @@ public struct HomeReducer: Sendable {
                 return .none
 
             case .path:
-                return .none
-                
-            case .setGoal:
-                state.goal = state.inputGoal
-                UserDefaultsManager.set(state.inputGoal, forKey: .goal)
                 return .none
             }
         }
