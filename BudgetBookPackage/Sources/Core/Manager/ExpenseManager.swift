@@ -1,15 +1,15 @@
 import Foundation
 
 public class ExpenseManager {
-    
+
     public init() {}
-    
-    func calculateExpense(balances: [Balance], incomes: [Income], year: Int, month: Int) -> Int {
+
+    public func calculateExpense(balances: [Balance], incomes: [Income], year: Int, month: Int) -> Int {
         let latestMoney = balances
             .filter { $0.year == year && $0.month == month }
             .reduce(0) { $0 + $1.amount }
         let latestIncome = incomes
-            .filter { $0.year == year && $0.month == month}
+            .filter { $0.year == year && $0.month == month }
             .reduce(0) { $0 + $1.amount }
         
         var lastYear = year

@@ -1,9 +1,9 @@
 import SwiftUI
 
-public struct GoalView: View {
+internal struct GoalView: View {
     let toGoal: Int
     let monthEstimate: Int
-    public var body: some View {
+    var body: some View {
         VStack {
             Text("目標金額まで")
                 .font(.callout)

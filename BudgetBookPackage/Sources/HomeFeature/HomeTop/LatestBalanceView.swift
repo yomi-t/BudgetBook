@@ -1,10 +1,10 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct LatestBalanceView: View {
+internal struct LatestBalanceView: View {
     let latestMoney: Int
 
-    public var body: some View {
+    var body: some View {
         VStack {
             Text("先月の残金")
                 .font(.callout)
@@ -26,7 +26,6 @@ public struct LatestBalanceView: View {
         .frame(maxWidth: .infinity, maxHeight: 120)
         .background(.thickMaterial)
         .cornerRadius(20)
-//        .padding(.top, 20)
         .padding(.horizontal, 20)
         .shadow(radius: 10)
     }

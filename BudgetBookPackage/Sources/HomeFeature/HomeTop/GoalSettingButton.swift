@@ -1,12 +1,12 @@
 import ComposableArchitecture
 import SwiftUI
 
-public struct GoalSettingButton: View {
+internal struct GoalSettingButton: View {
     let goal: Int
     let inputGoal: Binding<Int>
     let setGoal: () -> Void
     @State private var isPresentingAlert = false
-    public var body: some View {
+    var body: some View {
         Button {
             isPresentingAlert = true
         } label: {

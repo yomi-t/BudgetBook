@@ -88,6 +88,14 @@ let package = Package(
             ]
         ),
         .testTarget(
+            name: "BalanceFeatureTests",
+            dependencies: [
+                .composableArchitecture,
+                .swiftTesting,
+                "BalanceFeature",
+            ]
+        ),
+        .testTarget(
             name: "CoreTests",
             dependencies: [
                 "Core",

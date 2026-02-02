@@ -6,10 +6,10 @@ public struct UserDefaultsManager {
     }
     
     public static func get(forKey key: UserDefaultsKey) -> Int {
-        return UserDefaults.standard.integer(forKey: key.rawValue)
+        UserDefaults.standard.integer(forKey: key.rawValue)
     }
 }
 
-public enum UserDefaultsKey: String {
-    case goal = "goal"
+public enum UserDefaultsKey: String, Sendable {
+    case goal
 }

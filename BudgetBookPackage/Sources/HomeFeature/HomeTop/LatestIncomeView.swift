@@ -1,6 +1,6 @@
 import SwiftUI
 
-struct LatestIncomeView: View {
+internal struct LatestIncomeView: View {
     let latestIncome: Int
     var body: some View {
         VStack {
