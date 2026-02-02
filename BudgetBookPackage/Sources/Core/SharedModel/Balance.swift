@@ -1,6 +1,6 @@
 import Foundation
 
-public struct Balance: Sendable, Equatable {
+public struct Balance: Sendable, Equatable, Hashable {
     public var id: String
     public var account: String
     public var year: Int
@@ -31,6 +31,10 @@ public struct Balance: Sendable, Equatable {
         self.amount = dto.amount
     }
     
+    public func yearMonth() -> String {
+        "\(month)-\(year)"
+    }
+
     public func displayMonth() -> String {
         let monthStr = String(format: "%02d", month)
         let yearStr = String(format: "%02d", year % 100)

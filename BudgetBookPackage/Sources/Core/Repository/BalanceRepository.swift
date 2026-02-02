@@ -11,6 +11,7 @@ public extension DependencyValues {
 
 public struct BalanceRepository: Sendable {
     public var fetchAll: @Sendable @DataActor () throws -> [Balance]
+    public var fetchMonth: @Sendable @DataActor (Int, Int) throws -> [Balance]
     public var add: @Sendable @DataActor (Balance) throws -> Void
     public var delete: @Sendable @DataActor (Balance) throws -> Void
 
@@ -19,7 +20,7 @@ public struct BalanceRepository: Sendable {
         case delete
         case save
     }
-    
+
     public init(database: Database) {
         self.fetchAll = {
             let context = try database.context()
@@ -31,12 +32,22 @@ public struct BalanceRepository: Sendable {
             return responce.map { Balance(dto: $0) }
         }
 
+        self.fetchMonth = { year, month in
+            let context = try database.context()
+            let predicate = #Predicate<BalanceDTO> { dto in
+                dto.year == year && dto.month == month
+            }
+            let descriptor = FetchDescriptor<BalanceDTO>(predicate: predicate)
+            let response = try context.fetch(descriptor)
+            return response.map { Balance(dto: $0) }
+        }
+
         self.add = { model in
             let context = try database.context()
             context.insert(BalanceDTO(model))
             try context.save()
         }
-        
+
         self.delete = { model in
             let context = try database.context()
             let modelId = model.id

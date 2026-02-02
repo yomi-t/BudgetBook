@@ -2,17 +2,15 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
-@ViewAction(for: BalanceListReducer.self)
-public struct BalanceListView: View {
-    public let store: StoreOf<BalanceListReducer>
-
-    public init (store: StoreOf<BalanceListReducer>) {
+@ViewAction(for: BalanceAccountListReducer.self)
+public struct BalanceAccountListView: View {
+    public let store: StoreOf<BalanceAccountListReducer>
+    public init (store: StoreOf<BalanceAccountListReducer>) {
         self.store = store
     }
-
     public var body: some View {
         VStack(spacing: 0) {
-            Text("これまでの残高記録")
+            Text("\(String(store.year))年\(String(store.month))月の残高")
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)
@@ -22,21 +20,19 @@ public struct BalanceListView: View {
                 .padding(.horizontal, 20)
 
             List {
-                ForEach(store.monthlyBalances, id: \.self) { item in
-                    Button(
-                        action: {
-                            send(.onTapCell(item))
-                        }, label: {
-                            BalanceListItemView(monthlyBalance: item)
-                                .contentShape(Rectangle())
+                ForEach(store.balances, id: \.self) { data in
+                    BalanceAccountItemView(balance: data)
+                        .swipeActions(edge: .trailing, allowsFullSwipe: false) {
+                            Button(role: .destructive) {
+                                send(.onTapDelete(data))
+                            } label: {
+                                Label("", systemImage: "trash")
+                            }
                         }
-                    )
-                    .buttonStyle(ListItemButtonStyle())
                 }
                 .listRowSeparator(.hidden, edges: .all)
                 .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
                 .listRowBackground(Color.clear)
-                .padding(.horizontal, 16)
             }
             .frame(maxHeight: .infinity)
             .listStyle(.plain)
@@ -47,16 +43,5 @@ public struct BalanceListView: View {
         .padding(.top, 10)
         .padding(.bottom, 20)
         .shadow(radius: 10)
-        .onAppear {
-            send(.onAppear)
-        }
     }
-}
-
-#Preview {
-    BalanceListView(store: .init(
-        initialState: BalanceListReducer.State(),
-    ) {
-        BalanceListReducer()
-    })
 }

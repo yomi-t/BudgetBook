@@ -73,6 +73,6 @@ extension IncomeListReducer.State {
                 monthlyList.append([income])
             }
         }
-        return monthlyList.reversed()
+        return monthlyList
     }
 }

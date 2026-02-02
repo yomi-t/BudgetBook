@@ -2,28 +2,30 @@ import ComposableArchitecture
 import Core
 
 @Reducer
-public struct BalanceListReducer: Sendable {
+public struct BalanceAccountListReducer: Sendable {
     // MARK: - State
     @ObservableState
-    public struct State: Equatable {
-        public var monthlyBalances: [[Balance]] = []
-        public init(balances: [Balance] = []) {
-            self.monthlyBalances = groupBalancesByMonth(balances)
+    public struct State: Equatable, Sendable {
+        public init(balances: [Balance]) {
+            self.balances = balances
+            self.year = balances.first?.year ?? 0
+            self.month = balances.first?.month ?? 0
         }
+        public var balances: [Balance] = []
+        public let year: Int
+        public let month: Int
     }
 
     // MARK: - Action
     public enum Action: Sendable, ViewAction {
         case view(ViewAction)
-        case onTapDelete(Balance)
         case delegate(Delegate)
         public enum ViewAction: Sendable {
             case onAppear
-            case onTapCell([Balance])
+            case onTapDelete(Balance)
         }
         public enum Delegate: Sendable {
             case didDeleteBalance
-            case navigateToDetail([Balance])
         }
     }
 
@@ -38,10 +40,7 @@ public struct BalanceListReducer: Sendable {
             case .view(.onAppear):
                 return .none
 
-            case .view(.onTapCell(let balances)):
-                return .send(.delegate(.navigateToDetail(balances)))
-
-            case .onTapDelete(let item):
+            case .view(.onTapDelete(let item)):
                 return .run { send in
                     do {
                         try await balanceRepository.delete(item)
@@ -56,23 +55,5 @@ public struct BalanceListReducer: Sendable {
                 return .none
             }
         }
-    }
-}
-
-extension BalanceListReducer.State {
-    private func groupBalancesByMonth(_ balances: [Balance]) -> [[Balance]] {
-        var monthlyList: [[Balance]] = []
-        for balance in balances {
-            guard let latest = monthlyList.last?.first else {
-                monthlyList.append([balance])
-                continue
-            }
-            if latest.yearMonth() == balance.yearMonth() {
-                monthlyList[monthlyList.count - 1].append(balance)
-            } else {
-                monthlyList.append([balance])
-            }
-        }
-        return monthlyList
     }
 }
