@@ -1,6 +1,7 @@
 import AddFeature
 import ComposableArchitecture
 import Core
+import ExpenseFeature
 import IncomeFeature
 
 @Reducer
@@ -12,12 +13,14 @@ public struct AppReducer: Sendable {
         var customTabState: CustomTabReducer.State
         var addState: AddReducer.State
         var incomeState: IncomeReducer.State
+        var expenseState: ExpenseReducer.State
         var page: Page
 
         public init(selectedTab: Tab = .home) {
             self.customTabState = .init(selectedTab: selectedTab)
             self.addState = .init()
             self.incomeState = IncomeReducer.State()
+            self.expenseState = ExpenseReducer.State()
             self.page = .home
         }
     }
@@ -28,6 +31,7 @@ public struct AppReducer: Sendable {
         case customTabAction(CustomTabReducer.Action)
         case addAction(AddReducer.Action)
         case incomeAction(IncomeReducer.Action)
+        case expenseAction(ExpenseReducer.Action)
         public enum ViewAction: Sendable {
             case onAppear
         }
@@ -46,6 +50,9 @@ public struct AppReducer: Sendable {
         }
         Scope(state: \.incomeState, action: \.incomeAction) {
             IncomeReducer()
+        }
+        Scope(state: \.expenseState, action: \.expenseAction) {
+            ExpenseReducer()
         }
         Reduce { state, action in
             switch action {
@@ -66,8 +73,8 @@ public struct AppReducer: Sendable {
                 case .income:
                     state.page = .income
 
-                case .settings:
-                    state.page = .settings
+                case .expense:
+                    state.page = .expense
                 }
                 return .none
 
@@ -78,6 +85,9 @@ public struct AppReducer: Sendable {
                 return .none
 
             case .incomeAction:
+                return .none
+
+            case .expenseAction:
                 return .none
             }
         }

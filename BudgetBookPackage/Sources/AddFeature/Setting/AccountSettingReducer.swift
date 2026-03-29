@@ -16,7 +16,7 @@ public struct AccountSettingReducer: Sendable {
         }
     }
 
-    public enum Action: ViewAction, BindableAction {
+    public enum Action: ViewAction, BindableAction, Sendable {
         case view(ViewAction)
         case binding(BindingAction<State>)
         case updateAccounts([Account])
@@ -39,11 +39,7 @@ public struct AccountSettingReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
-                    let accounts = await fetchAccounts()
-                    print("Fetched accounts: \(accounts.count) items")
-                    send(.updateAccounts(accounts))
-                }
+                return .none
                 
             case .view(.onTapAddAccount):
                 return .run { @MainActor [addAccountName = state.addAccountName] send in

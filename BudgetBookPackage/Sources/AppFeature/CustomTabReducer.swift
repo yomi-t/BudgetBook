@@ -6,13 +6,13 @@ public enum Tab: CaseIterable, Sendable {
     case balance
     case add
     case income
-    case settings
+    case expense
 
     func iconName() -> String {
         switch self {
         case .home:
             return "house"
-            
+
         case .balance:
             return "list.bullet"
 
@@ -22,8 +22,8 @@ public enum Tab: CaseIterable, Sendable {
         case .income:
             return "dollarsign.circle"
 
-        case .settings:
-            return "gear"
+        case .expense:
+            return "cart"
         }
     }
     func tabName() -> String {
@@ -36,12 +36,12 @@ public enum Tab: CaseIterable, Sendable {
 
         case .add:
             return "Add"
-            
+
         case .income:
             return "Income"
 
-        case .settings:
-            return "Settings"
+        case .expense:
+            return "Expense"
         }
     }
 }

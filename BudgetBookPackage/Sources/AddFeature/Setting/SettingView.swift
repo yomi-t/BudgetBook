@@ -30,17 +30,9 @@ public struct SettingView: View {
                         .padding(.horizontal, 20)
                         .shadow(radius: 10)
 
-                        AccountSettingView(store: .init(
-                            initialState: AccountSettingReducer.State()
-                        ) {
-                            AccountSettingReducer()
-                        })
+                        AccountSettingView(store: store.scope(state: \.accountSettingState, action: \.accountSetting))
 
-                        SourceSettingView(store: .init(
-                            initialState: SourceSettingReducer.State(),
-                        ) {
-                            SourceSettingReducer()
-                        })
+                        SourceSettingView(store: store.scope(state: \.sourceSettingState, action: \.sourceSetting))
 
                         Spacer()
                     }

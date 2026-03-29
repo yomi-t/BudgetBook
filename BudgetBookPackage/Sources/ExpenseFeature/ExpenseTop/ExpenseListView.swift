@@ -1,0 +1,46 @@
+import ComposableArchitecture
+import Core
+import SwiftUI
+
+@ViewAction(for: ExpenseListReducer.self)
+public struct ExpenseListView: View {
+    public let store: StoreOf<ExpenseListReducer>
+
+    public init(store: StoreOf<ExpenseListReducer>) {
+        self.store = store
+    }
+
+    public var body: some View {
+        VStack(spacing: 0) {
+            Text("これまでの支出")
+                .font(.title3)
+                .padding(.bottom, 8)
+                .padding(.top, 25)
+            Rectangle()
+                .frame(height: 1)
+                .foregroundColor(.gray)
+                .padding(.horizontal, 20)
+
+            List {
+                ForEach(store.monthlyExpenses, id: \.self) { item in
+                    ExpenseItemView(expense: item)
+                }
+                .listRowSeparator(.hidden, edges: .all)
+                .listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                .listRowBackground(Color.clear)
+                .padding(.horizontal, 16)
+            }
+            .frame(maxHeight: .infinity)
+            .listStyle(.plain)
+        }
+        .background(.ultraThickMaterial)
+        .cornerRadius(20)
+        .padding(.horizontal, 20)
+        .padding(.top, 10)
+        .padding(.bottom, 20)
+        .shadow(radius: 10)
+        .onAppear {
+            send(.onAppear)
+        }
+    }
+}

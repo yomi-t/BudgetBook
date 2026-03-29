@@ -33,7 +33,6 @@ opt_in_rules:
   - fatal_error_message
   - file_name
   - force_unwrapping
-  - function_default_parameter_at_end
   - identical_operands
   - implicit_return
   - indentation_width

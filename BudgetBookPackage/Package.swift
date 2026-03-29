@@ -16,7 +16,7 @@ let package = Package(
                  targets: ["IncomeFeature"])
     ],
     dependencies: [
-        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", branch: "main"),
+        .package(url: "https://github.com/pointfreeco/swift-composable-architecture.git", from: "1.25.2"),
         .package(url: "https://github.com/SimplyDanny/SwiftLintPlugins", from: "0.59.1"),
         .package(url: "https://github.com/apple/swift-testing.git", from: "6.1.1")
     ],
@@ -27,9 +27,16 @@ let package = Package(
                 .composableArchitecture,
                 "AddFeature",
                 "BalanceFeature",
+                "ExpenseFeature",
                 "HomeFeature",
                 "IncomeFeature",
-                "SettingFeature",
+            ]
+        ),
+        .target(
+            name: "ExpenseFeature",
+            dependencies: [
+                .composableArchitecture,
+                "Core",
             ]
         ),
         .target(
@@ -67,13 +74,6 @@ let package = Package(
         ),
         .target(
             name: "IncomeFeature",
-            dependencies: [
-                .composableArchitecture,
-                "Core",
-            ]
-        ),
-        .target(
-            name: "SettingFeature",
             dependencies: [
                 .composableArchitecture,
                 "Core",
