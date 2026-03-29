@@ -16,7 +16,7 @@ public struct SourceSettingReducer: Sendable {
         }
     }
 
-    public enum Action: ViewAction, BindableAction {
+    public enum Action: ViewAction, BindableAction, Sendable {
         case view(ViewAction)
         case binding(BindingAction<State>)
         case updateSources([Source])
@@ -39,12 +39,7 @@ public struct SourceSettingReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
-                    
-                    let sources = await fetchSources()
-                    print("Fetched sources: \(sources.count) items")
-                    send(.updateSources(sources))
-                }
+                return .none
                 
             case .view(.onTapAddSource):
                 return .run { @MainActor [addSourceName = state.addSourceName] send in

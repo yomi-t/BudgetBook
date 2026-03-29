@@ -2,9 +2,9 @@ import AddFeature
 import BalanceFeature
 import ComposableArchitecture
 import Core
+import ExpenseFeature
 import HomeFeature
 import IncomeFeature
-import SettingFeature
 import SwiftData
 import SwiftUI
 
@@ -40,12 +40,8 @@ public struct AppView: View {
                     case .income:
                         IncomeView(store: store.scope(state: \.incomeState, action: \.incomeAction))
 
-                    case .settings:
-                        SettingView(store: .init(
-                            initialState: SettingReducer.State()
-                        ) {
-                            SettingReducer()
-                        })
+                    case .expense:
+                        ExpenseView(store: store.scope(state: \.expenseState, action: \.expenseAction))
                     }
                 }
                 .frame(maxWidth: .infinity, maxHeight: .infinity)

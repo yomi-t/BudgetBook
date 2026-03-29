@@ -39,9 +39,6 @@ public struct AddBalanceReducer: Sendable {
     // MARK: - Dependencies
     @Dependency(\.balanceRepository)
     private var balanceRepository
-    
-    @Dependency(\.accountRepository)
-    private var accountRepository
 
     public init() {}
 
@@ -51,14 +48,7 @@ public struct AddBalanceReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
-                    do {
-                        let accounts = try await accountRepository.fetchAll()
-                        send(.updateAccounts(accounts))
-                    } catch {
-                        print("Error fetching accounts: \(error)")
-                    }
-                }
+                return .none
                 
             case .view(.tapAddBtn):
                 guard let amount = state.amount else {

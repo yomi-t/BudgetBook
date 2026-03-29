@@ -40,9 +40,6 @@ public struct AddIncomeReducer: Sendable {
     // MARK: - Dependencies
     @Dependency(\.incomeRepository)
     private var incomeRepository
-    
-    @Dependency(\.sourceRepository)
-    private var sourceRepository
 
     public init() {}
 
@@ -52,14 +49,7 @@ public struct AddIncomeReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
-                    do {
-                        let sources = try await sourceRepository.fetchAll()
-                        send(.updateSources(sources))
-                    } catch {
-                        print("Error fetching sources: \(error)")
-                    }
-                }
+                return .none
                 
             case .view(.tapAddBtn):
                 guard let amount = state.amount else {
