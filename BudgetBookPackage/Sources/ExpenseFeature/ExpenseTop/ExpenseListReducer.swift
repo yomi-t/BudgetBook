@@ -42,33 +42,11 @@ public struct ExpenseListReducer: Sendable {
 
 extension ExpenseListReducer.State {
     private func computeMonthlyExpenses(balances: [Balance], incomes: [Income]) -> [MonthlyExpense] {
-        let manager = ExpenseManager()
-        var seen: Set<String> = []
-        var result: [MonthlyExpense] = []
-
-        for income in incomes {
-            let key = "\(income.year)-\(income.month)"
-            if !seen.contains(key) {
-                seen.insert(key)
-                let amount = manager.calculateExpense(
-                    balances: balances,
-                    incomes: incomes,
-                    year: income.year,
-                    month: income.month
-                )
-                result.append(MonthlyExpense(year: income.year, month: income.month, amount: amount))
+        ExpenseManager().computeMonthlyExpenses(balances: balances, incomes: incomes)
+            .map { MonthlyExpense(year: $0.year, month: $0.month, amount: $0.amount) }
+            .sorted { lhs, rhs in
+                if lhs.year == rhs.year { return lhs.month > rhs.month }
+                return lhs.year > rhs.year
             }
-        }
-
-        return Array(
-            result
-                .sorted { lhs, rhs in
-                    if lhs.year == rhs.year {
-                        return lhs.month < rhs.month
-                    }
-                    return lhs.year < rhs.year
-                }
-                .reversed()
-        )
     }
 }

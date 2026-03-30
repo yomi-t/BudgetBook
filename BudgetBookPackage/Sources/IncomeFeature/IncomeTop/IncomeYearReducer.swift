@@ -13,7 +13,7 @@ public struct IncomeYearReducer: Sendable {
         }
     }
 
-    public enum Action: ViewAction {
+    public enum Action: ViewAction, Sendable {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear

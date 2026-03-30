@@ -43,10 +43,10 @@ public struct IncomeDetailReducer: Sendable {
 
             case .incomeSourceListAction(.delegate(.didDeleteIncome)):
                 // 削除成功時に再フェッチ
-                return .run { @MainActor [year = state.incomes.first?.year ?? 0, month = state.incomes.first?.month ?? 0] send in
+                return .run { [year = state.incomes.first?.year ?? 0, month = state.incomes.first?.month ?? 0] send in
                     do {
                         let datas = try await incomeRepository.fetchMonth(year, month)
-                        send(.updateIncomes(datas))
+                        await send(.updateIncomes(datas))
                     } catch {
                         print("Error fetching balances: \(error)")
                     }

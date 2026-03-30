@@ -14,7 +14,7 @@ public struct ExpenseYearReducer: Sendable {
         }
     }
 
-    public enum Action: ViewAction {
+    public enum Action: ViewAction, Sendable {
         case view(ViewAction)
         public enum ViewAction: Sendable {
             case onAppear
@@ -36,10 +36,8 @@ public struct ExpenseYearReducer: Sendable {
 extension ExpenseYearReducer.State {
     private func calculateYearlyExpenseTotal(balances: [Balance], incomes: [Income]) -> Int {
         let currentYear = Calendar.current.component(.year, from: Date())
-        let manager = ExpenseManager()
-        let months = Set(incomes.filter { $0.year == currentYear }.map { $0.month })
-        return months.reduce(0) { sum, month in
-            sum + manager.calculateExpense(balances: balances, incomes: incomes, year: currentYear, month: month)
-        }
+        return ExpenseManager().computeMonthlyExpenses(balances: balances, incomes: incomes)
+            .filter { $0.year == currentYear }
+            .reduce(0) { $0 + $1.amount }
     }
 }

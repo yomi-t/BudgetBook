@@ -2,9 +2,9 @@ import ComposableArchitecture
 import Core
 
 @Reducer
-public struct BalanceGraphReducer {
+public struct BalanceGraphReducer: Sendable {
     @ObservableState
-    public struct State {
+    public struct State: Equatable {
         public var graphData: [BalanceGraphModel]
         public var range: ClosedRange<Int>
         public init(balanceData: [Balance]) {

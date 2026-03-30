@@ -37,11 +37,12 @@ public struct LatestMoneyReducer: Sendable {
 
 extension LatestMoneyReducer.State {
     private func calculateLatestMoney(from balances: [Balance]) -> Int {
-        let lastMonth = Calendar.current.component(.month, from: Date()) - 1
-        let year = lastMonth == 12 ? Calendar.current.component(.year, from: Date()) - 1 : Calendar.current.component(.year, from: Date())
-        let latestBalances = balances
-            .filter { $0.year == year && $0.month == lastMonth }
+        let calendar = Calendar.current
+        guard let lastMonthDate = calendar.date(byAdding: .month, value: -1, to: Date()) else { return 0 }
+        let lastYear = calendar.component(.year, from: lastMonthDate)
+        let lastMonth = calendar.component(.month, from: lastMonthDate)
+        return balances
+            .filter { $0.year == lastYear && $0.month == lastMonth }
             .reduce(0) { $0 + $1.amount }
-        return latestBalances
     }
 }

@@ -17,22 +17,14 @@ public struct ExpenseView: View {
                     .ignoresSafeArea()
 
                 VStack {
-                    ExpenseYearView(store: .init(
-                        initialState: ExpenseYearReducer.State(
-                            balances: store.balances,
-                            incomes: store.incomes
-                        )
-                    ) {
-                        ExpenseYearReducer()
-                    })
-                    ExpenseGraphView(store: .init(
-                        initialState: ExpenseGraphReducer.State(
-                            balances: store.balances,
-                            incomes: store.incomes
-                        )
-                    ) {
-                        ExpenseGraphReducer()
-                    })
+                    ExpenseYearView(store: store.scope(
+                        state: \.expenseYearState,
+                        action: \.expenseYearAction
+                    ))
+                    ExpenseGraphView(store: store.scope(
+                        state: \.expenseGraphState,
+                        action: \.expenseGraphAction
+                    ))
                     ExpenseListView(store: store.scope(
                         state: \.expenseListState,
                         action: \.expenseListAction

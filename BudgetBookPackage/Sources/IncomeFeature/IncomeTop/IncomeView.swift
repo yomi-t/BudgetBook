@@ -18,18 +18,14 @@ public struct IncomeView: View {
                         .ignoresSafeArea()
 
                     VStack {
-                        IncomeYearView(store: .init(
-                            initialState:
-                                IncomeYearReducer.State(incomeData: store.incomes)
-                        ) {
-                            IncomeYearReducer()
-                        })
-                        IncomeGraphView(store: .init(
-                            initialState:
-                                IncomeGraphReducer.State(incomeData: store.incomes)
-                        ) {
-                            IncomeGraphReducer()
-                        })
+                        IncomeYearView(store: store.scope(
+                            state: \.incomeYearState,
+                            action: \.incomeYearAction
+                        ))
+                        IncomeGraphView(store: store.scope(
+                            state: \.incomeGraphState,
+                            action: \.incomeGraphAction
+                        ))
                         IncomeListView(store: store.scope(
                             state: \.incomeListState,
                             action: \.incomeListAction

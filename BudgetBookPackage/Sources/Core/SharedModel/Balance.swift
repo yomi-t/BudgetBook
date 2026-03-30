@@ -44,15 +44,16 @@ public struct Balance: Sendable, Equatable, Hashable {
 
 public extension Array<Balance> {
     func convertToGraphData() -> [BalanceGraphModel] {
-        var data: [BalanceGraphModel] = []
+        var seen: [String] = []
+        var result: [BalanceGraphModel] = []
         for item in self {
-            if let sameMonthIndex = data.firstIndex(where: { $0.yearMonth == item.displayMonth() }) {
-                data[sameMonthIndex].amount += item.amount
-            } else {
-                data.append(.init(item))
-            }
+            let key = item.displayMonth()
+            guard !seen.contains(key) else { continue }
+            seen.append(key)
+            let amount = self.filter { $0.displayMonth() == key }.reduce(0) { $0 + $1.amount }
+            result.append(BalanceGraphModel(id: item.id, yearMonth: key, amount: amount))
         }
-        return data.sortByMonth()
+        return result.sortByMonth()
     }
     
     func latestBalance() -> Int {

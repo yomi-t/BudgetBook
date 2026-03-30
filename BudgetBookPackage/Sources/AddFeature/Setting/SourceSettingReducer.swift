@@ -42,22 +42,22 @@ public struct SourceSettingReducer: Sendable {
                 return .none
                 
             case .view(.onTapAddSource):
-                return .run { @MainActor [addSourceName = state.addSourceName] send in
+                return .run { [addSourceName = state.addSourceName] send in
                     do {
                         try await sourceRepository.add(addSourceName)
                         let sources = await fetchSources()
-                        send(.updateSources(sources))
+                        await send(.updateSources(sources))
                     } catch {
                         print("Error adding source: \(error)")
                     }
                 }
-            
+
             case .view(.onTapDeleteSource(let source)):
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         try await sourceRepository.delete(source)
                         let sources = await fetchSources()
-                        send(.updateSources(sources))
+                        await send(.updateSources(sources))
                     } catch {
                         print("Error deleting source: \(error)")
                     }

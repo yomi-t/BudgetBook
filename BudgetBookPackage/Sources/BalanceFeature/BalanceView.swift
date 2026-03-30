@@ -20,18 +20,14 @@ public struct BalanceView: View {
                         .ignoresSafeArea()
 
                     VStack {
-                        LatestMoneyView(store: .init(
-                            initialState: LatestMoneyReducer.State(balanceData: store.balances),
-                        ) {
-                            LatestMoneyReducer()
-                        })
-                        BalanceGraphView(
-                            store: .init(
-                                initialState: BalanceGraphReducer.State(balanceData: store.balances)
-                            ) {
-                                BalanceGraphReducer()
-                            }
-                        )
+                        LatestMoneyView(store: store.scope(
+                            state: \.latestMoneyState,
+                            action: \.latestMoneyAction
+                        ))
+                        BalanceGraphView(store: store.scope(
+                            state: \.balanceGraphState,
+                            action: \.balanceGraphAction
+                        ))
                         BalanceListView(store: store.scope(
                             state: \.balanceListState,
                             action: \.balanceListAction

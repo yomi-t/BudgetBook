@@ -50,11 +50,11 @@ public struct HomeReducer: Sendable {
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         let balanceData = try await balanceRepository.fetchAll()
                         let incomeData = try await incomeRepository.fetchAll()
-                        send(.updateDatas(balanceData, incomeData))
+                        await send(.updateDatas(balanceData, incomeData))
                     } catch {
                         print("Error fetching balances: \(error)")
                     }

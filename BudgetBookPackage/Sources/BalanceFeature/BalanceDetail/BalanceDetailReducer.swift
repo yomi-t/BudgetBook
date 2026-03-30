@@ -43,10 +43,10 @@ public struct BalanceDetailReducer: Sendable {
 
             case .balanceAccountListAction(.delegate(.didDeleteBalance)):
                 // 削除成功時に再フェッチ
-                return .run { @MainActor [year = state.balances.first?.year ?? 0, month = state.balances.first?.month ?? 0] send in
+                return .run { [year = state.balances.first?.year ?? 0, month = state.balances.first?.month ?? 0] send in
                     do {
                         let datas = try await balanceRepository.fetchMonth(year, month)
-                        send(.updateBalances(datas))
+                        await send(.updateBalances(datas))
                     } catch {
                         print("Error fetching balances: \(error)")
                     }

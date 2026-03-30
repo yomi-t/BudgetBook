@@ -42,22 +42,22 @@ public struct AccountSettingReducer: Sendable {
                 return .none
                 
             case .view(.onTapAddAccount):
-                return .run { @MainActor [addAccountName = state.addAccountName] send in
+                return .run { [addAccountName = state.addAccountName] send in
                     do {
                         try await accountRepository.add(addAccountName)
                         let accounts = await fetchAccounts()
-                        send(.updateAccounts(accounts))
+                        await send(.updateAccounts(accounts))
                     } catch {
                         print("Error adding account: \(error)")
                     }
                 }
-                
+
             case .view(.onTapDeleteAccount(let account)):
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         try await accountRepository.delete(account)
                         let accounts = await fetchAccounts()
-                        send(.updateAccounts(accounts))
+                        await send(.updateAccounts(accounts))
                     } catch {
                         print("Error deleting account: \(error)")
                     }

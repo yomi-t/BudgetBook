@@ -8,10 +8,14 @@ public struct IncomeReducer: Sendable {
     public struct State: Equatable {
         public var incomes: [Income] = []
         public var incomeListState: IncomeListReducer.State
+        public var incomeGraphState: IncomeGraphReducer.State
+        public var incomeYearState: IncomeYearReducer.State
         public var path = StackState<Path.State>()
 
         public init() {
             self.incomeListState = IncomeListReducer.State()
+            self.incomeGraphState = IncomeGraphReducer.State(incomeData: [])
+            self.incomeYearState = IncomeYearReducer.State(incomeData: [])
         }
     }
 
@@ -19,6 +23,8 @@ public struct IncomeReducer: Sendable {
         case view(ViewAction)
         case updateData([Income])
         case incomeListAction(IncomeListReducer.Action)
+        case incomeGraphAction(IncomeGraphReducer.Action)
+        case incomeYearAction(IncomeYearReducer.Action)
         case path(StackActionOf<Path>)
         public enum ViewAction: Sendable {
             case onAppear
@@ -35,15 +41,21 @@ public struct IncomeReducer: Sendable {
         Scope(state: \.incomeListState, action: \.incomeListAction) {
             IncomeListReducer()
         }
+        Scope(state: \.incomeGraphState, action: \.incomeGraphAction) {
+            IncomeGraphReducer()
+        }
+        Scope(state: \.incomeYearState, action: \.incomeYearAction) {
+            IncomeYearReducer()
+        }
 
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         let datas = try await incomeRepository.fetchAll()
                         print("Fetched incomes: \(datas.count) items")
-                        send(.updateData(datas))
+                        await send(.updateData(datas))
                     } catch {
                         print("Error fetching incomes: \(error)")
                     }
@@ -53,14 +65,16 @@ public struct IncomeReducer: Sendable {
                 print("Updating state with \(incomes.count) incomes")
                 state.incomes = incomes
                 state.incomeListState = .init(incomes: incomes.reversed())
+                state.incomeGraphState = .init(incomeData: incomes)
+                state.incomeYearState = .init(incomeData: incomes)
                 return .none
 
             case .incomeListAction(.delegate(.didDeleteIncome)):
                 // 削除成功時に再フェッチ
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         let datas = try await incomeRepository.fetchAll()
-                        send(.updateData(datas))
+                        await send(.updateData(datas))
                     } catch {
                         print("Error fetching incomes after delete: \(error)")
                     }
@@ -71,6 +85,9 @@ public struct IncomeReducer: Sendable {
                 return .none
 
             case .incomeListAction:
+                return .none
+
+            case .incomeGraphAction, .incomeYearAction:
                 return .none
 
             case .path:

@@ -8,10 +8,14 @@ public struct BalanceReducer: Sendable {
     public struct State: Equatable {
         public var balances: [Balance] = []
         public var balanceListState: BalanceListReducer.State
+        public var latestMoneyState: LatestMoneyReducer.State
+        public var balanceGraphState: BalanceGraphReducer.State
         public var path = StackState<Path.State>()
 
         public init() {
             self.balanceListState = BalanceListReducer.State()
+            self.latestMoneyState = LatestMoneyReducer.State(balanceData: [])
+            self.balanceGraphState = BalanceGraphReducer.State(balanceData: [])
         }
     }
 
@@ -19,6 +23,8 @@ public struct BalanceReducer: Sendable {
         case view(ViewAction)
         case updateBalances([Balance])
         case balanceListAction(BalanceListReducer.Action)
+        case latestMoneyAction(LatestMoneyReducer.Action)
+        case balanceGraphAction(BalanceGraphReducer.Action)
         case path(StackActionOf<Path>)
         public enum ViewAction: Sendable {
             case onAppear
@@ -35,15 +41,21 @@ public struct BalanceReducer: Sendable {
         Scope(state: \.balanceListState, action: \.balanceListAction) {
             BalanceListReducer()
         }
+        Scope(state: \.latestMoneyState, action: \.latestMoneyAction) {
+            LatestMoneyReducer()
+        }
+        Scope(state: \.balanceGraphState, action: \.balanceGraphAction) {
+            BalanceGraphReducer()
+        }
 
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         let datas = try await balanceRepository.fetchAll()
                         print("Fetched balances: \(datas.count) items")
-                        send(.updateBalances(datas))
+                        await send(.updateBalances(datas))
                     } catch {
                         print("Error fetching balances: \(error)")
                     }
@@ -53,14 +65,16 @@ public struct BalanceReducer: Sendable {
                 print("Updating state with \(balances.count) balances")
                 state.balances = balances
                 state.balanceListState = .init(balances: balances.reversed())
+                state.latestMoneyState = .init(balanceData: balances)
+                state.balanceGraphState = .init(balanceData: balances)
                 return .none
 
             case .balanceListAction(.delegate(.didDeleteBalance)):
                 // 削除成功時に再フェッチ
-                return .run { @MainActor send in
+                return .run { send in
                     do {
                         let datas = try await balanceRepository.fetchAll()
-                        send(.updateBalances(datas))
+                        await send(.updateBalances(datas))
                     } catch {
                         print("Error fetching balances after delete: \(error)")
                     }
@@ -71,6 +85,9 @@ public struct BalanceReducer: Sendable {
                 return .none
 
             case .balanceListAction:
+                return .none
+
+            case .latestMoneyAction, .balanceGraphAction:
                 return .none
 
             case .path:
