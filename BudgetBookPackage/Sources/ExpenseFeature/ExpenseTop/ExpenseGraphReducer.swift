@@ -37,7 +37,6 @@ public struct ExpenseGraphReducer: Sendable {
 
 extension ExpenseGraphReducer.State {
     private static func computeGraphData(balances: [Balance], incomes: [Income]) -> [ExpenseGraphModel] {
-        let manager = ExpenseManager()
         var seen: Set<String> = []
         var data: [ExpenseGraphModel] = []
 
@@ -45,7 +44,7 @@ extension ExpenseGraphReducer.State {
             let key = "\(income.year)-\(income.month)"
             if !seen.contains(key) {
                 seen.insert(key)
-                let amount = manager.calculateExpense(
+                let amount = ExpenseManager.calculateExpense(
                     balances: balances,
                     incomes: incomes,
                     year: income.year,

@@ -1,10 +1,8 @@
 import Foundation
 
-public class ExpenseManager {
+public struct ExpenseManager: Sendable {
 
-    public init() {}
-
-    public func calculateExpense(balances: [Balance], incomes: [Income], year: Int, month: Int) -> Int {
+    public static func calculateExpense(balances: [Balance], incomes: [Income], year: Int, month: Int) -> Int {
         let latestMoney = balances
             .filter { $0.year == year && $0.month == month }
             .reduce(0) { $0 + $1.amount }
@@ -31,7 +29,7 @@ public class ExpenseManager {
         }
     }
     
-    public func latestExpense(balances: [Balance], incomes: [Income]) -> Int {
+    public static func latestExpense(balances: [Balance], incomes: [Income]) -> Int {
         // 先月ぶん
         var latestYear = 0
         var latestMonth = 0
