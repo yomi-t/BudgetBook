@@ -14,6 +14,8 @@ public struct AddIncomeReducer: Sendable {
         public var months: [String]
         public var selectedMonth: Int
         public var selectedYear: Int
+        public var isSettingSheetPresented: Bool = false
+        public var sourceSettingState = SourceSettingReducer.State()
         init() {
             let currentYear = Calendar.current.component(.year, from: Date())
             let currentMonth = Calendar.current.component(.month, from: Date())
@@ -28,12 +30,14 @@ public struct AddIncomeReducer: Sendable {
     // MARK: - Action
     public enum Action: Sendable, ViewAction, BindableAction {
         case view(ViewAction)
+        case sourceSetting(SourceSettingReducer.Action)
         case binding(BindingAction<State>)
         case updateSources([Source])
 
         public enum ViewAction: Sendable {
             case onAppear
             case tapAddBtn
+            case tapSettingBtn
         }
     }
 
@@ -46,13 +50,16 @@ public struct AddIncomeReducer: Sendable {
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         BindingReducer()
+        Scope(state: \.sourceSettingState, action: \.sourceSetting) {
+            SourceSettingReducer()
+        }
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
                 return .none
                 
             case .view(.tapAddBtn):
-                guard let amount = state.amount else {
+                guard let amount = state.amount, !state.sources.isEmpty else {
                     return .none
                 }
                 state.amount = nil
@@ -71,15 +78,28 @@ public struct AddIncomeReducer: Sendable {
                         print("Error adding income: \(error)")
                     }
                 }
+                
+            case .view(.tapSettingBtn):
+                state.isSettingSheetPresented = true
+                return .none
 
             case .binding:
                 return .none
                 
+            case .sourceSetting(.updateSources(let sources)):
+                state.sources = sources
+                state.sourceSettingState.sources = sources
+                return .send(.updateSources(sources))
+
+            case .sourceSetting:
+                return .none
+                
             case .updateSources(let sources):
                 state.sources = sources
+                state.sourceSettingState.sources = sources
                 print("Sources updated: \(sources)")
                 if sources.isEmpty {
-                    state.source = "収入源を追加してください"
+                    state.source = "収入元を追加してください"
                 } else {
                     state.source = sources[0].name
                 }
