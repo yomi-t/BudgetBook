@@ -14,6 +14,8 @@ public struct AddBalanceReducer: Sendable {
         public var accounts: [Account] = []
         public var selectedAccount: String = ""
         public var amount: Int?
+        public var isSettingSheetPresented: Bool = false
+        public var accountSettingState = AccountSettingReducer.State()
         public init() {
             let currentYear = Calendar.current.component(.year, from: Date())
             let currentMonth = Calendar.current.component(.month, from: Date())
@@ -30,9 +32,11 @@ public struct AddBalanceReducer: Sendable {
         case view(ViewAction)
         case binding(BindingAction<State>)
         case updateAccounts([Account])
+        case accountSetting(AccountSettingReducer.Action)
         public enum ViewAction: Sendable {
             case onAppear
             case tapAddBtn
+            case tapSettingBtn
         }
     }
     
@@ -45,13 +49,16 @@ public struct AddBalanceReducer: Sendable {
     // MARK: - Reducer
     public var body: some ReducerOf<Self> {
         BindingReducer()
+        Scope(state: \.accountSettingState, action: \.accountSetting) {
+            AccountSettingReducer()
+        }
         Reduce { state, action in
             switch action {
             case .view(.onAppear):
                 return .none
                 
             case .view(.tapAddBtn):
-                guard let amount = state.amount else {
+                guard let amount = state.amount, !state.accounts.isEmpty else {
                     return .none
                 }
                 state.amount = nil
@@ -70,12 +77,25 @@ public struct AddBalanceReducer: Sendable {
                         print("Error adding balance: \(error)")
                     }
                 }
+                
+            case .view(.tapSettingBtn):
+                state.isSettingSheetPresented = true
+                return .none
 
             case .binding:
                 return .none
                 
+            case .accountSetting(.updateAccounts(let accounts)):
+                state.accounts = accounts
+                state.accountSettingState.accounts = accounts
+                return .send(.updateAccounts(accounts))
+
+            case .accountSetting:
+                return .none
+                
             case .updateAccounts(let accounts):
                 state.accounts = accounts
+                state.accountSettingState.accounts = accounts
                 print("Accounts updated: \(accounts)")
                 if accounts.isEmpty {
                     state.selectedAccount = "口座を追加してください"

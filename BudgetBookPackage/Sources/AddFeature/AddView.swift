@@ -2,6 +2,7 @@ import ComposableArchitecture
 import Core
 import SwiftUI
 
+@ViewAction(for: AddReducer.self)
 public struct AddView: View {
     @Bindable public var store: StoreOf<AddReducer>
     public init (store: StoreOf<AddReducer>) {
@@ -22,7 +23,7 @@ public struct AddView: View {
                         }
                         .pickerStyle(.segmented)
                         .padding(.horizontal, 20)
-                        .padding(.bottom, 10)
+                        .padding(.top, 10)
                         switch store.selectedTab {
                         case .balance:
                             AddBalanceView(store: store.scope(state: \.balanceState, action: \.balance))
@@ -33,24 +34,10 @@ public struct AddView: View {
                     }
                     .padding(.bottom, geometry.size.width / 5)
                 }
-                
-            }
-            .toolbar {
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button(
-                        action: {
-                        store.send(.view(.settingButtonTapped))
-                        }, label: {
-                            Image(systemName: "gear")
-                        }
-                    )
-                }
-            }
-            .sheet(isPresented: $store.isSettingSheetPresented) {
-                SettingView(store: store.scope(state: \.settingState, action: \.setting))
+                .ignoresSafeArea(.keyboard)
             }
             .onAppear {
-                store.send(.view(.onAppear))
+                send(.onAppear)
             }
         }
     }

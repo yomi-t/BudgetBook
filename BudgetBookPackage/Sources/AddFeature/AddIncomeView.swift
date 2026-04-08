@@ -59,42 +59,75 @@ public struct AddIncomeView: View {
                             Spacer()
                         }
                     }
-                    .cornerRadius(12)
-                    
+
                     // Income Source Selection Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("収入元")
-                            .font(.headline)
-                            .foregroundColor(.primary)
+                        HStack {
+                            Text("収入元")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Button {
+                                send(.tapSettingBtn)
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.blue)
+                            }
+                        }
                         
-                        Menu {
-                            Picker("収入元", selection: $store.source) {
-                                ForEach(store.sources, id: \.self) { income in
-                                    Text(income.name)
-                                        .tag(income.name)
+                        if store.sources.isEmpty {
+                            Button {
+                                send(.tapSettingBtn)
+                            } label: {
+                                HStack {
+                                    Text("収入元を追加してください")
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.secondary)
+                                        .font(.caption)
                                 }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(Color(.white))
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray.opacity(0.3), lineWidth: 1)
+                                )
                             }
-                        } label: {
-                            HStack {
-                                Text(store.source)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
+                        } else {
+                            Menu {
+                                Picker("収入元", selection: $store.source) {
+                                    ForEach(store.sources, id: \.self) { income in
+                                        Text(income.name)
+                                            .tag(income.name)
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Text(store.source)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.secondary)
+                                        .font(.caption)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(Color(.white))
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray.opacity(0.3), lineWidth: 1)
+                                )
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 16)
-                            .background(Color(.white))
-                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.gray.opacity(0.3), lineWidth: 1)
-                            )
                         }
                     }
-                    .cornerRadius(12)
                     
                     // Amount Input Section
                     VStack(alignment: .leading, spacing: 12) {
@@ -118,7 +151,6 @@ public struct AddIncomeView: View {
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
                             )
                     }
-                    .cornerRadius(12)
                     
                     // Add Button
                     Button {
@@ -156,6 +188,9 @@ public struct AddIncomeView: View {
         .shadow(radius: 10)
         .onAppear {
             send(.onAppear)
+        }
+        .sheet(isPresented: $store.isSettingSheetPresented) {
+            SourceSettingView(store: store.scope(state: \.sourceSettingState, action: \.sourceSetting))
         }
     }
 }

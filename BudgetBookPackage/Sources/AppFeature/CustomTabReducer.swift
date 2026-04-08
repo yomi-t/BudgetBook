@@ -29,19 +29,19 @@ public enum Tab: CaseIterable, Sendable {
     func tabName() -> String {
         switch self {
         case .home:
-            return "Home"
+            return "ホーム"
 
         case .balance:
-            return "Balance"
+            return "資産"
 
         case .add:
-            return "Add"
+            return "追加"
 
         case .income:
-            return "Income"
+            return "収入"
 
         case .expense:
-            return "Expense"
+            return "支出"
         }
     }
 }

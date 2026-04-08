@@ -59,43 +59,75 @@ public struct AddBalanceView: View {
                             Spacer()
                         }
                     }
-                    .cornerRadius(12)
                     
                     // Account Selection Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("口座")
-                            .font(.headline)
-                            .foregroundColor(.primary)
+                        HStack {
+                            Text("口座")
+                                .font(.headline)
+                                .foregroundColor(.primary)
+                            
+                            Button {
+                                send(.tapSettingBtn)
+                            } label: {
+                                Image(systemName: "plus.circle.fill")
+                                    .resizable()
+                                    .frame(width: 20, height: 20)
+                                    .foregroundColor(.blue)
+                            }
+                        }
                         
-                        Menu {
-                            Picker("口座", selection: $store.selectedAccount) {
-                                ForEach(store.accounts, id: \.self) { account in
-                                    Text(account.name)
-                                        .tag(account.name)
+                        if store.accounts.isEmpty {
+                            Button {
+                                send(.tapSettingBtn)
+                            } label: {
+                                HStack {
+                                    Text("口座を追加してください")
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.secondary)
+                                        .font(.caption)
                                 }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(.white)
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray.opacity(0.3), lineWidth: 1)
+                                )
                             }
-                        } label: {
-                            HStack {
-                                Text(store.selectedAccount)
-                                    .foregroundColor(.primary)
-                                Spacer()
-                                Image(systemName: "chevron.down")
-                                    .foregroundColor(.secondary)
-                                    .font(.caption)
+                        } else {
+                            Menu {
+                                Picker("口座", selection: $store.selectedAccount) {
+                                    ForEach(store.accounts, id: \.self) { account in
+                                        Text(account.name)
+                                            .tag(account.name)
+                                    }
+                                }
+                            } label: {
+                                HStack {
+                                    Text(store.selectedAccount)
+                                        .foregroundColor(.primary)
+                                    Spacer()
+                                    Image(systemName: "chevron.down")
+                                        .foregroundColor(.secondary)
+                                        .font(.caption)
+                                }
+                                .frame(maxWidth: .infinity)
+                                .padding(.vertical, 12)
+                                .padding(.horizontal, 16)
+                                .background(.white)
+                                .cornerRadius(8)
+                                .overlay(
+                                    RoundedRectangle(cornerRadius: 8)
+                                        .stroke(.gray.opacity(0.3), lineWidth: 1)
+                                )
                             }
-                            .frame(maxWidth: .infinity)
-                            .padding(.vertical, 12)
-                            .padding(.horizontal, 16)
-                            .background(.white)
-                            .cornerRadius(8)
-                            .overlay(
-                                RoundedRectangle(cornerRadius: 8)
-                                    .stroke(.gray.opacity(0.3), lineWidth: 1)
-                            )
                         }
                     }
-                    .cornerRadius(12)
-                    
                     // Amount Input Section
                     VStack(alignment: .leading, spacing: 12) {
                         Text("残高")
@@ -118,7 +150,6 @@ public struct AddBalanceView: View {
                                     .stroke(.gray.opacity(0.3), lineWidth: 1)
                             )
                     }
-                    .cornerRadius(12)
                     
                     // Add Button
                     Button {
@@ -156,6 +187,9 @@ public struct AddBalanceView: View {
         .shadow(radius: 10)
         .onAppear {
             send(.onAppear)
+        }
+        .sheet(isPresented: $store.isSettingSheetPresented) {
+            AccountSettingView(store: store.scope(state: \.accountSettingState, action: \.accountSetting))
         }
     }
 }
