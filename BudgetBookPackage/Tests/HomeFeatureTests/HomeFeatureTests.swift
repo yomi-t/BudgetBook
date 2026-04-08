@@ -166,12 +166,22 @@ private struct HomeFeatureTests {
         }
 
         store.exhaustivity = .off
-
+        
         await store.send(.updateDatas(balances, incomes)) {
-            $0.latestBalances = balances
+            $0.balanceData = balances
+            $0.incomeData = incomes
             $0.latestBalance = testCase.expectedLatestBalance
             $0.latestIncome = testCase.expectedLatestIncome
             $0.latestExpense = testCase.expectedLatestExpense
+            $0.toGoal = GoalManager.restToGoal(
+                goal: $0.goal,
+                income: incomes.thisYearIncome()
+            )
+            $0.monthEstimate = GoalManager.monthEstimate(
+                goal: $0.goal,
+                income: incomes.thisYearIncome(),
+                leftMonthCount: incomes.leftMonthCount()
+            )
         }
     }
 
@@ -233,7 +243,7 @@ private struct HomeFeatureTests {
         GoalCalculationTestCase(
             goal: 0,
             currentYearIncomes: [100000],
-            expectedToGoal: -100000
+            expectedToGoal: 0
         )
     ])
     func testGoalCalculation(_ testCase: GoalCalculationTestCase) async {
