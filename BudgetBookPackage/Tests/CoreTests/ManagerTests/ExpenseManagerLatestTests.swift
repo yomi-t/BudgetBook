@@ -3,7 +3,6 @@ import Foundation
 import Testing
 
 private struct ExpenseManagerLatestTests {
-    let manager = ExpenseManager()
 
     struct LatestExpenseTestCase: Sendable {
         let balances: [Balance]
@@ -66,7 +65,7 @@ private struct ExpenseManagerLatestTests {
             )
         }
 
-        let expense = manager.latestExpense(balances: adjustedBalances, incomes: adjustedIncomes)
+        let expense = ExpenseManager.latestExpense(balances: adjustedBalances, incomes: adjustedIncomes)
 
         // 結果が0以上であることを確認
         if expense < 0 {

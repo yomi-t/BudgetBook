@@ -12,6 +12,8 @@ public struct HomeReducer: Sendable {
             self.goal = goal
             inputGoal = goal
         }
+        public var balanceData: [Balance] = []
+        public var incomeData: [Income] = []
         public var latestBalance = 0
         public var latestIncome = 0
         public var latestExpense = 0
@@ -62,6 +64,15 @@ public struct HomeReducer: Sendable {
                 
             case .view(.setGoal):
                 state.goal = state.inputGoal
+                state.toGoal = GoalManager.restToGoal(
+                    goal: state.goal,
+                    income: state.incomeData.thisYearIncome()
+                )
+                state.monthEstimate = GoalManager.monthEstimate(
+                    goal: state.goal,
+                    income: state.incomeData.thisYearIncome(),
+                    leftMonthCount: state.incomeData.leftMonthCount()
+                )
                 UserDefaultsManager.set(state.inputGoal, forKey: .goal)
                 return .none
                 
@@ -69,12 +80,20 @@ public struct HomeReducer: Sendable {
                 return .none
 
             case let .updateDatas(balances, incomes):
-                state.latestBalances = balances
+                state.balanceData = balances
+                state.incomeData = incomes
                 state.latestBalance = balances.latestBalance()
                 state.latestIncome = incomes.latestIncome()
-                state.latestExpense = ExpenseManager().latestExpense(balances: balances, incomes: incomes)
-                state.toGoal = state.goal - incomes.thisYearIncome()
-                state.monthEstimate = (state.goal - incomes.thisYearIncome()) / incomes.leftMonthCount()
+                state.latestExpense = ExpenseManager.latestExpense(balances: balances, incomes: incomes)
+                state.toGoal = GoalManager.restToGoal(
+                    goal: state.goal,
+                    income: incomes.thisYearIncome()
+                )
+                state.monthEstimate = GoalManager.monthEstimate(
+                    goal: state.goal,
+                    income: incomes.thisYearIncome(),
+                    leftMonthCount: incomes.leftMonthCount()
+                )
                 return .none
 
             case .path:

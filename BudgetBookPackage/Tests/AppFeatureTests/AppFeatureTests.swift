@@ -15,7 +15,7 @@ private struct AppFeatureTests {
         SelectTabTestCase(tab: .balance, expectedPage: .balance),
         SelectTabTestCase(tab: .add, expectedPage: .add),
         SelectTabTestCase(tab: .income, expectedPage: .income),
-        SelectTabTestCase(tab: .settings, expectedPage: .settings)
+        SelectTabTestCase(tab: .expense, expectedPage: .expense)
     ])
     func testSelectTab(_ testCase: SelectTabTestCase) async {
         let store = TestStore(initialState: AppReducer.State()) {
@@ -40,7 +40,7 @@ private struct AppFeatureTests {
         InitialStateTestCase(initialTab: .home, expectedPage: .home),
         InitialStateTestCase(initialTab: .balance, expectedPage: .home),
         InitialStateTestCase(initialTab: .income, expectedPage: .home),
-        InitialStateTestCase(initialTab: .settings, expectedPage: .home)
+        InitialStateTestCase(initialTab: .expense, expectedPage: .home)
     ])
     func testInitialState(_ testCase: InitialStateTestCase) {
         let state = AppReducer.State(selectedTab: testCase.initialTab)
@@ -61,9 +61,9 @@ private struct AppFeatureTests {
 
     @Test(arguments: [
         TabSequenceTestCase(tabs: [.home, .balance, .income]),
-        TabSequenceTestCase(tabs: [.settings, .home, .add]),
+        TabSequenceTestCase(tabs: [.expense, .home, .add]),
         TabSequenceTestCase(tabs: [.income, .income, .income]),
-        TabSequenceTestCase(tabs: [.home, .balance, .add, .income, .settings])
+        TabSequenceTestCase(tabs: [.home, .balance, .add, .income, .expense])
     ])
     func testTabSequenceSelection(_ testCase: TabSequenceTestCase) async {
         let store = TestStore(initialState: AppReducer.State()) {
@@ -89,8 +89,8 @@ private struct AppFeatureTests {
                 case .income:
                     $0.page = .income
 
-                case .settings:
-                    $0.page = .settings
+                case .expense:
+                    $0.page = .expense
                 }
             }
         }
@@ -103,7 +103,7 @@ private struct AppFeatureTests {
             .balance: "list.bullet",
             .add: "plus",
             .income: "dollarsign.circle",
-            .settings: "gear"
+            .expense: "cart"
         ]
 
         for tab in Tab.allCases {
@@ -121,7 +121,7 @@ private struct AppFeatureTests {
             .balance: "Balance",
             .add: "Add",
             .income: "Income",
-            .settings: "Settings"
+            .expense: "Expense"
         ]
 
         for tab in Tab.allCases {

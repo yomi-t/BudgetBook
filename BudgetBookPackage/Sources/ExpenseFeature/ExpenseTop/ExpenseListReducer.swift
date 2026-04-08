@@ -42,7 +42,6 @@ public struct ExpenseListReducer: Sendable {
 
 extension ExpenseListReducer.State {
     private func computeMonthlyExpenses(balances: [Balance], incomes: [Income]) -> [MonthlyExpense] {
-        let manager = ExpenseManager()
         var seen: Set<String> = []
         var result: [MonthlyExpense] = []
 
@@ -50,7 +49,7 @@ extension ExpenseListReducer.State {
             let key = "\(income.year)-\(income.month)"
             if !seen.contains(key) {
                 seen.insert(key)
-                let amount = manager.calculateExpense(
+                let amount = ExpenseManager.calculateExpense(
                     balances: balances,
                     incomes: incomes,
                     year: income.year,

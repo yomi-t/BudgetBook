@@ -3,7 +3,6 @@ import Foundation
 import Testing
 
 private struct ExpenseManagerCalculateTests {
-    let manager = ExpenseManager()
 
     struct CalculateExpenseTestCase: Sendable {
         let previousMonthBalances: [Int]
@@ -160,7 +159,7 @@ private struct ExpenseManagerCalculateTests {
             amounts: testCase.currentMonthIncomes
         )
 
-        let expense = manager.calculateExpense(
+        let expense = ExpenseManager.calculateExpense(
             balances: balances,
             incomes: incomes,
             year: currentYear,
@@ -183,7 +182,7 @@ private struct ExpenseManagerCalculateTests {
             Income(id: "1", source: "給料", year: 2025, month: 1, amount: 150000)
         ]
 
-        let expense = manager.calculateExpense(balances: balances, incomes: incomes, year: 2025, month: 1)
+        let expense = ExpenseManager.calculateExpense(balances: balances, incomes: incomes, year: 2025, month: 1)
 
         if expense != 170000 {
             Issue.record("Expected 170000 but got \(expense)")
@@ -205,7 +204,7 @@ private struct ExpenseManagerCalculateTests {
             Income(id: "3", source: "給料", year: 2024, month: 3, amount: 999999)
         ]
 
-        let expense = manager.calculateExpense(balances: balances, incomes: incomes, year: 2025, month: 3)
+        let expense = ExpenseManager.calculateExpense(balances: balances, incomes: incomes, year: 2025, month: 3)
 
         if expense != 150000 {
             Issue.record("Expected 150000 but got \(expense)")
