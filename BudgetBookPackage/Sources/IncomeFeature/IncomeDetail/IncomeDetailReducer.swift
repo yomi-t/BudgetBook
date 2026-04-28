@@ -20,6 +20,10 @@ public struct IncomeDetailReducer: Sendable {
         public enum ViewAction: Sendable {
             case onAppear
         }
+        case delegate(Delegate)
+        public enum Delegate: Sendable {
+            case navigateToIncome
+        }
         case incomeSourceListAction(IncomeSourceListReducer.Action)
         case updateIncomes([Income])
     }
@@ -55,9 +59,15 @@ public struct IncomeDetailReducer: Sendable {
             case .updateIncomes(let incomes):
                 state.incomes = incomes.sorted { $0.amount > $1.amount }
                 state.incomeSourceListState = .init(incomes: incomes)
+                if incomes.isEmpty {
+                    return .send(.delegate(.navigateToIncome))
+                }
                 return .none
 
             case .incomeSourceListAction:
+                return .none
+
+            case .delegate:
                 return .none
             }
         }
