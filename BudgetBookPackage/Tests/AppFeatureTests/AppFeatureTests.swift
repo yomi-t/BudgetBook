@@ -117,11 +117,11 @@ private struct AppFeatureTests {
     @Test
     func testTabNames() {
         let expectedNames: [Tab: String] = [
-            .home: "Home",
-            .balance: "Balance",
-            .add: "Add",
-            .income: "Income",
-            .expense: "Expense"
+            .home: "ホーム",
+            .balance: "資産",
+            .add: "追加",
+            .income: "収入",
+            .expense: "支出"
         ]
 
         for tab in Tab.allCases {
