@@ -12,7 +12,7 @@ public struct ExpenseListView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            Text("これまでの支出")
+            Text(L10n.Expense.List.title)
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)

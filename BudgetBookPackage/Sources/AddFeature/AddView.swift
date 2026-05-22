@@ -16,9 +16,9 @@ public struct AddView: View {
                         .ignoresSafeArea()
                     
                     VStack {
-                        Picker("選択", selection: $store.selectedTab) {
+                        Picker(L10n.Common.select, selection: $store.selectedTab) {
                             ForEach(AddReducer.AddTab.allCases, id: \.self) { tab in
-                                Text(tab.rawValue)
+                                Text(tab.localizedName)
                             }
                         }
                         .pickerStyle(.segmented)

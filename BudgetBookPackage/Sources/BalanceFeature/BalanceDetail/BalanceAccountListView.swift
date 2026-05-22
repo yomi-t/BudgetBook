@@ -10,7 +10,7 @@ public struct BalanceAccountListView: View {
     }
     public var body: some View {
         VStack(spacing: 0) {
-            Text("\(String(store.year))年\(String(store.month))月の残高")
+            Text(L10n.Balance.AccountList.title(store.year, store.month))
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)

@@ -78,7 +78,17 @@ public struct AddReducer: Sendable {
     
     
     public enum AddTab: String, CaseIterable {
-        case balance = "残高"
-        case income = "収入"
+        case balance
+        case income
+
+        public var localizedName: String {
+            switch self {
+            case .balance:
+                return L10n.Add.Tab.balance
+            
+            case .income:
+                return L10n.Add.Tab.income
+            }
+        }
     }
 }

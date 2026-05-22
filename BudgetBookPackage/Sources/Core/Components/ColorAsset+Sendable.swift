@@ -1,0 +1,1 @@
+extension ColorAsset: @unchecked Sendable {}

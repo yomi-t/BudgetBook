@@ -38,7 +38,7 @@ public struct WheelPicker: View {
                         Button {
                             isOpen = false
                         } label: {
-                            Text("完了")
+                            Text(L10n.Common.done)
                                 .font(.headline)
                                 .fontWeight(.semibold)
                                 .foregroundColor(.blue)
@@ -49,7 +49,7 @@ public struct WheelPicker: View {
                     .padding(.horizontal, 20)
                     .padding(.top, 10)
                     
-                    Picker(selection: $selectedValue, label: Text("Select Value")) {
+                    Picker(selection: $selectedValue, label: Text(L10n.Common.select)) {
                         ForEach(values, id: \.self) { value in
                             Text("\(value)")
                                 .font(.title2)

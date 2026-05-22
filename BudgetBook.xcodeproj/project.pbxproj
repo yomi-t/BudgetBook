@@ -67,6 +67,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 944F19872DBB7B0C0062AC52 /* Build configuration list for PBXNativeTarget "BudgetBook" */;
 			buildPhases = (
+				EC2DF802E0AD4EE3BDEC7439 /* Run SwiftGen */,
 				944F19602DBB7B0B0062AC52 /* Sources */,
 				944F19612DBB7B0B0062AC52 /* Frameworks */,
 				944F19622DBB7B0B0062AC52 /* Resources */,
@@ -132,6 +133,21 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		EC2DF802E0AD4EE3BDEC7439 /* Run SwiftGen */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			name = "Run SwiftGen";
+			shellPath = /bin/sh;
+			shellScript = (
+				"SWIFTGEN=/opt/homebrew/bin/swiftgen",
+				"if [ -f \"$SWIFTGEN\" ]; then",
+				"  cd \"$SRCROOT/BudgetBookPackage/Sources\"",
+				"  \"$SWIFTGEN\" config run --config swiftgen.yml",
+				"else",
+				"  echo \"warning: SwiftGen not installed. Install via Homebrew: 'brew install swiftgen'\"",
+				"fi",
+			);
+		};
 		940F42AD2E12A86A00B37AD4 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;

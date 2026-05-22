@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Core
 import SwiftUI
 
 internal struct LatestBalanceView: View {
@@ -6,7 +7,7 @@ internal struct LatestBalanceView: View {
 
     var body: some View {
         VStack {
-            Text("先月の残金")
+            Text(L10n.Latest.balance)
                 .font(.callout)
                 .fontWeight(.medium)
                 .padding(.bottom, 5)
@@ -17,7 +18,7 @@ internal struct LatestBalanceView: View {
                 Text("\(latestMoney)")
                     .font(.title)
                     .fontWeight(.bold)
-                Text("円")
+                Text(L10n.Common.currency)
                     .font(.footnote)
                     .fontWeight(.light)
                     .frame(width: 20)

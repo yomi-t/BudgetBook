@@ -15,8 +15,8 @@ public struct ExpenseGraphView: View {
             Chart {
                 ForEach(store.graphData) { data in
                     BarMark(
-                        x: .value("月", data.yearMonth),
-                        y: .value("支出", data.amount)
+                        x: .value(L10n.Common.month, data.yearMonth),
+                        y: .value(L10n.Tab.expense, data.amount)
                     )
                     .foregroundStyle(.red.gradient)
                 }
@@ -25,7 +25,7 @@ public struct ExpenseGraphView: View {
                 AxisMarks(position: .trailing) {
                     AxisGridLine()
                     AxisValueLabel($0.as(Double.self).map {
-                        "\((String(format: "%.1f", $0 / 10000)))万円"
+                        "\(String(format: "%.1f", $0 / 10000))\(L10n.Common.tensOfThousandsYen)"
                     } ?? "")
                 }
             }

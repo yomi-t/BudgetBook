@@ -12,7 +12,7 @@ public struct BalanceListView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            Text("これまでの残高記録")
+            Text(L10n.Balance.List.title)
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)

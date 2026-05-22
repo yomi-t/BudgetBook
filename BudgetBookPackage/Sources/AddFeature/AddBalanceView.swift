@@ -24,13 +24,13 @@ public struct AddBalanceView: View {
             ScrollView {
                 LazyVStack(spacing: 20) {
                     // Header
-                    Text("残高を追加")
+                    Text(L10n.Add.Balance.title)
                         .font(.title2)
                         .fontWeight(.bold)
                     
                     // Date Selection Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("決算月")
+                        Text(L10n.Add.Balance.dateSection)
                             .font(.headline)
                             .foregroundColor(.primary)
                         
@@ -44,7 +44,7 @@ public struct AddBalanceView: View {
                                 values: $store.years,
                                 width: 80
                             )
-                            Text("年")
+                            Text(L10n.Common.year)
                                 .foregroundColor(.secondary)
                             
                             WheelPicker(
@@ -54,7 +54,7 @@ public struct AddBalanceView: View {
                                 ),
                                 values: $store.months
                             )
-                            Text("月末")
+                            Text(L10n.Add.Balance.endOfMonth)
                                 .foregroundColor(.secondary)
                             Spacer()
                         }
@@ -63,7 +63,7 @@ public struct AddBalanceView: View {
                     // Account Selection Section
                     VStack(alignment: .leading, spacing: 12) {
                         HStack {
-                            Text("口座")
+                            Text(L10n.Add.Balance.accountSection)
                                 .font(.headline)
                                 .foregroundColor(.primary)
                             
@@ -82,7 +82,7 @@ public struct AddBalanceView: View {
                                 send(.tapSettingBtn)
                             } label: {
                                 HStack {
-                                    Text("口座を追加してください")
+                                    Text(L10n.Add.Balance.addAccountPrompt)
                                         .foregroundColor(.primary)
                                     Spacer()
                                     Image(systemName: "chevron.down")
@@ -101,7 +101,7 @@ public struct AddBalanceView: View {
                             }
                         } else {
                             Menu {
-                                Picker("口座", selection: $store.selectedAccount) {
+                                Picker(L10n.Add.Balance.accountSection, selection: $store.selectedAccount) {
                                     ForEach(store.accounts, id: \.self) { account in
                                         Text(account.name)
                                             .tag(account.name)
@@ -130,11 +130,11 @@ public struct AddBalanceView: View {
                     }
                     // Amount Input Section
                     VStack(alignment: .leading, spacing: 12) {
-                        Text("残高")
+                        Text(L10n.Add.Balance.amountSection)
                             .font(.headline)
                             .foregroundColor(.primary)
                         
-                        TextField("金額を入力", value: $store.amount, formatter: numberFormatter)
+                        TextField(L10n.Common.amountPlaceholder, value: $store.amount, formatter: numberFormatter)
                             #if os(iOS)
                             .keyboardType(.numberPad)
                             #endif
@@ -155,7 +155,7 @@ public struct AddBalanceView: View {
                     Button {
                         send(.tapAddBtn)
                     } label: {
-                        Text("追加")
+                        Text(L10n.Common.add)
                             .font(.headline)
                             .fontWeight(.semibold)
                             .foregroundColor(.white)

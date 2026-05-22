@@ -10,7 +10,7 @@ public struct IncomeSourceListView: View {
     }
     public var body: some View {
         VStack(spacing: 0) {
-            Text("\(String(store.year))年\(String(store.month))月の収入")
+            Text(L10n.Income.SourceList.title(store.year, store.month))
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)

@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Core
 import SwiftUI
 
 internal struct GoalSettingButton: View {
@@ -11,7 +12,7 @@ internal struct GoalSettingButton: View {
             isPresentingAlert = true
         } label: {
             VStack {
-                Text("1年間の収入目標金額")
+                Text(L10n.Goal.yearlyTarget)
                     .font(.callout)
                 ZStack {
                     Text("\(goal)")
@@ -19,7 +20,7 @@ internal struct GoalSettingButton: View {
                         .fontWeight(.bold)
                     HStack {
                         Spacer()
-                        Text("設定する")
+                        Text(L10n.Goal.setButton)
                             .font(.caption)
                         Image(systemName: "chevron.right")
                             .resizable()
@@ -38,25 +39,25 @@ internal struct GoalSettingButton: View {
             .shadow(radius: 10)
         }
         .alert(
-            "目標金額の設定",
+            L10n.Goal.Alert.title,
             isPresented: $isPresentingAlert,
             actions: {
                 TextField(
-                    "目標金額を入力してください",
+                    L10n.Goal.Alert.placeholder,
                     value: inputGoal,
                     format: .number
                 )
                 Button(
-                    "キャンセル",
+                    L10n.Common.cancel,
                     role: .cancel
                 ) {
 
                 }
-                Button("設定") {
+                Button(L10n.Common.set) {
                     setGoal()
                 }
             }, message: {
-                Text("1年間の収入目標金額を設定します。")
+                Text(L10n.Goal.Alert.message)
             }
         )
     }

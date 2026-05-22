@@ -1,4 +1,5 @@
 import ComposableArchitecture
+import Core
 import SwiftUI
 
 public struct ExpenseYearView: View {
@@ -10,7 +11,7 @@ public struct ExpenseYearView: View {
 
     public var body: some View {
         VStack {
-            Text("今年一年の支出")
+            Text(L10n.Expense.Year.title)
                 .font(.callout)
                 .fontWeight(.light)
                 .padding(.bottom, 5)
@@ -22,7 +23,7 @@ public struct ExpenseYearView: View {
                     .font(.title)
                     .fontWeight(.bold)
                     .foregroundStyle(.red)
-                Text("円")
+                Text(L10n.Common.currency)
                     .font(.footnote)
                     .fontWeight(.light)
                     .frame(width: 20)
