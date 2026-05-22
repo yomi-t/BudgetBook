@@ -9,6 +9,7 @@ jobs:
   build:
     name: Build
     runs-on: macos-26
+    environment: production
 
     steps:
       - name: Checkout
