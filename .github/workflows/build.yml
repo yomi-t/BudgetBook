@@ -8,14 +8,14 @@ on:
 jobs:
   build:
     name: Build
-    runs-on: macos-latest
+    runs-on: macos-26
 
     steps:
       - name: Checkout
         uses: actions/checkout@v4
 
       - name: Select Xcode version
-        run: sudo xcode-select -s /Applications/Xcode_26.4.1.app/Contents/Developer
+        run: sudo xcode-select -s /Applications/Xcode_26.4.1.app
 
       - name: Resolve Package Dependencies
         run: |
