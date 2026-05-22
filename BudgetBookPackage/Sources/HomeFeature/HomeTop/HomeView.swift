@@ -33,7 +33,7 @@ public struct HomeView: View {
                 .padding(.top, 10)
                 .padding(.bottom, geometry.size.width / 5)
             }
-            .navigationTitle("ホーム")
+            .navigationTitle(L10n.Home.navigationTitle)
             .onAppear {
                 send(.onAppear)
             }

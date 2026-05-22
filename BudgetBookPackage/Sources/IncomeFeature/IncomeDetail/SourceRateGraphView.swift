@@ -21,7 +21,7 @@ public struct SourceRateGraphView: View {
                         Text(data.first?.displayMonth() ?? "")
                             .font(.subheadline)
                             .foregroundStyle(.secondary)
-                        Text("\(data.reduce(0) { $0 + $1.amount })円")
+                        Text(L10n.Common.amountWithCurrency(data.reduce(0) { $0 + $1.amount }))
                             .font(.title3.bold())
                             .foregroundColor(.primary)
                     }

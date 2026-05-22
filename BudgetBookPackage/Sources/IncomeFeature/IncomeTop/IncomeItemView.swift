@@ -8,7 +8,7 @@ public struct IncomeItemView: View {
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\((monthlyIncome.first?.year ?? 0) % 1000)年\(monthlyIncome.first?.month ?? 0)月")
+                Text(L10n.Common.yearMonth((monthlyIncome.first?.year ?? 0) % 1000, monthlyIncome.first?.month ?? 0))
                     .font(.footnote)
                 Spacer()
                     .layoutPriority(-.infinity)

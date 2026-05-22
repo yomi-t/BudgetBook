@@ -12,7 +12,7 @@ public struct IncomeListView: View {
 
     public var body: some View {
         VStack(spacing: 0) {
-            Text("これまでの収入")
+            Text(L10n.Income.List.title)
                 .font(.title3)
                 .padding(.bottom, 8)
                 .padding(.top, 25)

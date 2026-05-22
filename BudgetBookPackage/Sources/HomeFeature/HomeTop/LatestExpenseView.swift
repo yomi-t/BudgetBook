@@ -1,10 +1,11 @@
+import Core
 import SwiftUI
 
 internal struct LatestExpenseView: View {
     let latestExpense: Int
     var body: some View {
         VStack {
-            Text("先月の支出")
+            Text(L10n.Latest.expense)
                 .font(.callout)
                 .fontWeight(.medium)
                 .foregroundStyle(Color.red)
@@ -16,7 +17,7 @@ internal struct LatestExpenseView: View {
                 Text("\(latestExpense)")
                     .font(.title2)
                     .fontWeight(.bold)
-                Text("円")
+                Text(L10n.Common.currency)
                     .font(.footnote)
                     .fontWeight(.light)
                     .frame(width: 20)

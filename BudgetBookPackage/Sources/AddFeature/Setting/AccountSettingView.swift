@@ -16,7 +16,7 @@ public struct AccountSettingView: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack {
-                    Text("口座の編集")
+                    Text(L10n.AccountSetting.title)
                         .font(.title2)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -69,12 +69,12 @@ public struct AccountSettingView: View {
         .onAppear {
             send(.onAppear)
         }
-        .alert("口座を追加", isPresented: $store.isShowAddAlert) {
-            TextField("口座名を入力", text: $store.addAccountName)
-            Button("キャンセル") {
+        .alert(L10n.AccountSetting.Alert.title, isPresented: $store.isShowAddAlert) {
+            TextField(L10n.AccountSetting.Alert.placeholder, text: $store.addAccountName)
+            Button(L10n.Common.cancel) {
                 send(.showAddAlert(false))
             }
-            Button("決定") {
+            Button(L10n.Common.confirm) {
                 send(.onTapAddAccount)
                 send(.showAddAlert(false))
             }

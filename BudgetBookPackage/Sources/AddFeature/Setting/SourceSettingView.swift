@@ -18,7 +18,7 @@ public struct SourceSettingView: View {
                 .ignoresSafeArea()
             ScrollView {
                 VStack {
-                    Text("収入源の編集")
+                    Text(L10n.SourceSetting.title)
                         .font(.title2)
                         .fontWeight(.semibold)
                         .frame(maxWidth: .infinity, alignment: .leading)
@@ -72,13 +72,13 @@ public struct SourceSettingView: View {
         .onAppear {
             send(.onAppear)
         }
-        .alert("収入源を追加", isPresented: $store.isShowAddAlert) {
-            TextField("収入源を入力", text: $store.addSourceName)
-            Button("キャンセル", role: .cancel) {
+        .alert(L10n.SourceSetting.Alert.title, isPresented: $store.isShowAddAlert) {
+            TextField(L10n.SourceSetting.Alert.placeholder, text: $store.addSourceName)
+            Button(L10n.Common.cancel, role: .cancel) {
                 send(.showAddAlert(false))
             }
-            Button("決定") {
-                send(.onTapAddSource) // 親に値を渡す
+            Button(L10n.Common.confirm) {
+                send(.onTapAddSource)
                 send(.showAddAlert(false))
             }
             .disabled(store.addSourceName.isEmpty)

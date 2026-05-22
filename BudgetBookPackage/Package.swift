@@ -59,7 +59,8 @@ let package = Package(
                 .composableArchitecture
             ],
             resources: [
-                .process("./Resources/Assets.xcassets")
+                .process("./Resources/Assets.xcassets"),
+                .process("./Resources/ja.lproj")
             ],
             swiftSettings: [
                 .define("SWIFT_PACKAGE")

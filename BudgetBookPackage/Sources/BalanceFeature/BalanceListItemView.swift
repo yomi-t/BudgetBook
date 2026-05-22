@@ -9,7 +9,7 @@ public struct BalanceListItemView: View {
     public var body: some View {
         VStack(spacing: 0) {
             HStack {
-                Text("\((monthlyBalance.first?.year ?? 0) % 1000)年\(monthlyBalance.first?.month ?? 0)月")
+                Text(L10n.Common.yearMonth((monthlyBalance.first?.year ?? 0) % 1000, monthlyBalance.first?.month ?? 0))
                     .font(.footnote)
                 Spacer()
                     .layoutPriority(-.infinity)

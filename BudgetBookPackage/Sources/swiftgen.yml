@@ -1,5 +1,5 @@
-input_dir: Resources
-output_dir: ${DERIVED_SOURCES_DIR}
+input_dir: Core/Resources
+output_dir: Core/Resources
 
 strings:
   inputs:

@@ -1,3 +1,4 @@
+import Core
 import SwiftUI
 
 internal struct GoalView: View {
@@ -5,7 +6,7 @@ internal struct GoalView: View {
     let monthEstimate: Int
     var body: some View {
         VStack {
-            Text("目標金額まで")
+            Text(L10n.Goal.toGoal)
                 .font(.callout)
                 .fontWeight(.medium)
                 .padding(.bottom, 2)
@@ -16,13 +17,13 @@ internal struct GoalView: View {
                 Text("\(toGoal)")
                     .font(.title)
                     .fontWeight(.bold)
-                Text("円")
+                Text(L10n.Common.currency)
                     .font(.footnote)
                     .fontWeight(.light)
                     .frame(width: 20)
             }
             .padding(.bottom, 10)
-            Text("1ヶ月の目安の収入額")
+            Text(L10n.Goal.monthEstimate)
                 .font(.callout)
                 .fontWeight(.medium)
                 .padding(.bottom, 2)
@@ -33,7 +34,7 @@ internal struct GoalView: View {
                 Text("\(monthEstimate)")
                     .font(.title)
                     .fontWeight(.bold)
-                Text("円")
+                Text(L10n.Common.currency)
                     .font(.footnote)
                     .fontWeight(.light)
                     .frame(width: 20)

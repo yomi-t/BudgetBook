@@ -1,1 +1,83 @@
-"hello" = "こんにちは";
+// Common
+"common.year" = "年";
+"common.month" = "月";
+"common.currency" = "円";
+"common.add" = "追加";
+"common.cancel" = "キャンセル";
+"common.done" = "完了";
+"common.confirm" = "決定";
+"common.set" = "設定";
+"common.select" = "選択";
+"common.amountPlaceholder" = "金額を入力";
+"common.yearMonth" = "%d年%d月";
+"common.amountWithCurrency" = "%d円";
+
+// Tabs
+"tab.home" = "ホーム";
+"tab.asset" = "資産";
+"tab.add" = "追加";
+"tab.income" = "収入";
+"tab.expense" = "支出";
+
+// Add Tab Picker
+"add.tab.balance" = "残高";
+"add.tab.income" = "収入";
+
+// Add Balance
+"add.balance.title" = "残高を追加";
+"add.balance.dateSection" = "決算月";
+"add.balance.endOfMonth" = "月末";
+"add.balance.accountSection" = "口座";
+"add.balance.addAccountPrompt" = "口座を追加してください";
+"add.balance.amountSection" = "残高";
+
+// Add Income
+"add.income.title" = "収入を追加";
+"add.income.dateSection" = "収入月";
+"add.income.sourceSection" = "収入元";
+"add.income.addSourcePrompt" = "収入元を追加してください";
+"add.income.amountSection" = "収入金額";
+
+// Account Setting
+"accountSetting.title" = "口座の編集";
+"accountSetting.alert.title" = "口座を追加";
+"accountSetting.alert.placeholder" = "口座名を入力";
+
+// Source Setting
+"sourceSetting.title" = "収入源の編集";
+"sourceSetting.alert.title" = "収入源を追加";
+"sourceSetting.alert.placeholder" = "収入源を入力";
+
+// Home
+"home.navigationTitle" = "ホーム";
+
+// Goal
+"goal.yearlyTarget" = "1年間の収入目標金額";
+"goal.setButton" = "設定する";
+"goal.alert.title" = "目標金額の設定";
+"goal.alert.placeholder" = "目標金額を入力してください";
+"goal.alert.message" = "1年間の収入目標金額を設定します。";
+"goal.toGoal" = "目標金額まで";
+"goal.monthEstimate" = "1ヶ月の目安の収入額";
+
+// Latest
+"latest.balance" = "先月の残金";
+"latest.income" = "先月の収入";
+"latest.expense" = "先月の支出";
+
+// Balance Feature
+"balance.list.title" = "これまでの残高記録";
+"balance.accountList.title" = "%d年%d月の残高";
+
+// Income Feature
+"income.list.title" = "これまでの収入";
+"income.year.title" = "今年一年の収入";
+"income.sourceList.title" = "%d年%d月の収入";
+
+// Expense Feature
+"expense.list.title" = "これまでの支出";
+"expense.year.title" = "今年一年の支出";
+
+// Graph
+"common.tensOfThousandsYen" = "万円";
+"balance.chart.savingsLabel" = "貯金額";
