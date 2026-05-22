@@ -17,11 +17,15 @@ jobs:
       - name: Select Xcode version
         run: sudo xcode-select -s /Applications/Xcode_26.4.1.app
 
+      - name: Clean Derived Data
+        run: rm -rf ~/Library/Developer/Xcode/DerivedData/*
+
       - name: Resolve Package Dependencies
         run: |
           xcodebuild -resolvePackageDependencies \
                      -project BudgetBook.xcodeproj \
-                     -scheme BudgetBook
+                     -scheme BudgetBook \
+                     -skipPackagePluginValidation
 
       - name: Archive Project
         run: |
@@ -31,7 +35,9 @@ jobs:
                              -configuration Release \
                              -archivePath BudgetBook.xcarchive \
                              CODE_SIGNING_ALLOWED=NO \
-                             CURRENT_PROJECT_VERSION=${{ github.run_number }}
+                             CURRENT_PROJECT_VERSION=${{ github.run_number }} \
+                             -skipMacroValidation \
+                             -skipPackagePluginValidation
 
       - name: Create ExportOptions.plist
         run: |
