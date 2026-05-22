@@ -20,6 +20,10 @@ public struct BalanceDetailReducer: Sendable {
         public enum ViewAction: Sendable {
             case onAppear
         }
+        case delegate(Delegate)
+        public enum Delegate: Sendable {
+            case navigateToBalance
+        }
         case balanceAccountListAction(BalanceAccountListReducer.Action)
         case updateBalances([Balance])
     }
@@ -55,9 +59,15 @@ public struct BalanceDetailReducer: Sendable {
             case .updateBalances(let balances):
                 state.balances = balances.sorted { $0.amount > $1.amount }
                 state.balanceAccountListState = .init(balances: balances)
+                if balances.isEmpty {
+                    return .send(.delegate(.navigateToBalance))
+                }
                 return .none
 
             case .balanceAccountListAction:
+                return .none
+
+            case .delegate:
                 return .none
             }
         }

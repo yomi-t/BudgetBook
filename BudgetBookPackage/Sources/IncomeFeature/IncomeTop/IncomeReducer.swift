@@ -73,6 +73,10 @@ public struct IncomeReducer: Sendable {
             case .incomeListAction:
                 return .none
 
+            case .path(.element(_, action: .incomeDetail(.delegate(.navigateToIncome)))):
+                state.path.removeLast()
+                return .none
+
             case .path:
                 return .none
             }

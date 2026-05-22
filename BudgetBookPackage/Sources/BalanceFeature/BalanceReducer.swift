@@ -73,6 +73,10 @@ public struct BalanceReducer: Sendable {
             case .balanceListAction:
                 return .none
 
+            case .path(.element(_, action: .balanceDetail(.delegate(.navigateToBalance)))):
+                state.path.removeLast()
+                return .none
+
             case .path:
                 return .none
             }
